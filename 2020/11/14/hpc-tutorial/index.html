@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="注册https:&#x2F;&#x2F;nic.csu.edu.cn&#x2F;info&#x2F;1146&#x2F;1789.htm slurm简介slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即*.sh文件 重要的目录 Softwares:&#x2F;public&#x2F;software; # anaconda3等软件在这个目录下. Job templates: &#x2F;public&#x2F;job">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hpc tutorial">
+<meta property="og:url" content="http://yoursite.com/2020/11/14/hpc-tutorial/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="注册https:&#x2F;&#x2F;nic.csu.edu.cn&#x2F;info&#x2F;1146&#x2F;1789.htm slurm简介slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即*.sh文件 重要的目录 Softwares:&#x2F;public&#x2F;software; # anaconda3等软件在这个目录下. Job templates: &#x2F;public&#x2F;job">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-14T07:37:41.000Z">
+<meta property="article:modified_time" content="2020-11-14T07:42:58.748Z">
 <meta property="article:author" content="jzy">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/11/14/hpc-tutorial/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Hexo</title>
+  <title>hpc tutorial | Hexo</title>
   
 
 
@@ -158,12 +162,13 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/14/hpc-tutorial/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,10 +181,9 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/14/hpc-tutorial/" class="post-title-link" itemprop="url">hpc tutorial</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          hpc tutorial
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -203,7 +207,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p><a target="_blank" rel="noopener" href="https://nic.csu.edu.cn/info/1146/1789.htm">https://nic.csu.edu.cn/info/1146/1789.htm</a></p>
+        <h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p><a target="_blank" rel="noopener" href="https://nic.csu.edu.cn/info/1146/1789.htm">https://nic.csu.edu.cn/info/1146/1789.htm</a></p>
 <h3 id="slurm简介"><a href="#slurm简介" class="headerlink" title="slurm简介"></a>slurm简介</h3><p>slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即<code>*.sh</code>文件</p>
 <h3 id="重要的目录"><a href="#重要的目录" class="headerlink" title="重要的目录"></a>重要的目录</h3><ol>
 <li>Softwares:/public/software; # anaconda3等软件在这个目录下.</li>
@@ -274,415 +278,30 @@
 <li>bash脚本的单行注释为#,sbatch参数也以#开头,注释sbatch参数的方法如下<br><code>##SBATCH --job-name=xxx</code><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3>[1] <a target="_blank" rel="noopener" href="http://bicmr.pku.edu.cn/~wenzw/pages/">北大工作站使用指南</a><br>[2] <a target="_blank" rel="noopener" href="https://slurm.schedmd.com/documentation.html">Slurm官方文档</a><br>[3] <a target="_blank" rel="noopener" href="http://hmli.ustc.edu.cn/doc/userguide/slurm-userguide.pdf">中科大slurm使用指南.pdf</a></li>
 </ol>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/23/weekly-report-20201018/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/23/weekly-report-20201018/" class="post-title-link" itemprop="url">weekly report 20201018</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-23 08:41:03 / 修改时间：13:59:41" itemprop="dateCreated datePublished" datetime="2020-10-23T08:41:03+08:00">2020-10-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><a href="#华为比赛">华为比赛</a></li>
-<li><a href="#知识图谱研究">知识图谱研究</a><ul>
-<li><a href="#formulation">Formulation</a></li>
-<li><a href="#transe">TransE</a></li>
-<li><a href="#tf-idf">TF-IDF</a></li>
-<li><a href="#concatenate">Concatenate</a></li>
-<li><a href="#experiments">Experiments</a><ul>
-<li><a href="#条件说明">条件说明</a></li>
-<li><a href="#实验结果">实验结果</a></li>
-<li><a href="#对比分析">对比分析</a></li>
-</ul>
-</li>
-<li><a href="#想法">想法</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="华为比赛"><a href="#华为比赛" class="headerlink" title="华为比赛"></a>华为比赛</h1><hr>
-<ul>
-<li>由于华为NAIE平台操作不便,所以先从清华netman智能运维实验室的网站上下载了一个KPI异常检测数据集,其规模和格式均与比赛数据集基本相同.在该数据集上使用light-gbm(基于决策树)搭建了一个模型. 具体见代码<code>kpi_anomaly.ipynb</code></li>
-<li>比赛数据集更新, 训练集数据条数从3800+增加到30000+,测试集从500+增加到3000+</li>
-</ul>
-<h1 id="知识图谱研究"><a href="#知识图谱研究" class="headerlink" title="知识图谱研究"></a>知识图谱研究</h1><hr>
-<h2 id="Formulation"><a href="#Formulation" class="headerlink" title="Formulation"></a>Formulation</h2><ul>
-<li>设训练/验证/测试集中的三元组对应的知识图谱为$G=\{(h,r,t)|h,t \in E,r \in R\}$, $G$的背景知识图谱$G_b=\{(h,r,t)|h,t \in E_b,r \in R_b\}$, $E$和$E_b$是实体集,$R$和$R_b$是关系集. 其中$E \subset E_b$,$R \cap R_b=\varnothing$.</li>
-<li>对$e \in E_b$, $e$的邻居集合为$N_e$, 邻居个数为$|N_e|$, 有$N_e=\{(r_i,e_i)|(e,r_i,e_i) \in G_b\}$, 对$n_i \in N_e$,$n_i= (r_i,e_i)$.</li>
-<li>TransE的训练目标: $\forall (h,r,t) \in G$, 有$v_h+v_r \approx v_t$</li>
-<li>设任务集合为$T$, 对$task \in T$, $task=(support,query)$, $support=\{(h,r,t)|(h,r,t) \in G\}$,$query=\{(h,r,t),(h,r,t’)|(h,r,t)\in G,(h,r,t’) \notin G\}$. $|support|$为hyper-parameter, $|support|=1$表示one shot. 在$Meta_{train}$阶段,query中的正确三元组与错误三元组的个数相等. 在$Meta_{test}$阶段,正确三元组个数为1,错误三元组数量为候选集实体数量减1, 即$|candidates|-1$<h2 id="TransE"><a href="#TransE" class="headerlink" title="TransE"></a>TransE</h2>  用transe表示不使用任何神经网络模型,直接通过预训练的实体嵌入完成预测任务</li>
-</ul>
-<ol>
-<li>$\forall task\in T$, 其中$task=(support,query)$, 设$r_{s}$为根据$support=\{(h,r,t)|(h,r,t) \in G\}$计算得到的关系嵌入表示,$n$为$support$中三元组的个数. <script type="math/tex; mode=display">r_s=\frac{1}{n}\sum_{i=1}^n(t_i-h_i)</script></li>
-<li>将$r_s$迁移到$query$中,计算每个三元组的$score$, 用$score^+$和$score^-$分别表示有效三元组(正样本)和无效三元组(负样本)的得分.<script type="math/tex; mode=display">score=||h+r_s-t||_2</script></li>
-<li><p>在$Meta_{test}$阶段,对$query$中所有三元组的$score$排名,根据$score^+$的排名计算评测指标(<em>MMR,Hits@10,Hits@5,Hits@1</em>). 在$Meta_{train}$阶段,则根据$query$中所有三元组的$score$计算$Margin Loss$.</p>
-<script type="math/tex; mode=display">MarginLoss=max(0,margin-(score^+-score^-))</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rank</span>(<span class="params">positive_score,negative_score</span>):</span></span><br><span class="line">    scores=concat(negative_score,positive_score)</span><br><span class="line">    sort(scores)</span><br><span class="line">    rank=scores.indexof(<span class="built_in">len</span>(scores)<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> rank</span><br></pre></td></tr></table></figure>
-<h2 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h2><p> 通过计算实体e的所有邻居的tfidf值对邻居的向量表示进行加权求和,作为e的初始向量</p>
-</li>
-<li>设训练/验证/测试集中的三元组对应的知识图谱为$G=\{E,R\}$,$G$的背景知识图谱$G_b=\{E_b,R_b\}$, 其中$E \subset E_b$,$R \cap R_b=\varnothing$. 根据$G_b$中的三元组计算$e_i \in E_b$的邻居$N_i$,设$N=\{N_1,N_2,…,N_i\}$为所有邻居信息的集合, 其中$N_i=\{(r_1,e_1),(r_2,e_2),…,(r_k,e_n)|k\in range(|R_b|),n \in range(|E_b|)\}$, 计算$N_i$中$(r_k,e_n)$的$r_k$的TF-IDF值,将其作为$e_i$的邻居$(r_k,e_n)$的权重.<script type="math/tex; mode=display">TF_{r_k}=\frac{r_k在N_i中的出现次数}{N_i中r的个数}</script><script type="math/tex; mode=display">IDF_{r_k}=\lg{\frac{|N|}{包含r_k的N的个数+1}}</script><script type="math/tex; mode=display">TF{-}IDF_{r_k}=TF_{r_k}\times IDF_{r_k}</script></li>
-<li>用第j个邻居$n_j=(r_k,e_n)$的$r_k$的$tfidf$值作为$n_j$的权重$w_j$,对邻居的向量$v_{n_j}$进行加权求和作为$e_i$的向量$v_{e_i}$,标记为<code>pre-train=tfidf-neighbor</code><script type="math/tex; mode=display">v_{n}=concat(v_r,v_t)</script><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}{w_j v_{n_j}}</script>也可以将每个邻居的TF-IDF组成的向量作为e的向量.标记为<code>pre-train=tfidf</code><script type="math/tex; mode=display">v_{e_i}=[w_1,w_2,...,w_j]</script>也可以将每个邻居中关系向量的TFIDF加权之和作为e的向量.标记为<code>pre-train=tfidf-relation</code><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}{w_j v_{r_j}}</script><h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2> 通过拼接三元组中头实体和尾实体的向量得到实体对的向量,在预测过程中,比较support与query中实体对的余弦相似度.</li>
-<li>对于一个三元组$triplet$$(h,r,t)$,$v_{triplet}=concat(v_h,v_t)$. 计算$v_{spt}$与query中所有三元组向量的余弦距离.<script type="math/tex; mode=display">v_{spt}=\frac{1}{n}\sum_{i=1}^{n}{v_{triplet_i}}</script><script type="math/tex; mode=display">score=cosine(v_{spt},v_{triplet}), triplet \in query</script></li>
-<li>根据query中有效三元组的分数排名计算评测指标.</li>
-</ol>
-<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="条件说明"><a href="#条件说明" class="headerlink" title="条件说明"></a>条件说明</h3><ul>
-<li>cosine表示用余弦距离替换欧式距离计算score</li>
-<li>transe表示用<a href="#transe">TransE</a>中说明的方法做预测</li>
-<li>concat表示用<a href="#concat">concat</a>中说明的方法做预测</li>
-<li>average表示将<a href="#tf-idf">TF-IDF</a>中的$w_j$替换为$\frac{1}{n}$</li>
-<li>finetune表示允许根据损失函数更新实体嵌入</li>
-<li>random表示随机初始化实体嵌入</li>
-<li>pre-train=transe表示用transe初始化实体嵌入</li>
-<li>pre-train=tfidf表示用邻居关系的tfidf向量$[w_1,w_2,…,w_j]$作为初始实体嵌入</li>
-<li>pre-train=tfidf-relation表示用邻居关系向量$v_r$的加权之和作为初始实体嵌入,权重是关系的tfidf</li>
-<li>pre-train=tfidf-neighbor表示用邻居向量$concat(v_r,v_t)$的加权之和作为初始实体嵌入,权重是关系的tfidf</li>
-<li>pre-train=average-neighbor表示用邻居向量$concat(v_r,v_t)$求和平均作为初始实体嵌入</li>
-<li>attention表示在n-shot条件下(n&gt;1)用attention机制聚合support中的$v_r$</li>
-<li>batch_size=4, 在不finetune条件下,模型为基本的数学计算,所以速度很快</li>
-</ul>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><!-- + NELL数据集 -->
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Method</th>
-<th>initial</th>
-<th>n-shot</th>
-<th>finetune</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>cosine transe attention</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.230</td>
-<td>0.387</td>
-<td>0.301</td>
-<td>0.149</td>
-</tr>
-<tr>
-<td>2</td>
-<td>transe  attention</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.231</td>
-<td>0.381</td>
-<td>0.309</td>
-<td>0.149</td>
-</tr>
-<tr>
-<td>3</td>
-<td>transe</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.225</td>
-<td>0.389</td>
-<td>0.300</td>
-<td>0.144</td>
-</tr>
-<tr>
-<td>4</td>
-<td>cosine transe</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.231</td>
-<td>0.387</td>
-<td>0.308</td>
-<td>0.150</td>
-</tr>
-<tr>
-<td>5</td>
-<td>concat</td>
-<td>tfidf-relation</td>
-<td>1</td>
-<td></td>
-<td>0.130</td>
-<td>0.145</td>
-<td>0.130</td>
-<td>0.120</td>
-</tr>
-<tr>
-<td>6</td>
-<td>transe</td>
-<td>tfidf-relation</td>
-<td>1</td>
-<td></td>
-<td>0.092</td>
-<td>0.116</td>
-<td>0.096</td>
-<td>0.078</td>
-</tr>
-<tr>
-<td>7</td>
-<td>transe</td>
-<td>transe</td>
-<td>1</td>
-<td></td>
-<td>0.139</td>
-<td>0.227</td>
-<td>0.172</td>
-<td>0.089</td>
-</tr>
-<tr>
-<td>8</td>
-<td>transe</td>
-<td>random</td>
-<td>1</td>
-<td></td>
-<td>0.110</td>
-<td>0.122</td>
-<td>0.119</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>9</td>
-<td>transe</td>
-<td>random</td>
-<td>5</td>
-<td></td>
-<td>0.092</td>
-<td>0.134</td>
-<td>0.113</td>
-<td>0.065</td>
-</tr>
-<tr>
-<td>10</td>
-<td>transe</td>
-<td>transe</td>
-<td>1</td>
-<td>T</td>
-<td>0.159</td>
-<td>0.272</td>
-<td>0.204</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>11</td>
-<td>transe</td>
-<td>random</td>
-<td>1</td>
-<td>T</td>
-<td>0.122</td>
-<td>0.162</td>
-<td>0.139</td>
-<td>0.098</td>
-</tr>
-<tr>
-<td>12</td>
-<td>transe</td>
-<td>random</td>
-<td>5</td>
-<td>T</td>
-<td>0.069</td>
-<td>0.099</td>
-<td>0.075</td>
-<td>0.049</td>
-</tr>
-<tr>
-<td>13</td>
-<td>concat</td>
-<td>tfidf-neighbor</td>
-<td>1</td>
-<td></td>
-<td>0.190</td>
-<td>0.237</td>
-<td>0.213</td>
-<td>0.157</td>
-</tr>
-<tr>
-<td>14</td>
-<td>concat</td>
-<td>tfidf-neighbor</td>
-<td>5</td>
-<td></td>
-<td>0.069</td>
-<td>0.140</td>
-<td>0.108</td>
-<td>0.021</td>
-</tr>
-<tr>
-<td>15</td>
-<td>concat</td>
-<td>average-relation</td>
-<td>1</td>
-<td></td>
-<td>0.070</td>
-<td>0.136</td>
-<td>0.110</td>
-<td>0.038</td>
-</tr>
-<tr>
-<td>16</td>
-<td>concat</td>
-<td>average-relation</td>
-<td>5</td>
-<td></td>
-<td>0.085</td>
-<td>0.146</td>
-<td>0.138</td>
-<td>0.039</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="对比分析"><a href="#对比分析" class="headerlink" title="对比分析"></a>对比分析</h3><ol>
-<li><strong>[1, 2, 3, 4]</strong> 表明使用attention,更适合用欧式距离计算分数而不是cosine. 不使用attention,则更适合用cosine而不是用欧式距离.</li>
-<li><strong>[8, 9]</strong> 表明其他方法需要高于<strong>0.11</strong>才能说明模型起正面作用. 5-shot结果比1-shot结果差, 初步分析是因为预测是针对query的, query中部分能预测正确的三元组在5-shot条件下被放入了support中,而这些三元组对评测指标的贡献较大,导致5-shot比1-shot差.</li>
-<li><strong>[5]</strong> 表明邻居信息的tfidf值对部分数据起正面作用, 即考虑不同实体的邻居信息中的关系种类的相似性对预测有正面作用</li>
-<li><strong>[13, 14, 15, 16]</strong> 表明不加权的邻居信息起负面作用. 加权的邻居信息对部分数据起正面作用, 即考虑不同实体的邻居信息之间的语义相关性对预测有正面作用. <h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2></li>
-<li>将tf-idf加权的邻居信息拼接在实体的原始向量后,计算匹配分数时分别计算查询集与支持集之间关系的相似度与实体邻居信息的语义相似度.<script type="math/tex; mode=display">score=||h+r_s-t||_2+cosine(N_{spt},concat(N_h,N_t))</script></li>
-<li>目前只考虑了关系的tfidf作为一个邻居的权重,还可以考虑尾实体的tfidf.<script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}w_{r_i}concat(r_i,t_i) \tag{1}</script><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}concat(w_{r_i}r_i,w_{t_i}t_i)\tag{2}</script></li>
-<li>不同实体的邻居信息可以看作一个序列数据, 通过Seq2Seq与Auto-Encoder(自编码器)结合的方式编码邻居信息,通过目标函数学习不同邻居的权重.</li>
-</ol>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/23/weekly-report-20201018/" rel="prev" title="weekly report 20201018">
+      <i class="fa fa-chevron-left"></i> weekly report 20201018
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/14/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/14/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-14 14:28:00" itemprop="dateCreated datePublished" datetime="2020-01-14T14:28:00+08:00">2020-01-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -735,6 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slurm%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">slurm简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84%E7%9B%AE%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">重要的目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">4.1.</span> <span class="nav-text">查看集群所有节点的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#STATE"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">STATE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.2.</span> <span class="nav-text">查看自己提交的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.3.</span> <span class="nav-text">取消任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.4.</span> <span class="nav-text">更新任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1"><span class="nav-number">4.5.</span> <span class="nav-text">查看历史任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85python%E7%8E%AF%E5%A2%83"><span class="nav-number">5.</span> <span class="nav-text">安装python环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC"><span class="nav-number">6.</span> <span class="nav-text">编写一个测试脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -843,59 +463,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
