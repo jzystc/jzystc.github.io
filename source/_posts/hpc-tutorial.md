@@ -35,9 +35,9 @@ fatQ         up   infinite      9  alloc fat[01-08,10]
 ```
 cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区
 ###### STATE
-+ down
-+ drain
-+ mix
++ down:
++ drain: 
++ mix: 当前节点资源部分已分配
 + alloc: 
 + idle: 当前节点空闲
 #### 查看自己提交的任务
@@ -80,6 +80,7 @@ minmemorynode=<megabytes>              reqcores=<count>
    print("cuda",torch.cuda.is_available())
    print("Hello world!")
    ```
+注意: 此时在本地运行hello.py, ```torch.cuda.is_available()```的结果为False, 因为登录节点是没有gpu的, 需要通过slurm脚本申请gpu并在计算节点上运行hello.py, 返回值才能为True.
 2. 创建slurm脚本文件 
 >vim ~/hello.sh
 ```Bash
@@ -105,7 +106,8 @@ python ~/hello.py
 
 Subject: ```Slurm Job_id=33653 Name=prototype Ended, Run time 00:22:18, COMPLETED, ExitCode 0```
 From: ```SLURM workload manager <slurm@mu01.localdomain>```
-1. 提交任务
+
+3. 提交任务
 > sbatch ~/hello.sh
 
 4. 查看任务状态
