@@ -1,5 +1,5 @@
 ---
-title: weekly report 20201018
+title: weekly report 2020-10-18
 date: 2020-10-23 08:41:03
 tags:
     - report
