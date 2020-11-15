@@ -67,11 +67,14 @@ minmemorynode=<megabytes>              reqcores=<count>
 ```
 #### 查看历史任务
 >sacct
+
+
 ### 安装python环境
 1. 推荐在当前用户文件夹下创建一个目录并将环境安装到该目录下 command: mkdir ~/envs
 2. 使用conda创建一个新的虚拟环境 command: /public/software/anaconda3/bin/conda create --prefix /path/to/your/dir (e.g., ~/envs/)
 3. 先用``` /public/software/anaconda3/bin/conda init```命令来初始化一下bash
 4. 使用```source activate /path/to/your/env```来激活环境
+
 ### 编写一个测试脚本
 1. 创建py文件 
 >vim ~/hello.py
