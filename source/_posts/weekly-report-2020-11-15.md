@@ -1,12 +1,10 @@
 ---
 title: weekly report 2020-11-15
-date: 2020-11-15 09:57:41
+date: 2020-11-14 09:57:41
 tags:
     - report
 categories:
     - note
-archives:
-    - weekly
 mathjax: true
 ---
 ### 二维卷积

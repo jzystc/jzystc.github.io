@@ -2,6 +2,7 @@
 title: hpc tutorial
 date: 2020-11-14 15:37:41
 tags:
+    - tutorial
 ---
 ### 注册
 https://nic.csu.edu.cn/info/1146/1789.htm
@@ -12,7 +13,9 @@ slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资�
 1. Softwares:/public/software; # anaconda3等软件在这个目录下.
 2. Job templates: /public/job_templates; # 样例脚本, 参考[信网中心提供的指南](https://nic.csu.edu.cn/info/1146/1790.htm)来使用样例脚本
 ### 常用命令
+
 #### 查看集群所有节点的状态
+
 >sinfo
 ```Bash
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
@@ -34,18 +37,25 @@ fatQ         up   infinite      1    mix fat09
 fatQ         up   infinite      9  alloc fat[01-08,10]
 ```
 cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区
-###### STATE
+
+##### STATE
 + down:
 + drain: 
 + mix: 当前节点资源部分已分配
 + alloc: 
 + idle: 当前节点空闲
+
+
 #### 查看自己提交的任务
 >使用```squeue```查看```JOBID```
 
 >使用```scontrol show job JOBID```追踪任务
+
+
 #### 取消任务
 >scancel JOBID
+
+
 #### 更新任务
 > scontrol update jobid=JOBID ...
 
@@ -65,8 +75,10 @@ mincpusnode=<count>                    priority=<number>                      us
 minmemorycpu=<megabytes>               qos=<name>                             wckey=<key>
 minmemorynode=<megabytes>              reqcores=<count>
 ```
+
 #### 查看历史任务
 >sacct
+
 
 
 ### 安装python环境

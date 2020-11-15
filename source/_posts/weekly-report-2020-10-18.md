@@ -1,12 +1,10 @@
 ---
 title: weekly report 2020-10-18
-date: 2020-10-23 08:41:03
+date: 2020-10-18 08:41:03
 tags:
     - report
 categories:
     - note
-archives:
-    - weekly
 mathjax: true
 ---
 - [华为比赛](#华为比赛)
