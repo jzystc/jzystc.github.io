@@ -263,11 +263,11 @@
 <td>conv1d</td>
 <td>T</td>
 <td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>13000</td>
+<td>0.184</td>
+<td>0.254</td>
+<td>0.226</td>
+<td>0.138</td>
 </tr>
 <tr>
 <td>conv1d</td>
@@ -321,7 +321,7 @@
 </tbody>
 </table>
 </div>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataset&#x3D;Wiki    es_p&#x3D;5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;Wiki    es_p&#x3D;5</span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
 <thead>
@@ -360,6 +360,70 @@
 </tbody>
 </table>
 </div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;covid19    es_p&#x3D;1</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>3000</td>
+<td>0.187</td>
+<td>0.287</td>
+<td>0.236</td>
+<td>0.130</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>3000</td>
+<td>0.196</td>
+<td>0.263</td>
+<td>0.231</td>
+<td>0.151</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>3000</td>
+<td>0.101</td>
+<td>0.211</td>
+<td>0.189</td>
+<td>0.016</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>6000</td>
+<td>0.115</td>
+<td>0.225</td>
+<td>0.177</td>
+<td>0.018</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
+<li>目前尝试用2种卷积替换全连接层,效果并未取得提升.</li>
+<li>基于卷积神经网络的负样本选择器可能需要放在背景知识图谱中单独训练效果才能更好. </li>
+<li>在新冠肺炎数据集上,Prototype的效果好于MetaR.</li>
+</ol>
 
     </div>
 
@@ -443,7 +507,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">二维卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="nav-number">2.</span> <span class="nav-text">一维卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EConvKB%E7%9A%84%E8%B4%9F%E6%A0%B7%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">基于ConvKB的负样本选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">实验结果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.</span> <span class="nav-text">二维卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E5%8D%B7%E7%A7%AF"><span class="nav-number">2.</span> <span class="nav-text">一维卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EConvKB%E7%9A%84%E8%B4%9F%E6%A0%B7%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">基于ConvKB的负样本选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
