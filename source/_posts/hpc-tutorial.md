@@ -6,6 +6,24 @@ tags:
 ---
 ### 注册
 https://nic.csu.edu.cn/info/1146/1789.htm
+### 登录
+在终端中输入```ssh -p port username@host```
+#### 简化登录流程
+在```~/.ssh```目录下新建```config```文件,示例:
+
+```
+Host 规则名称
+   HostName 网址
+   User 用户名
+   Port 端口号
+```
+
+保存后即可用```ssh 规则名称```登录
+#### 配置无密码登录
+
+以linux系统为例
+1. 在客户端生成密钥,在终端中输入```ssh-keygen -t rsa```,然后一路回车
+2. 将```~/.ssh```文件夹下的```id_rsa.pub```中的内容复制到服务器的```~/.ssh/authorized_keys```中
 
 ### slurm简介
 slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即```*.sh```文件
