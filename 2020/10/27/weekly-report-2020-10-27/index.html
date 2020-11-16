@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="链路预测与知识图谱补全的关系知识图谱补全任务是根据知识图谱中的已知三元组预测未知的三元组.对于知识图谱, 知识图谱补全和链路预测是同一种概念,可以进一步划分成实体预测和关系预测.  实体预测 (entity prediction), 又分为(h,r,?)和(?,r,t), 知识图谱表示学习一般都通过实体预测任务评测模型好坏 关系预测 (relation prediction), 即(h,?,t),">
+<meta property="og:type" content="article">
+<meta property="og:title" content="weekly report 2020-10-27">
+<meta property="og:url" content="http://yoursite.com/2020/10/27/weekly-report-2020-10-27/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链路预测与知识图谱补全的关系知识图谱补全任务是根据知识图谱中的已知三元组预测未知的三元组.对于知识图谱, 知识图谱补全和链路预测是同一种概念,可以进一步划分成实体预测和关系预测.  实体预测 (entity prediction), 又分为(h,r,?)和(?,r,t), 知识图谱表示学习一般都通过实体预测任务评测模型好坏 关系预测 (relation prediction), 即(h,?,t),">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-27T03:04:14.000Z">
+<meta property="article:modified_time" content="2020-10-27T03:04:14.000Z">
+<meta property="article:author" content="jzy">
+<meta property="article:tag" content="report">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/27/weekly-report-2020-10-27/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>weekly report 2020-10-27 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/weekly-report-2020-10-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          weekly report 2020-10-27
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-27 11:04:14" itemprop="dateCreated datePublished" datetime="2020-10-27T11:04:14+08:00">2020-10-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="链路预测与知识图谱补全的关系"><a href="#链路预测与知识图谱补全的关系" class="headerlink" title="链路预测与知识图谱补全的关系"></a>链路预测与知识图谱补全的关系</h2><p>知识图谱补全任务是根据知识图谱中的已知三元组预测未知的三元组.<br>对于知识图谱, 知识图谱补全和链路预测是同一种概念,可以进一步划分成实体预测和关系预测.</p>
+<ol>
+<li>实体预测 (entity prediction), 又分为(h,r,?)和(?,r,t), 知识图谱表示学习一般都通过实体预测任务评测模型好坏</li>
+<li>关系预测 (relation prediction), 即(h,?,t), 当数据集中的关系种数很少时, 预测难度较低</li>
+</ol>
+<p>少样本实体预测任务的目的是希望让模型根据一种新的关系的少量三元组去预测这种关系的其他三元组<br>TransE学习到的实体嵌入在空间中的相对位置关系就可以理解为两个实体之间的关系, 用于训练实体的相关三元组越多,实体之间相对位置关系(t-h)代表它们之间的关系就越准确.</p>
+<h2 id="TransE和少样本知识图谱补全的区别"><a href="#TransE和少样本知识图谱补全的区别" class="headerlink" title="TransE和少样本知识图谱补全的区别"></a>TransE和少样本知识图谱补全的区别</h2><h3 id="目标任务不同"><a href="#目标任务不同" class="headerlink" title="目标任务不同"></a>目标任务不同</h3><ul>
+<li>TransE的任务是学习知识图谱中实体和关系的向量表示,通过预测三元组中的尾实体是什么(h,r,?)来评测向量表示的好坏.</li>
+<li>少样本知识图谱补全的任务是已知关系$r$的$n$个三元组中的头尾实体对$\{(h,t)|(h,r,t)\in G\}$. $h,t$的向量已知, $r$的向量未知. 预测其他关于$r$的三元组中的尾实体是什么(h,r,?).</li>
+</ul>
+<h3 id="数据集不同"><a href="#数据集不同" class="headerlink" title="数据集不同"></a>数据集不同</h3><ol>
+<li>TransE的验证/测试集中的实体和关系全都包含在训练集中</li>
+<li>TransE在训练集上训练后得到了所有实体和关系的嵌入</li>
+<li>少样本数据集分成训练/验证/测试集和背景知识图谱,训练/验证/测试集的实体嵌入可以通过在背景知识图谱上预训练得到</li>
+<li>少样本训练/验证/测试集的关系集合的交集为$\varnothing$,</li>
+<li>TransE在验证/测试时,分数计算公式$||h+r-t||_2$中的$h,r,t$都是已经训练好的向量.</li>
+<li>在少样本任务中,$||h+r-t||_2$中的$h,t$是预训练或随机初始化的向量,$r$则是根据支持集得到的向量.</li>
+</ol>
+<ul>
+<li>知识图谱表示学习常用数据集</li>
+</ul>
+<pre><code>| dataset | #relation | #entity | # triple(train/valild/test)    |
+| ------- | --------- | ------- | ------------------------------ |
+| WN11    | 11        | 38696   | 112581    2609    10544        |
+| WN18    | 18        | 40943   | 141442     5000     5000       |
+| FB13    | 13        | 75043   | 316232     5908     23733      |
+| FB15K   | 1345      | 14951   | 483142     50000     59071     |
+| FB1M    | 23382     | 1\*10^6 | 17.5\*10^6    50000     177404 |
+| FB5M    | 1192      | 5385322 | 19193556     5000     59071    |
+</code></pre><ul>
+<li>FB15K<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 14951     | 13292     | 13584    | 1345      | 916       | 961      |
+| valid |           | 13292     | 12568    |           | 916       | 821      |
+| test  |           |           | 13584    |           |           | 961      |
+</code></pre><ul>
+<li>FB13<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 75043     | 6158      | 18862    | 13        | 7         | 7        |
+| valid |           | 6158      | 3208     |           | 7         | 7        |
+| test  |           |           | 18862    |           |           | 7        |
+</code></pre><ul>
+<li>NELL-One<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 6407      | 451       | 847      | 51        | 0         | 0        |
+| valid |           | 712       | 135      |           | 5         | 0        |
+| test  |           |           | 1639     |           |           | 11       |
+</code></pre><ul>
+<li>背景知识图谱与训练/验证/测试集之间实体/关系交集数<br>背景知识图谱与训练/验证/测试集之间的关系不相交,背景知识图谱中的实体集合包含训练/验证/测试集中的所有实体<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">background train entity 68544 6407 6407</span><br><span class="line">background valid entity 68544 712 712</span><br><span class="line">background test entity 68544 1639 1639</span><br><span class="line">background train relation 291 51 0</span><br><span class="line">background valid relation 291 5 0</span><br><span class="line">background test relation 291 11 0</span><br></pre></td></tr></table></figure>
+通过以上3个表格可以看出,虽然TransE论文的实验同样是预测尾实体,但是数据集的切分方式与少样本数据集不同. TransE论文的实验效果依赖于训练集得到的实体嵌入和关系嵌入,少样本的实验效果依赖于背景知识图谱得到的实体嵌入.如果去掉背景知识图谱,采用随机初始化的方式进行少样本实验,实验效果依赖于通过对训练集的实体进行finetuning, 然而finetuning对实验效果是否有提升取决于训练集与验证集/测试集中的实体交集的个数,交集越大,效果越好. 在删除训练集中与测试集中的实体交集的条件下,MetaR效果下降得非常明显,但是TransE的结果不受影响,因为TransE不依赖finetuning,直接使用预训练的实体嵌入预测尾实体.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MetaR 5-shot batch_size&#x3D;128</span><br><span class="line">删除后 MRR: 0.098      Hits@10: 0.235  Hits@5: 0.153   Hits@1: 0.043</span><br><span class="line">删除前 MRR: 0.189      Hits@10: 0.303  Hits@5: 0.250   Hits@1: 0.113</span><br><span class="line">TransE 5-shot</span><br><span class="line">删除前 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br><span class="line">删除后 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br></pre></td></tr></table></figure>
+<h2 id="目前的想法"><a href="#目前的想法" class="headerlink" title="目前的想法"></a>目前的想法</h2><h3 id="计算分数的方式"><a href="#计算分数的方式" class="headerlink" title="计算分数的方式"></a>计算分数的方式</h3><ul>
+<li>融合邻居信息相似度与关系相似度</li>
+<li>设n是实体e的邻居的个数,邻居是关系与尾实体的拼接,邻居的聚合方式有2种,第1种是每个邻居乘上其关系对应的tfidf值再求和,第2种是先把邻居中的关系和实体乘上各自的tfidf再拼接,多个邻居再相加求和.<script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{w_i}N^{e}_{i}\\w_i=TFIDF(r_i)\\N_i=concat(r_i,t_i) \tag{w1}</script><script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{N_i^{e}}\\w_i=TFIDF((r/t)_i)\\N_i=concat(w_{r_i}r_i,w_{t_i}t_i) \tag{w2}</script></li>
+<li>综合头实体和尾实体邻居信息的方式有3种<script type="math/tex; mode=display">neighbor=concat(h_{neighbor},t_{neighbor}) \tag{n1}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}-h_{neighbor}  \tag{n2}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}+h_{neighbor}  \tag{n3}</script></li>
+<li>最后计算分数的方式有两种,第1种是计算查询集头尾实体与支持集关系的欧式距离,再加上查询集与支持集实体对邻居信息的余弦相似度.第2种是把计算查询集头尾实体与支持集关系的相似度的方法换成余弦相似度.实验结果表明余弦距离效果更好.<script type="math/tex; mode=display">score=||h_q+r_s-t_q||_2+cos(query_{neighbor},support_{neighbor}) \tag{s1}</script><script type="math/tex; mode=display">score=cos((h_q+r_s),t_q)+cos(query_{neighbor},support_{neighbor}) \tag{s2}</script></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N-shot</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w1+n1+s2</td>
+<td>5</td>
+<td>0.150</td>
+<td>0.210</td>
+<td>0.182</td>
+<td>0.108</td>
+</tr>
+<tr>
+<td>w2+n1+s2</td>
+<td>5</td>
+<td>0.195</td>
+<td>0.347</td>
+<td>0.254</td>
+<td>0.117</td>
+</tr>
+<tr>
+<td>w1+n2+s2</td>
+<td>5</td>
+<td>0.163</td>
+<td>0.242</td>
+<td>0.200</td>
+<td>0.119</td>
+</tr>
+<tr>
+<td>w2+n2+s2</td>
+<td>5</td>
+<td>0.195</td>
+<td>0.345</td>
+<td>0.256</td>
+<td>0.123</td>
+</tr>
+<tr>
+<td>w1+n3+s2</td>
+<td>5</td>
+<td>0.154</td>
+<td>0.226</td>
+<td>0.188</td>
+<td>0.109</td>
+</tr>
+<tr>
+<td>w2+n3+s2</td>
+<td>5</td>
+<td>0.186</td>
+<td>0.313</td>
+<td>0.239</td>
+<td>0.114</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>比较结果看出同时对邻居中的实体和关系加权效果更好,(尾实体邻居向量-头实体邻居向量)效果更好,使用余弦相似度比欧式距离更好.</p>
+<p>5-shot条件下,加入邻居信息的效果差于不加.<br>1-shot条件下,加入邻居信息的效果好于不加.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1-shot</span><br><span class="line">否  MRR: 0.144  Hits@10: 0.235  Hits@5: 0.178   Hits@1: 0.089</span><br><span class="line">是  MRR: 0.150  Hits@10: 0.252  Hits@5: 0.186   Hits@1: 0.106</span><br></pre></td></tr></table></figure></p>
+<p>不finetune情况下,TransE效果好于MetaR和GMatching</p>
+<h3 id="最近的尝试"><a href="#最近的尝试" class="headerlink" title="最近的尝试"></a>最近的尝试</h3><ul>
+<li>Prototype Network with squared euclidean distance</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>n-shot</th>
+<th>finetune</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>True</td>
+<td>0.195</td>
+<td>0.294</td>
+<td>0.244</td>
+<td>0.146</td>
+</tr>
+<tr>
+<td>5</td>
+<td>True</td>
+<td>0.210</td>
+<td>0.352</td>
+<td>0.278</td>
+<td>0.145</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>GMatching+MetaR <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过GMatching融合邻居信息并计算匹配分数,同时用MetaR计算匹配分数</span><br><span class="line">score&#x3D;GMatching_score(qry,spt)+MetaR_score(qry,spt)</span><br><span class="line">--max_neighbor 50</span><br><span class="line">--batch_size 128</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>n-shot</th>
+<th>finetune</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>True</td>
+<td>0.188</td>
+<td>0.295</td>
+<td>0.240</td>
+<td>0.129</td>
+</tr>
+<tr>
+<td>1</td>
+<td>False</td>
+<td>0.178</td>
+<td>0.272</td>
+<td>0.222</td>
+<td>0.133</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/report/" rel="tag"># report</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/18/weekly-report-2020-10-18/" rel="prev" title="weekly report 2020-10-18">
+      <i class="fa fa-chevron-left"></i> weekly report 2020-10-18
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" rel="next" title="校友会小程序开发文档">
+      校友会小程序开发文档 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E9%A2%84%E6%B5%8B%E4%B8%8E%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">链路预测与知识图谱补全的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TransE%E5%92%8C%E5%B0%91%E6%A0%B7%E6%9C%AC%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E8%A1%A5%E5%85%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">TransE和少样本知识图谱补全的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E4%BB%BB%E5%8A%A1%E4%B8%8D%E5%90%8C"><span class="nav-number">2.1.</span> <span class="nav-text">目标任务不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8D%E5%90%8C"><span class="nav-number">2.2.</span> <span class="nav-text">数据集不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E7%9A%84%E6%83%B3%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">目前的想法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%88%86%E6%95%B0%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">计算分数的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="nav-number">3.2.</span> <span class="nav-text">最近的尝试</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jzy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jzy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

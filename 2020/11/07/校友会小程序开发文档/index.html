@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="华容一中校友会后台开发文档数据字典 数据库名: alumni_association  alumni    字段名 数据类型 默认值 允许非空 自动递增 备注     id int   T 主键   name varchar       phone varchar       org varchar  T     work varchar  T     qq varchar  T     prov">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校友会小程序开发文档">
+<meta property="og:url" content="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="华容一中校友会后台开发文档数据字典 数据库名: alumni_association  alumni    字段名 数据类型 默认值 允许非空 自动递增 备注     id int   T 主键   name varchar       phone varchar       org varchar  T     work varchar  T     qq varchar  T     prov">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-07T02:49:07.000Z">
+<meta property="article:modified_time" content="2020-11-07T02:49:07.000Z">
+<meta property="article:author" content="jzy">
+<meta property="article:tag" content="dev">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>校友会小程序开发文档 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          校友会小程序开发文档
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 10:49:07" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:07+08:00">2020-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="华容一中校友会后台开发文档"><a href="#华容一中校友会后台开发文档" class="headerlink" title="华容一中校友会后台开发文档"></a>华容一中校友会后台开发文档</h3><h4 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h4><ul>
+<li>数据库名: alumni_association</li>
+</ul>
+<h5 id="alumni"><a href="#alumni" class="headerlink" title="alumni"></a>alumni</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>org</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>work</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>qq</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>province</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>省</td>
+</tr>
+<tr>
+<td>city</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>市</td>
+</tr>
+<tr>
+<td>district</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>区</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0表示男,1表示女</td>
+</tr>
+<tr>
+<td>join_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>微信为小程序用户分配的唯一id</td>
+</tr>
+<tr>
+<td>helper_open_id</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>帮助录入当前用户信息的用户的open_id</td>
+</tr>
+<tr>
+<td>update_times</td>
+<td>int</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>班级修改次数,不允许超过3次</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="class"><a href="#class" class="headerlink" title="class"></a>class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>class_name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grade_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级所属年级id</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="level"><a href="#level" class="headerlink" title="level"></a>level</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>level_code</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>权限编码</td>
+</tr>
+<tr>
+<td>level_name</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>权限名</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="alumni-class"><a href="#alumni-class" class="headerlink" title="alumni_class"></a>alumni_class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友id</td>
+</tr>
+<tr>
+<td>class_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="grade"><a href="#grade" class="headerlink" title="grade"></a>grade</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>毕业年份</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="association"><a href="#association" class="headerlink" title="association"></a>association</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会名字</td>
+</tr>
+<tr>
+<td>principle_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会主席id</td>
+</tr>
+<tr>
+<td>secretary_general_id_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会秘书长id</td>
+</tr>
+<tr>
+<td>contact_person_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>联系人id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="invitation"><a href="#invitation" class="headerlink" title="invitation"></a>invitation</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>invite_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人(host)id</td>
+</tr>
+<tr>
+<td>invited_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人(guest)id</td>
+</tr>
+<tr>
+<td>invite_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人openid</td>
+</tr>
+<tr>
+<td>invited_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人openid</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="notification"><a href="#notification" class="headerlink" title="notification"></a>notification</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>applicant_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求发起者openid</td>
+</tr>
+<tr>
+<td>target_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求接收者openid</td>
+</tr>
+<tr>
+<td>apply_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td>发起时间</td>
+</tr>
+<tr>
+<td>state</td>
+<td>tinyint(1)</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>消息接收状态,0代表拒绝,1代表同意</td>
+</tr>
+<tr>
+<td>applicant_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求发起者id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="card"><a href="#card" class="headerlink" title="card"></a>card</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>source_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片来源用户id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片接收用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="help-registration"><a href="#help-registration" class="headerlink" title="help_registration"></a>help_registration</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>helper_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>帮填信息者id</td>
+</tr>
+<tr>
+<td>helped_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被帮填信息者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="后台开发框架"><a href="#后台开发框架" class="headerlink" title="后台开发框架"></a>后台开发框架</h4><p>SpringBoot+Mybatis+shiro<br>SpringBoot: Spring的简化版,通过大量的预定义配置简化Spring的配置<br>Mybatis: ORM框架, 负责与数据库交互<br>shiro: 权限控制框架,基于角色分配权限(暂未实现)</p>
+<h4 id="关键工具"><a href="#关键工具" class="headerlink" title="关键工具"></a>关键工具</h4><p>jwt: 根据微信提供的openid和session_key生成token.将token加入到所有请求的header中,用于鉴权,判断是否为非法请求<br>lombok: 简化代码,自动生成POJO类的getter和setter方法<br>Tomcat: 可以处理动态资源的应用服务器.项目打成war包后部署到Tomcat下运行</p>
+<h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p>MVC架构</p>
+<ul>
+<li>model<br>service层<br>UserService<br>AuthorizationService<br>dao层<br>  AlumniMapper<br>  AlumniClassMapper<br>  NotificationMapper<br>  CardMapper</li>
+</ul>
+<ul>
+<li>view<br>web端</li>
+<li>controller<br>MainController<br>UserController<br>AuthorizationController<h4 id="接口url"><a href="#接口url" class="headerlink" title="接口url"></a>接口url</h4></li>
+<li>目前正在将原java后台用springboot框架重构, 原api部分为php, 现在统一为java, 功能已迁移大约60%. </li>
+<li>使用springboot框架开发新后台性能更好,加权限控制更方便(原后台没有编写权限管理的代码,权限都由前端控制,存在安全隐患).接口url(功能说明,参数说明,调用方法)待补充…<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">举例:</span><br><span class="line">  原后台按不同条件查询校友信息需要通过多个不同的请求地址,现在可以统一为一个请求地址,根据传入的参数查找相应的内容</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="遗留bug"><a href="#遗留bug" class="headerlink" title="遗留bug"></a>遗留bug</h4><ul>
+<li>Bug1(已解决): 发送邮件需要先通过官方api获取微信的access_token,api每天最多请求2000次,超过次数将不能再发送邮件. </li>
+<li>解决方法: 每次获取的token有2个小时的过期时间,需要保存该token防止重复请求,设置一个springboot的定时任务.<h4 id="请求说明"><a href="#请求说明" class="headerlink" title="请求说明"></a>请求说明</h4></li>
+<li>host<br><code>https://www.csubigdata.com/xyh</code><h5 id="常量请求"><a href="#常量请求" class="headerlink" title="常量请求"></a>常量请求</h5></li>
+<li><code>GET  /years</code></li>
+<li>获取所有年份</li>
+<li>返回值<br>数组<br>[1999,2000,…,2029]</li>
+<li><code>GET /classes</code></li>
+<li>获取所有班级</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>className</td>
+<td>string</td>
+<td>班级名</td>
+</tr>
+<tr>
+<td>middleOrHigh</td>
+<td>string</td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td>毕业年份</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /recent/invitation</code></li>
+<li>获取最近一段时间的邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>int</td>
+<td>请求最近n条数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invitePersonName</td>
+<td>string</td>
+<td>邀请人名字</td>
+</tr>
+<tr>
+<td>invitedPersonName</td>
+<td>string</td>
+<td>被邀请人名字</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/help</code></li>
+<li>帮填信息排名,返回数据按邀请数递减排列</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>帮填信息的人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/invitation</code></li>
+<li>邀请排名</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>邀请人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h5><ul>
+<li><code>GET /user/openid</code></li>
+<li>获取openid</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>微信随机生成的字符串,用于换取open_id与session_key</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>string</td>
+<td>小程序为当前用户生成的唯一id</td>
+</tr>
+<tr>
+<td>session_key</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>根据openid与session_key通过jwt生成的token,用于鉴权</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="名片相关"><a href="#名片相关" class="headerlink" title="名片相关"></a>名片相关</h5><ul>
+<li><code>POST /user/card/apply</code></li>
+<li>申请交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/agree</code></li>
+<li>同意交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/reject</code></li>
+<li>拒绝交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/cards</code></li>
+<li>获取所有名片</li>
+<li>请求参数<br>| 参数     | 类型 | 描述     |<br>| ———— | —— | ———— |<br>| alumniId | int  | 发起者id |</li>
+<li>返回值: json数组<br>[card1,card2,…]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>card.name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>card.phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>card.province</td>
+<td>string</td>
+<td>省</td>
+</tr>
+<tr>
+<td>card.city</td>
+<td>string</td>
+<td>市</td>
+</tr>
+<tr>
+<td>card.district</td>
+<td>string</td>
+<td>区</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notifications</code></li>
+<li>获取所有名片交换消息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+<tr>
+<td>card</td>
+<td>object</td>
+<td>名片</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notification/num</code></li>
+<li>获取名片交换消息数</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>消息数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="用户信息相关"><a href="#用户信息相关" class="headerlink" title="用户信息相关"></a>用户信息相关</h5><ul>
+<li><code>GET /user/info</code></li>
+<li>获取个人信息</li>
+<li><code>POST /user/insert</code></li>
+<li>录入信息</li>
+<li><code>PUT /user/update</code></li>
+<li>修改信息</li>
+<li><code>GET /user/captcha</code></li>
+<li>获取验证码<h5 id="二维码分享"><a href="#二维码分享" class="headerlink" title="二维码分享"></a>二维码分享</h5></li>
+<li><code>GET /user/qrcode</code></li>
+<li>生成二维码<h5 id="班级相关"><a href="#班级相关" class="headerlink" title="班级相关"></a>班级相关</h5></li>
+<li><code>POST /class/insert</code></li>
+<li>录入班级信息</li>
+<li><code>PUT /class/update</code></li>
+<li>修改班级信息<h5 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h5></li>
+<li><code>GET /query/alumnus</code></li>
+<li>查询用户信息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size</td>
+<td>T</td>
+<td>每页的数据条数</td>
+</tr>
+<tr>
+<td>page</td>
+<td>T</td>
+<td>页数</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>F</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>F</td>
+<td>班级id2</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>F</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>F</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>F</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>name</td>
+<td>F</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>F</td>
+<td>电话</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>org</td>
+<td>string</td>
+<td>单位</td>
+</tr>
+<tr>
+<td>work</td>
+<td>string</td>
+<td>职位</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>int</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>int</td>
+<td>班级id2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="个人成就相关"><a href="#个人成就相关" class="headerlink" title="个人成就相关"></a>个人成就相关</h5><ul>
+<li><code>GET /user/invitation</code></li>
+<li>获取用户邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help</code></li>
+<li>获取用户帮填记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/invitation/num</code></li>
+<li>邀请人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help/num</code></li>
+<li>帮填人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h5><h6 id="统计与排名"><a href="#统计与排名" class="headerlink" title="统计与排名"></a>统计与排名</h6><ul>
+<li><code>GET /auth/count/branch/&#123;branch&#125;</code></li>
+<li>统计各个分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>分会id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/grade/&#123;gradeId&#125;</code></li>
+<li>统计各个年级分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/class/&#123;classId&#125;</code></li>
+<li>统计各个班级人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/period</code></li>
+<li>统计某一段时间的人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>T</td>
+<td>开始时间</td>
+</tr>
+<tr>
+<td>end</td>
+<td>T</td>
+<td>结束时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /count/everyday</code></li>
+<li>所有班级每天新加入人数排名,返回值按人数递减排列</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>string</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h6 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h6><ul>
+<li><code>DELETE /auth/alumni</code></li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="错误识别码"><a href="#错误识别码" class="headerlink" title="错误识别码"></a>错误识别码</h4><ul>
+<li>200 查询成功</li>
+<li>500 网络繁忙</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dev/" rel="tag"># dev</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/27/weekly-report-2020-10-27/" rel="prev" title="weekly report 2020-10-27">
+      <i class="fa fa-chevron-left"></i> weekly report 2020-10-27
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/07/weekly-report-2020-11-07/" rel="next" title="weekly report 2020-11-07">
+      weekly report 2020-11-07 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8E%E5%AE%B9%E4%B8%80%E4%B8%AD%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">华容一中校友会后台开发文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8"><span class="nav-number">1.1.</span> <span class="nav-text">数据字典</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#alumni"><span class="nav-number">1.1.1.</span> <span class="nav-text">alumni</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#class"><span class="nav-number">1.1.2.</span> <span class="nav-text">class</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#level"><span class="nav-number">1.1.3.</span> <span class="nav-text">level</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#alumni-class"><span class="nav-number">1.1.4.</span> <span class="nav-text">alumni_class</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#grade"><span class="nav-number">1.1.5.</span> <span class="nav-text">grade</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#association"><span class="nav-number">1.1.6.</span> <span class="nav-text">association</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#invitation"><span class="nav-number">1.1.7.</span> <span class="nav-text">invitation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#notification"><span class="nav-number">1.1.8.</span> <span class="nav-text">notification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#card"><span class="nav-number">1.1.9.</span> <span class="nav-text">card</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#help-registration"><span class="nav-number">1.1.10.</span> <span class="nav-text">help_registration</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">后台开发框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.</span> <span class="nav-text">关键工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3url"><span class="nav-number">1.5.</span> <span class="nav-text">接口url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%97%E7%95%99bug"><span class="nav-number">1.6.</span> <span class="nav-text">遗留bug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E8%AF%B4%E6%98%8E"><span class="nav-number">1.7.</span> <span class="nav-text">请求说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E8%AF%B7%E6%B1%82"><span class="nav-number">1.7.1.</span> <span class="nav-text">常量请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%99%BB%E5%BD%95"><span class="nav-number">1.7.2.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8D%E7%89%87%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.3.</span> <span class="nav-text">名片相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.4.</span> <span class="nav-text">用户信息相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%88%86%E4%BA%AB"><span class="nav-number">1.7.5.</span> <span class="nav-text">二维码分享</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8F%AD%E7%BA%A7%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.6.</span> <span class="nav-text">班级相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BF%A1%E6%81%AF"><span class="nav-number">1.7.7.</span> <span class="nav-text">查询信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E6%88%90%E5%B0%B1%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.8.</span> <span class="nav-text">个人成就相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%9B%B8%E5%85%B3"><span class="nav-number">1.7.9.</span> <span class="nav-text">权限相关</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E4%B8%8E%E6%8E%92%E5%90%8D"><span class="nav-number">1.7.9.1.</span> <span class="nav-text">统计与排名</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7"><span class="nav-number">1.7.9.2.</span> <span class="nav-text">修改用户</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E8%AF%86%E5%88%AB%E7%A0%81"><span class="nav-number">1.8.</span> <span class="nav-text">错误识别码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jzy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jzy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

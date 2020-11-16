@@ -187,9 +187,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-14 15:37:41 / 修改时间：15:42:58" itemprop="dateCreated datePublished" datetime="2020-11-14T15:37:41+08:00">2020-11-14</time>
+              <time title="创建时间：2020-11-14 15:37:41" itemprop="dateCreated datePublished" datetime="2020-11-14T15:37:41+08:00">2020-11-14</time>
             </span>
 
           
@@ -207,41 +206,53 @@
 <h3 id="slurm简介"><a href="#slurm简介" class="headerlink" title="slurm简介"></a>slurm简介</h3><p>slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即<code>*.sh</code>文件</p>
 <h3 id="重要的目录"><a href="#重要的目录" class="headerlink" title="重要的目录"></a>重要的目录</h3><ol>
 <li>Softwares:/public/software; # anaconda3等软件在这个目录下.</li>
-<li>Job templates: /public/job_templates; # 样例脚本, 参考<a target="_blank" rel="noopener" href="https://nic.csu.edu.cn/info/1146/1790.htm">信网中心提供的指南</a>来使用样例脚本<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="查看集群所有节点的状态"><a href="#查看集群所有节点的状态" class="headerlink" title="查看集群所有节点的状态"></a>查看集群所有节点的状态</h4><blockquote>
-<p>sinfo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST </span><br><span class="line">cpuQ*        up   infinite      3  down* node[0167,0445,0549] </span><br><span class="line">cpuQ*        up   infinite      2  drain node[0364,0391] </span><br><span class="line">cpuQ*        up   infinite      6    mix node[0069,0395,0625,0743,0874-0875] </span><br><span class="line">cpuQ*        up   infinite    989  alloc node[0001-0068,0070-0166,0168-0363,0365-0390,0392-0394,0396-0444,0446-0548,0550-0624,0626-0742,0744-0873,0876-1000] </span><br><span class="line">ResQ         up   infinite      1  drain node1009 </span><br><span class="line">ResQ         up   infinite      1    mix node1008 </span><br><span class="line">ResQ         up   infinite     13  alloc node[1002,1004-1007,1011-1012,1017-1022] </span><br><span class="line">ResQ         up   infinite      7   idle node[1001,1003,1010,1013-1016] </span><br><span class="line">gpu2Q        up   infinite      5    mix gpu[201,205-208] </span><br><span class="line">gpu2Q        up   infinite      5  alloc gpu[202-204,209-210] </span><br><span class="line">gpu4Q        up   infinite      1  down* gpu407 </span><br><span class="line">gpu4Q        up   infinite      3    mix gpu[402,409-410] </span><br><span class="line">gpu4Q        up   infinite      8  alloc gpu[401,403-406,408,411-412] </span><br><span class="line">gpu8Q        up   infinite      4    mix gpu[801-804] </span><br><span class="line">fatQ         up   infinite      1    mix fat09 </span><br><span class="line">fatQ         up   infinite      9  alloc fat[01-08,10]</span><br></pre></td></tr></table></figure>
-<p>cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区</p>
-<h6 id="STATE"><a href="#STATE" class="headerlink" title="STATE"></a>STATE</h6></blockquote>
-</li>
+<li>Job templates: /public/job_templates; # 样例脚本, 参考<a target="_blank" rel="noopener" href="https://nic.csu.edu.cn/info/1146/1790.htm">信网中心提供的指南</a>来使用样例脚本<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3></li>
 </ol>
-<ul>
-<li>down</li>
-<li>drain</li>
-<li>mix</li>
-<li>alloc: </li>
-<li>idle: 当前节点空闲<h4 id="查看自己提交的任务"><a href="#查看自己提交的任务" class="headerlink" title="查看自己提交的任务"></a>查看自己提交的任务</h4><blockquote>
-<p>使用<code>squeue</code>查看<code>JOBID</code></p>
+<h4 id="查看集群所有节点的状态"><a href="#查看集群所有节点的状态" class="headerlink" title="查看集群所有节点的状态"></a>查看集群所有节点的状态</h4><blockquote>
+<p>sinfo<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST </span><br><span class="line">cpuQ*        up   infinite      3  down* node[0167,0445,0549] </span><br><span class="line">cpuQ*        up   infinite      2  drain node[0364,0391] </span><br><span class="line">cpuQ*        up   infinite      6    mix node[0069,0395,0625,0743,0874-0875] </span><br><span class="line">cpuQ*        up   infinite    989  alloc node[0001-0068,0070-0166,0168-0363,0365-0390,0392-0394,0396-0444,0446-0548,0550-0624,0626-0742,0744-0873,0876-1000] </span><br><span class="line">ResQ         up   infinite      1  drain node1009 </span><br><span class="line">ResQ         up   infinite      1    mix node1008 </span><br><span class="line">ResQ         up   infinite     13  alloc node[1002,1004-1007,1011-1012,1017-1022] </span><br><span class="line">ResQ         up   infinite      7   idle node[1001,1003,1010,1013-1016] </span><br><span class="line">gpu2Q        up   infinite      5    mix gpu[201,205-208] </span><br><span class="line">gpu2Q        up   infinite      5  alloc gpu[202-204,209-210] </span><br><span class="line">gpu4Q        up   infinite      1  down* gpu407 </span><br><span class="line">gpu4Q        up   infinite      3    mix gpu[402,409-410] </span><br><span class="line">gpu4Q        up   infinite      8  alloc gpu[401,403-406,408,411-412] </span><br><span class="line">gpu8Q        up   infinite      4    mix gpu[801-804] </span><br><span class="line">fatQ         up   infinite      1    mix fat09 </span><br><span class="line">fatQ         up   infinite      9  alloc fat[01-08,10]</span><br></pre></td></tr></table></figure><br>cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区</p>
 </blockquote>
-</li>
+<h5 id="STATE"><a href="#STATE" class="headerlink" title="STATE"></a>STATE</h5><ul>
+<li>[ ] down: 节点故障不可用</li>
+<li>[ ] drain: 正在运行的作业不受影响,但不接受新作业</li>
+<li>[x] mix: 节点cpu资源部分已分配,剩下的cpu为idle</li>
+<li>[ ] alloc: 节点所有资源都被占用,新提交的作业将排队</li>
+<li>[x] idle: 当前节点空闲</li>
+<li>[ ] unk: 节点刚刚启动,状态未知</li>
 </ul>
-<blockquote>
+<h4 id="查看自己提交的任务"><a href="#查看自己提交的任务" class="headerlink" title="查看自己提交的任务"></a>查看自己提交的任务</h4><blockquote>
+<p>使用<code>squeue</code>查看<code>JOBID</code></p>
 <p>使用<code>scontrol show job JOBID</code>追踪任务</p>
-<h4 id="取消任务"><a href="#取消任务" class="headerlink" title="取消任务"></a>取消任务</h4><p>scancel JOBID</p>
-<h4 id="更新任务"><a href="#更新任务" class="headerlink" title="更新任务"></a>更新任务</h4><p>scontrol update jobid=JOBID …</p>
+</blockquote>
+<h4 id="取消任务"><a href="#取消任务" class="headerlink" title="取消任务"></a>取消任务</h4><blockquote>
+<p>scancel JOBID</p>
+</blockquote>
+<h4 id="更新任务"><a href="#更新任务" class="headerlink" title="更新任务"></a>更新任务</h4><blockquote>
+<p>scontrol update jobid=JOBID …</p>
 </blockquote>
 <p>由于可修改的属性非常多，我们可以借助 SLURM 自动补全功能来查看可修改的内容。 这只需要我们在输入完 JOBID 后空一格并敲两下\<TAB> 键。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">account=&lt;account&gt;                      mintmpdisknode=&lt;megabytes&gt;             reqnodelist=&lt;nodes&gt;</span><br><span class="line">conn-type=&lt;<span class="built_in">type</span>&gt;                       name&gt;                                  reqsockets=&lt;count&gt;</span><br><span class="line">contiguous=&lt;yes|no&gt;                    name=&lt;name&gt;                            reqthreads=&lt;count&gt;</span><br><span class="line">dependency=&lt;dependency_list&gt;           nice[=delta]                           requeue=&lt;0|1&gt;</span><br><span class="line">eligibletime=yyyy-mm-dd                nodelist=&lt;nodes&gt;                       reservationname=&lt;name&gt;</span><br><span class="line">excnodelist=&lt;nodes&gt;                    numcpus=&lt;min_count[-max_count]         rotate=&lt;yes|no&gt;</span><br><span class="line">features=&lt;features&gt;                    numnodes=&lt;min_count[-max_count]&gt;       shared=&lt;yes|no&gt;</span><br><span class="line">geometry=&lt;geo&gt;                         numtasks=&lt;count&gt;                       starttime=yyyy-mm-dd</span><br><span class="line">gres=&lt;list&gt;                            or                                     switches=&lt;count&gt;[@&lt;max-time-to-wait&gt;]</span><br><span class="line">licenses=&lt;name&gt;                        partition=&lt;name&gt;                       timelimit=[d-]h:m:s</span><br><span class="line">mincpusnode=&lt;count&gt;                    priority=&lt;number&gt;                      userid=&lt;UID</span><br><span class="line">minmemorycpu=&lt;megabytes&gt;               qos=&lt;name&gt;                             wckey=&lt;key&gt;</span><br><span class="line">minmemorynode=&lt;megabytes&gt;              reqcores=&lt;count&gt;</span><br></pre></td></tr></table></figure></p>
 <h4 id="查看历史任务"><a href="#查看历史任务" class="headerlink" title="查看历史任务"></a>查看历史任务</h4><blockquote>
 <p>sacct</p>
+</blockquote>
 <h3 id="安装python环境"><a href="#安装python环境" class="headerlink" title="安装python环境"></a>安装python环境</h3><ol>
 <li>推荐在当前用户文件夹下创建一个目录并将环境安装到该目录下 command: mkdir ~/envs</li>
 <li>使用conda创建一个新的虚拟环境 command: /public/software/anaconda3/bin/conda create —prefix /path/to/your/dir (e.g., ~/envs/)</li>
 <li>先用<code>/public/software/anaconda3/bin/conda init</code>命令来初始化一下bash</li>
-<li>使用<code>source activate /path/to/your/env</code>来激活环境<h3 id="编写一个测试脚本"><a href="#编写一个测试脚本" class="headerlink" title="编写一个测试脚本"></a>编写一个测试脚本</h3></li>
-<li>创建py文件<br>vim ~/hello.py<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">print(<span class="string">&quot;cuda&quot;</span>,torch.cuda.is_available())</span><br><span class="line">print(<span class="string">&quot;Hello world!&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>创建slurm脚本文件<br>vim ~/hello.sh<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#SBATCH -J hello                #任务名字</span></span><br><span class="line"><span class="comment">#SBATCH -o hello_%j.out            #保存屏幕输出到这个文件</span></span><br><span class="line"><span class="comment">#SBATCH --error hello_%j.err            #保存屏幕输出到这个文件</span></span><br><span class="line"><span class="comment">#SBATCH -t 12:00:00             #最长运行时间, 此处为12小时</span></span><br><span class="line"><span class="comment">#SBATCH -N 1                    #申请节点数</span></span><br><span class="line"><span class="comment">#SBATCH --ntasks-per-node=1     #每个节点分配的任务数</span></span><br><span class="line"><span class="comment">#SBATCH --cpus-per-task=4       #每个任务分配的cpu数</span></span><br><span class="line"><span class="comment">#SBATCH -p gpu2Q                #提交到gpu分区才能申请gpu</span></span><br><span class="line"><span class="comment">#SBATCH -w gpu202               #指定gpu节点,不写则自动分配</span></span><br><span class="line"><span class="comment">#SBATCH --gres=gpu:1            #申请1块gpu</span></span><br><span class="line"><span class="comment">#SBATCH --mail-type=end                   #邮件通知类型start/end/failed, end表示作业结束时邮件通知, 可选项</span></span><br><span class="line"><span class="comment">#SBATCH --mail-user=jzystc@live.com       #邮件通知邮箱, 可选项</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(/public/software/anaconda3/bin/conda shell.bash hook)</span>&quot;</span></span><br><span class="line">conda activate /path/to/your/env      <span class="comment">#激活环境 </span></span><br><span class="line"><span class="comment"># python ~/prototype/main.py -few 1 -prefix exp1 -form Pre-Train  #运行代码</span></span><br><span class="line">python ~/hello.py</span><br></pre></td></tr></table></figure>
-通知邮件内容</li>
+<li>使用<code>source activate /path/to/your/env</code>来激活环境</li>
 </ol>
+<h3 id="编写一个测试脚本"><a href="#编写一个测试脚本" class="headerlink" title="编写一个测试脚本"></a>编写一个测试脚本</h3><ol>
+<li>创建py文件 <blockquote>
+<p>vim ~/hello.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">print(<span class="string">&quot;cuda&quot;</span>,torch.cuda.is_available())</span><br><span class="line">print(<span class="string">&quot;Hello world!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>注意: 此时在本地运行hello.py, <code>torch.cuda.is_available()</code>的结果为False, 因为登录节点是没有gpu的, 需要通过slurm脚本申请gpu并在计算节点上运行hello.py, 返回值才能为True.</p>
 </blockquote>
+</li>
+<li>创建slurm脚本文件 <blockquote>
+<p>vim ~/hello.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#SBATCH -J hello                #任务名字</span></span><br><span class="line"><span class="comment">#SBATCH -o hello_%j.out            #保存屏幕输出到这个文件</span></span><br><span class="line"><span class="comment">#SBATCH -e hello_%j.err            #异常退出,则保存屏幕输出到这个文件,可选项,可以只指定*.out文件,则错误也会输出到*.out文件</span></span><br><span class="line"><span class="comment">#SBATCH -t 12:00:00             #最长运行时间, 此处为12小时</span></span><br><span class="line"><span class="comment">#SBATCH -N 1                    #申请节点数</span></span><br><span class="line"><span class="comment">#SBATCH --ntasks-per-node=1     #每个节点分配的任务数</span></span><br><span class="line"><span class="comment">#SBATCH --cpus-per-task=4       #每个任务分配的cpu数</span></span><br><span class="line"><span class="comment">#SBATCH -p gpu2Q                #提交到gpu分区才能申请gpu</span></span><br><span class="line"><span class="comment">#SBATCH -w gpu202               #指定gpu节点,不写则自动分配</span></span><br><span class="line"><span class="comment">#SBATCH --gres=gpu:1            #申请1块gpu</span></span><br><span class="line"><span class="comment">#SBATCH --mail-type=end                   #邮件通知类型start/end/failed, end表示作业结束时邮件通知, 可选项</span></span><br><span class="line"><span class="comment">#SBATCH --mail-user=jzystc@live.com       #邮件通知邮箱, 可选项</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(/public/software/anaconda3/bin/conda shell.bash hook)</span>&quot;</span></span><br><span class="line">conda activate /path/to/your/env      <span class="comment">#激活环境 </span></span><br><span class="line"><span class="comment"># python ~/prototype/main.py -few 1 -prefix exp1 -form Pre-Train  #运行代码</span></span><br><span class="line">python ~/hello.py</span><br></pre></td></tr></table></figure>
+<p>通知邮件内容</p>
+</blockquote>
+</li>
+</ol>
 <p>Subject: <code>Slurm Job_id=33653 Name=prototype Ended, Run time 00:22:18, COMPLETED, ExitCode 0</code><br>From: <code>SLURM workload manager &lt;slurm@mu01.localdomain&gt;</code></p>
 <ol>
 <li><p>提交任务</p>
@@ -292,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/23/weekly-report-20201018/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/14/weekly-report-2020-11-15/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -306,7 +317,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/23/weekly-report-20201018/" class="post-title-link" itemprop="url">weekly report 20201018</a>
+            <a href="/2020/11/14/weekly-report-2020-11-15/" class="post-title-link" itemprop="url">weekly report 2020-11-15</a>
         </h2>
 
         <div class="post-meta">
@@ -315,9 +326,2532 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-23 08:41:03 / 修改时间：13:59:41" itemprop="dateCreated datePublished" datetime="2020-10-23T08:41:03+08:00">2020-10-23</time>
+              <time title="创建时间：2020-11-14 09:57:41" itemprop="dateCreated datePublished" datetime="2020-11-14T09:57:41+08:00">2020-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="二维卷积"><a href="#二维卷积" class="headerlink" title="二维卷积"></a>二维卷积</h3><p>在二维卷积中, 将头实体与尾实体的向量上下拼接, 得到2*100的向量. 第一层卷积层, 使用128个2*1的卷积核从左往右滑动得到维度为1*100*128的输出. 后面的卷积层使用1*1卷积,主要作用是将多个通道的feature_map线性加权求和,以此减少通道数(降维). 这部分主要借鉴ConvKB的思想.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProtoNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ProtoNet, self).__init__()</span><br><span class="line">        self.encoder_conv2d = nn.Sequential(</span><br><span class="line">        <span class="comment"># 第一层输入通道为1,输出通道为128,卷积核大小为(1,2)</span></span><br><span class="line">        <span class="comment"># 第一层卷积操作之后,feature_map=1*100*128</span></span><br><span class="line">        Conv2d(<span class="number">1</span>, <span class="number">128</span>, (<span class="number">1</span>, <span class="number">2</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        <span class="comment"># 第二层输入通道为128,输出通道为64,卷积核大小为(1,1)</span></span><br><span class="line">        <span class="comment"># 第二层卷积操作之后,feature_map=1*100*64</span></span><br><span class="line">        Conv2d(<span class="number">128</span>, <span class="number">64</span>, (<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        Conv2d(<span class="number">64</span>, <span class="number">32</span>, (<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        Conv2d(<span class="number">32</span>, <span class="number">1</span>, (<span class="number">1</span>, <span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        batch_size, num_triples, input_length, dim = x.size()</span><br><span class="line">        x = x.view(batch_size*num_triples, <span class="number">1</span>,</span><br><span class="line">                   x.shape[<span class="number">2</span>], x.shape[<span class="number">3</span>]).transpose(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">        x = self.encoder_conv2d(x)</span><br><span class="line">        <span class="keyword">return</span> x.view(batch_size, num_triples, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="一维卷积"><a href="#一维卷积" class="headerlink" title="一维卷积"></a>一维卷积</h3><p>一维卷积是卷积神经网络在自然语言处理中的常用方法.以<code>I like coding.</code>为例,[I, like, coding]是词汇表,每个单词都用100维的向量表示,则输入是3*100的矩阵.一维卷积是固定住输入矩阵的第二维,卷积核只在第一维上纵向滑动.当句子长度为3时,可以使用2*100的卷积核提取前后两个单词之间的特征. 但是由于头尾实体只有2个单词, 所以卷积核只能设置为2*100, 无法在第一维上滑动.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProtoNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ProtoNet, self).__init__()</span><br><span class="line">        self.encoder_conv1d = nn.Sequential(</span><br><span class="line">            <span class="comment"># 第一层输入通道为100,对应实体嵌入为100维.</span></span><br><span class="line">            <span class="comment"># 有256个卷积核,则输出通道为256,卷积核大小为(2,100)</span></span><br><span class="line">            <span class="comment"># 第一层卷积操作之后,feature_map=1*1*256</span></span><br><span class="line">            Conv1d(<span class="number">100</span>, <span class="number">256</span>, <span class="number">2</span>),</span><br><span class="line">            ReLU(),</span><br><span class="line">            <span class="comment"># 第二层卷积操作之后,feature_map=1*1*128</span></span><br><span class="line">            Conv1d(<span class="number">256</span>, <span class="number">128</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        batch_size, num_triples, input_length, dim = x.size()</span><br><span class="line">        x = x.view(batch_size*num_triples,</span><br><span class="line">                   x.shape[<span class="number">2</span>], x.shape[<span class="number">3</span>]).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">        x = self.encoder_conv1d(x)</span><br><span class="line">        <span class="keyword">return</span> x.view(batch_size, num_triples, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="基于ConvKB的负样本选择器"><a href="#基于ConvKB的负样本选择器" class="headerlink" title="基于ConvKB的负样本选择器"></a>基于ConvKB的负样本选择器</h3><ul>
+<li>ConvKB的模型是1个2维卷积层+1个全连接层, 其中2维卷积层由n个3*1的卷积核组成,输出维度为1*100*n的feature_map. 全连接层接收卷积层的输入将feature_map的维度降为1, 作为衡量三元组有效性的分数.</li>
+<li>构建一个卷积神经网络负样本选择器,对负样本实体对打分,选取其中分数最低的作为负样本的代表<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">support_negative_triples_selector</span>(<span class="params">self, support_negative</span>):</span></span><br><span class="line">    <span class="comment"># batch_size是任务数,num_triples=few*num_support_negative</span></span><br><span class="line">    <span class="comment"># num_support_negative是支持集中每个有效三元组对应错误三元组的数量</span></span><br><span class="line">    <span class="comment"># length=2,每个实体对由1个头实体和1个尾实体组成</span></span><br><span class="line">    <span class="comment"># dim=100,实体嵌入维度为100</span></span><br><span class="line">    batch_size, num_triples, length, dim = support_negative.size()</span><br><span class="line">    support_negative_score = self.convkb(</span><br><span class="line">        support_negative.view(<span class="number">-1</span>, length, dim))</span><br><span class="line">    <span class="comment"># (batch_size,few,num_sn/few,1)</span></span><br><span class="line">    support_negative_score = support_negative_score.view(</span><br><span class="line">        batch_size, self.few, self.num_support_negative, <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 对每个正样本对应的n个负样本按分数增序排列</span></span><br><span class="line">    support_negative_score_sorted = torch.sort(</span><br><span class="line">        support_negative_score, dim=<span class="number">2</span>, descending=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 取分数最低的 (batch_size,few,1)</span></span><br><span class="line">    choices = support_negative_score_sorted.indices[:, :, <span class="number">0</span>, :]</span><br><span class="line">    idx_1 = torch.LongTensor(</span><br><span class="line">        np.arange(batch_size).repeat(self.few)).to(self.device)</span><br><span class="line">    idx_2 = torch.LongTensor(</span><br><span class="line">        np.tile(np.arange(self.few), batch_size)).to(self.device)</span><br><span class="line">    idx_3 = choices.view(batch_size*self.few).to(self.device)</span><br><span class="line">    support_negative = support_negative.view(</span><br><span class="line">        batch_size, self.few, self.num_support_negative, <span class="number">2</span>, <span class="number">-1</span>)</span><br><span class="line">    support_negative = support_negative[idx_1, idx_2, idx_3]</span><br><span class="line">    support_negative = support_negative.view(</span><br><span class="line">        batch_size, self.few, <span class="number">2</span>, self.dim)</span><br><span class="line">    <span class="keyword">return</span> support_negative</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;NELL es_p&#x3D;5</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conv2d</td>
+<td>T</td>
+<td>1</td>
+<td>24000</td>
+<td>0.189</td>
+<td>0.290</td>
+<td>0.232</td>
+<td>0.137</td>
+</tr>
+<tr>
+<td>conv2d</td>
+<td>F</td>
+<td>1</td>
+<td>11000</td>
+<td>0.134</td>
+<td>0.179</td>
+<td>0.149</td>
+<td>0.108</td>
+</tr>
+<tr>
+<td>conv1d</td>
+<td>T</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>conv1d</td>
+<td>F</td>
+<td>1</td>
+<td>5000</td>
+<td>0.138</td>
+<td>0.265</td>
+<td>0.208</td>
+<td>0.075</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;Wiki    es_p&#x3D;1</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>2000</td>
+<td>0.206</td>
+<td>0.298</td>
+<td>0.251</td>
+<td>0.158</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>7000</td>
+<td>0.319</td>
+<td>0.411</td>
+<td>0.361</td>
+<td>0.268</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataset&#x3D;Wiki    es_p&#x3D;5</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>10000</td>
+<td>0.278</td>
+<td>0.367</td>
+<td>0.318</td>
+<td>0.231</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>9000</td>
+<td>0.272</td>
+<td>0.386</td>
+<td>0.336</td>
+<td>0.208</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/weekly-report-2020-11-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/weekly-report-2020-11-07/" class="post-title-link" itemprop="url">weekly report 2020-11-07</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 10:49:49" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:49+08:00">2020-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3></li>
+</ul>
+<ul>
+<li>support_positive: 支持集中的n个正确三元组$(h,r,t)$</li>
+<li>support_negative: 支持集中的n个错误三元组$(h,r,t’)$</li>
+<li>query_positive: 查询集中的k/1个正确三元组$(h,r,t)$,k对应训练集,1对应验证/测试集</li>
+<li>query_negative: 支持集中的k/m个错误三元组$(h,r,t’)$,k对应训练集,m对应验证/测试集</li>
+<li>support_positive=&gt;全连接层=&gt;正类的向量表示</li>
+<li>support_negative=&gt;全连接层=&gt;负类的向量表示</li>
+</ul>
+<h3 id="超参数"><a href="#超参数" class="headerlink" title="超参数"></a>超参数</h3><ul>
+<li>batch_size = 128</li>
+<li>eval_epoch = 1000 <code>每训练n个epoch后验证一次</code></li>
+<li>early_stop_patience (es_p) = 1 <code>验证集上的结果连续低于最好结果n次后停止训练并用最好的模型进行测试.该参数与epoch数正相关.验证结果可能在连续k次低于最好情况下在第k+1次验证时超过最好值, 所以可以通过增大es_p训练出拟合度更高的模型,负面影响是延长了训练时间.</code></li>
+</ul>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><code>dataset=NELL    es_p=1</code> </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>1</td>
+<td>4000</td>
+<td>0.158</td>
+<td>0.268</td>
+<td>0.212</td>
+<td>0.102</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>2000</td>
+<td>0.077</td>
+<td>0.116</td>
+<td>0.083</td>
+<td>0.044</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>1</td>
+<td>1000</td>
+<td>0.139</td>
+<td>0.227</td>
+<td>0.172</td>
+<td>0.089</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>5</td>
+<td>4000</td>
+<td>0.162</td>
+<td>0.260</td>
+<td>0.214</td>
+<td>0.107</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.098</td>
+<td>0.214</td>
+<td>0.093</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>5</td>
+<td>1000</td>
+<td>0.225</td>
+<td>0.389</td>
+<td>0.300</td>
+<td>0.144</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>4000</td>
+<td>0.197</td>
+<td>0.308</td>
+<td>0.250</td>
+<td>0.136</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>4000</td>
+<td>0.132</td>
+<td>0.231</td>
+<td>0.160</td>
+<td>0.084</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>5</td>
+<td>3000</td>
+<td>0.200</td>
+<td>0.345</td>
+<td>0.260</td>
+<td>0.136</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>5</td>
+<td>2000</td>
+<td>0.110</td>
+<td>0.242</td>
+<td>0.173</td>
+<td>0.052</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>dataset=NELL    es_p=5</code> </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>7000</td>
+<td>0.109</td>
+<td>0.183</td>
+<td>0.145</td>
+<td>0.054</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.098</td>
+<td>0.214</td>
+<td>0.093</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>11000</td>
+<td>0.148</td>
+<td>0.245</td>
+<td>0.184</td>
+<td>0.101</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>5</td>
+<td>27000</td>
+<td>0.214</td>
+<td>0.341</td>
+<td>0.292</td>
+<td>0.143</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>dataset=Wiki    es_p=1</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>1</td>
+<td>5000</td>
+<td>0.101</td>
+<td>0.217</td>
+<td>0.131</td>
+<td>0.049</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>3000</td>
+<td>0.076</td>
+<td>0.183</td>
+<td>0.102</td>
+<td>0.026</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>1</td>
+<td>1000</td>
+<td>0.086</td>
+<td>0.117</td>
+<td>0.099</td>
+<td>0.067</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>5</td>
+<td>4000</td>
+<td>0.129</td>
+<td>0.279</td>
+<td>0.195</td>
+<td>0.060</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.086</td>
+<td>0.209</td>
+<td>0.112</td>
+<td>0.034</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>5</td>
+<td>1000</td>
+<td>0.095</td>
+<td>0.137</td>
+<td>0.115</td>
+<td>0.072</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>TransE在5-shot情况下,在NELL数据集上效果最好,但是在Wiki数据集上,TransE在1-shot和5-shot条件下的效果都差于prototype</li>
+<li>prototype方法收敛速度更快,可以通过更少的epoch达到更好的效果</li>
+<li>prototype在不finetune的情况下比MetaR更好. MetaR使用hinge-loss,在不finetune条件下,损失只能降低到0.75左右. prototype使用交叉熵损失,在不finetune条件下,损失也能一直降低</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">校友会小程序开发文档</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 10:49:07" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:07+08:00">2020-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="华容一中校友会后台开发文档"><a href="#华容一中校友会后台开发文档" class="headerlink" title="华容一中校友会后台开发文档"></a>华容一中校友会后台开发文档</h3><h4 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h4><ul>
+<li>数据库名: alumni_association</li>
+</ul>
+<h5 id="alumni"><a href="#alumni" class="headerlink" title="alumni"></a>alumni</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>org</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>work</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>qq</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>province</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>省</td>
+</tr>
+<tr>
+<td>city</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>市</td>
+</tr>
+<tr>
+<td>district</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>区</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0表示男,1表示女</td>
+</tr>
+<tr>
+<td>join_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>微信为小程序用户分配的唯一id</td>
+</tr>
+<tr>
+<td>helper_open_id</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>帮助录入当前用户信息的用户的open_id</td>
+</tr>
+<tr>
+<td>update_times</td>
+<td>int</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>班级修改次数,不允许超过3次</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="class"><a href="#class" class="headerlink" title="class"></a>class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>class_name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grade_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级所属年级id</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="level"><a href="#level" class="headerlink" title="level"></a>level</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>level_code</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>权限编码</td>
+</tr>
+<tr>
+<td>level_name</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>权限名</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="alumni-class"><a href="#alumni-class" class="headerlink" title="alumni_class"></a>alumni_class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友id</td>
+</tr>
+<tr>
+<td>class_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="grade"><a href="#grade" class="headerlink" title="grade"></a>grade</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>毕业年份</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="association"><a href="#association" class="headerlink" title="association"></a>association</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会名字</td>
+</tr>
+<tr>
+<td>principle_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会主席id</td>
+</tr>
+<tr>
+<td>secretary_general_id_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会秘书长id</td>
+</tr>
+<tr>
+<td>contact_person_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>联系人id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="invitation"><a href="#invitation" class="headerlink" title="invitation"></a>invitation</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>invite_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人(host)id</td>
+</tr>
+<tr>
+<td>invited_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人(guest)id</td>
+</tr>
+<tr>
+<td>invite_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人openid</td>
+</tr>
+<tr>
+<td>invited_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人openid</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="notification"><a href="#notification" class="headerlink" title="notification"></a>notification</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>applicant_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求发起者openid</td>
+</tr>
+<tr>
+<td>target_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求接收者openid</td>
+</tr>
+<tr>
+<td>apply_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td>发起时间</td>
+</tr>
+<tr>
+<td>state</td>
+<td>tinyint(1)</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>消息接收状态,0代表拒绝,1代表同意</td>
+</tr>
+<tr>
+<td>applicant_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求发起者id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="card"><a href="#card" class="headerlink" title="card"></a>card</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>source_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片来源用户id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片接收用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="help-registration"><a href="#help-registration" class="headerlink" title="help_registration"></a>help_registration</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>helper_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>帮填信息者id</td>
+</tr>
+<tr>
+<td>helped_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被帮填信息者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="后台开发框架"><a href="#后台开发框架" class="headerlink" title="后台开发框架"></a>后台开发框架</h4><p>SpringBoot+Mybatis+shiro<br>SpringBoot: Spring的简化版,通过大量的预定义配置简化Spring的配置<br>Mybatis: ORM框架, 负责与数据库交互<br>shiro: 权限控制框架,基于角色分配权限(暂未实现)</p>
+<h4 id="关键工具"><a href="#关键工具" class="headerlink" title="关键工具"></a>关键工具</h4><p>jwt: 根据微信提供的openid和session_key生成token.将token加入到所有请求的header中,用于鉴权,判断是否为非法请求<br>lombok: 简化代码,自动生成POJO类的getter和setter方法<br>Tomcat: 可以处理动态资源的应用服务器.项目打成war包后部署到Tomcat下运行</p>
+<h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p>MVC架构</p>
+<ul>
+<li>model<br>service层<br>UserService<br>AuthorizationService<br>dao层<br>  AlumniMapper<br>  AlumniClassMapper<br>  NotificationMapper<br>  CardMapper</li>
+</ul>
+<ul>
+<li>view<br>web端</li>
+<li>controller<br>MainController<br>UserController<br>AuthorizationController<h4 id="接口url"><a href="#接口url" class="headerlink" title="接口url"></a>接口url</h4></li>
+<li>目前正在将原java后台用springboot框架重构, 原api部分为php, 现在统一为java, 功能已迁移大约60%. </li>
+<li>使用springboot框架开发新后台性能更好,加权限控制更方便(原后台没有编写权限管理的代码,权限都由前端控制,存在安全隐患).接口url(功能说明,参数说明,调用方法)待补充…<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">举例:</span><br><span class="line">  原后台按不同条件查询校友信息需要通过多个不同的请求地址,现在可以统一为一个请求地址,根据传入的参数查找相应的内容</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="遗留bug"><a href="#遗留bug" class="headerlink" title="遗留bug"></a>遗留bug</h4><ul>
+<li>Bug1(已解决): 发送邮件需要先通过官方api获取微信的access_token,api每天最多请求2000次,超过次数将不能再发送邮件. </li>
+<li>解决方法: 每次获取的token有2个小时的过期时间,需要保存该token防止重复请求,设置一个springboot的定时任务.<h4 id="请求说明"><a href="#请求说明" class="headerlink" title="请求说明"></a>请求说明</h4></li>
+<li>host<br><code>https://www.csubigdata.com/xyh</code><h5 id="常量请求"><a href="#常量请求" class="headerlink" title="常量请求"></a>常量请求</h5></li>
+<li><code>GET  /years</code></li>
+<li>获取所有年份</li>
+<li>返回值<br>数组<br>[1999,2000,…,2029]</li>
+<li><code>GET /classes</code></li>
+<li>获取所有班级</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>className</td>
+<td>string</td>
+<td>班级名</td>
+</tr>
+<tr>
+<td>middleOrHigh</td>
+<td>string</td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td>毕业年份</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /recent/invitation</code></li>
+<li>获取最近一段时间的邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>int</td>
+<td>请求最近n条数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invitePersonName</td>
+<td>string</td>
+<td>邀请人名字</td>
+</tr>
+<tr>
+<td>invitedPersonName</td>
+<td>string</td>
+<td>被邀请人名字</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/help</code></li>
+<li>帮填信息排名,返回数据按邀请数递减排列</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>帮填信息的人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/invitation</code></li>
+<li>邀请排名</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>邀请人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h5><ul>
+<li><code>GET /user/openid</code></li>
+<li>获取openid</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>微信随机生成的字符串,用于换取open_id与session_key</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>string</td>
+<td>小程序为当前用户生成的唯一id</td>
+</tr>
+<tr>
+<td>session_key</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>根据openid与session_key通过jwt生成的token,用于鉴权</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="名片相关"><a href="#名片相关" class="headerlink" title="名片相关"></a>名片相关</h5><ul>
+<li><code>POST /user/card/apply</code></li>
+<li>申请交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/agree</code></li>
+<li>同意交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/reject</code></li>
+<li>拒绝交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/cards</code></li>
+<li>获取所有名片</li>
+<li>请求参数<br>| 参数     | 类型 | 描述     |<br>| ———— | —— | ———— |<br>| alumniId | int  | 发起者id |</li>
+<li>返回值: json数组<br>[card1,card2,…]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>card.name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>card.phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>card.province</td>
+<td>string</td>
+<td>省</td>
+</tr>
+<tr>
+<td>card.city</td>
+<td>string</td>
+<td>市</td>
+</tr>
+<tr>
+<td>card.district</td>
+<td>string</td>
+<td>区</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notifications</code></li>
+<li>获取所有名片交换消息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+<tr>
+<td>card</td>
+<td>object</td>
+<td>名片</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notification/num</code></li>
+<li>获取名片交换消息数</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>消息数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="用户信息相关"><a href="#用户信息相关" class="headerlink" title="用户信息相关"></a>用户信息相关</h5><ul>
+<li><code>GET /user/info</code></li>
+<li>获取个人信息</li>
+<li><code>POST /user/insert</code></li>
+<li>录入信息</li>
+<li><code>PUT /user/update</code></li>
+<li>修改信息</li>
+<li><code>GET /user/captcha</code></li>
+<li>获取验证码<h5 id="二维码分享"><a href="#二维码分享" class="headerlink" title="二维码分享"></a>二维码分享</h5></li>
+<li><code>GET /user/qrcode</code></li>
+<li>生成二维码<h5 id="班级相关"><a href="#班级相关" class="headerlink" title="班级相关"></a>班级相关</h5></li>
+<li><code>POST /class/insert</code></li>
+<li>录入班级信息</li>
+<li><code>PUT /class/update</code></li>
+<li>修改班级信息<h5 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h5></li>
+<li><code>GET /query/alumnus</code></li>
+<li>查询用户信息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size</td>
+<td>T</td>
+<td>每页的数据条数</td>
+</tr>
+<tr>
+<td>page</td>
+<td>T</td>
+<td>页数</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>F</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>F</td>
+<td>班级id2</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>F</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>F</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>F</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>name</td>
+<td>F</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>F</td>
+<td>电话</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>org</td>
+<td>string</td>
+<td>单位</td>
+</tr>
+<tr>
+<td>work</td>
+<td>string</td>
+<td>职位</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>int</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>int</td>
+<td>班级id2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="个人成就相关"><a href="#个人成就相关" class="headerlink" title="个人成就相关"></a>个人成就相关</h5><ul>
+<li><code>GET /user/invitation</code></li>
+<li>获取用户邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help</code></li>
+<li>获取用户帮填记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/invitation/num</code></li>
+<li>邀请人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help/num</code></li>
+<li>帮填人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h5><h6 id="统计与排名"><a href="#统计与排名" class="headerlink" title="统计与排名"></a>统计与排名</h6><ul>
+<li><code>GET /auth/count/branch/&#123;branch&#125;</code></li>
+<li>统计各个分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>分会id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/grade/&#123;gradeId&#125;</code></li>
+<li>统计各个年级分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/class/&#123;classId&#125;</code></li>
+<li>统计各个班级人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/period</code></li>
+<li>统计某一段时间的人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>T</td>
+<td>开始时间</td>
+</tr>
+<tr>
+<td>end</td>
+<td>T</td>
+<td>结束时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /count/everyday</code></li>
+<li>所有班级每天新加入人数排名,返回值按人数递减排列</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>string</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h6 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h6><ul>
+<li><code>DELETE /auth/alumni</code></li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="错误识别码"><a href="#错误识别码" class="headerlink" title="错误识别码"></a>错误识别码</h4><ul>
+<li>200 查询成功</li>
+<li>500 网络繁忙</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/weekly-report-2020-10-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/27/weekly-report-2020-10-27/" class="post-title-link" itemprop="url">weekly report 2020-10-27</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-27 11:04:14" itemprop="dateCreated datePublished" datetime="2020-10-27T11:04:14+08:00">2020-10-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="链路预测与知识图谱补全的关系"><a href="#链路预测与知识图谱补全的关系" class="headerlink" title="链路预测与知识图谱补全的关系"></a>链路预测与知识图谱补全的关系</h2><p>知识图谱补全任务是根据知识图谱中的已知三元组预测未知的三元组.<br>对于知识图谱, 知识图谱补全和链路预测是同一种概念,可以进一步划分成实体预测和关系预测.</p>
+<ol>
+<li>实体预测 (entity prediction), 又分为(h,r,?)和(?,r,t), 知识图谱表示学习一般都通过实体预测任务评测模型好坏</li>
+<li>关系预测 (relation prediction), 即(h,?,t), 当数据集中的关系种数很少时, 预测难度较低</li>
+</ol>
+<p>少样本实体预测任务的目的是希望让模型根据一种新的关系的少量三元组去预测这种关系的其他三元组<br>TransE学习到的实体嵌入在空间中的相对位置关系就可以理解为两个实体之间的关系, 用于训练实体的相关三元组越多,实体之间相对位置关系(t-h)代表它们之间的关系就越准确.</p>
+<h2 id="TransE和少样本知识图谱补全的区别"><a href="#TransE和少样本知识图谱补全的区别" class="headerlink" title="TransE和少样本知识图谱补全的区别"></a>TransE和少样本知识图谱补全的区别</h2><h3 id="目标任务不同"><a href="#目标任务不同" class="headerlink" title="目标任务不同"></a>目标任务不同</h3><ul>
+<li>TransE的任务是学习知识图谱中实体和关系的向量表示,通过预测三元组中的尾实体是什么(h,r,?)来评测向量表示的好坏.</li>
+<li>少样本知识图谱补全的任务是已知关系$r$的$n$个三元组中的头尾实体对$\{(h,t)|(h,r,t)\in G\}$. $h,t$的向量已知, $r$的向量未知. 预测其他关于$r$的三元组中的尾实体是什么(h,r,?).</li>
+</ul>
+<h3 id="数据集不同"><a href="#数据集不同" class="headerlink" title="数据集不同"></a>数据集不同</h3><ol>
+<li>TransE的验证/测试集中的实体和关系全都包含在训练集中</li>
+<li>TransE在训练集上训练后得到了所有实体和关系的嵌入</li>
+<li>少样本数据集分成训练/验证/测试集和背景知识图谱,训练/验证/测试集的实体嵌入可以通过在背景知识图谱上预训练得到</li>
+<li>少样本训练/验证/测试集的关系集合的交集为$\varnothing$,</li>
+<li>TransE在验证/测试时,分数计算公式$||h+r-t||_2$中的$h,r,t$都是已经训练好的向量.</li>
+<li>在少样本任务中,$||h+r-t||_2$中的$h,t$是预训练或随机初始化的向量,$r$则是根据支持集得到的向量.</li>
+</ol>
+<ul>
+<li>知识图谱表示学习常用数据集</li>
+</ul>
+<pre><code>| dataset | #relation | #entity | # triple(train/valild/test)    |
+| ------- | --------- | ------- | ------------------------------ |
+| WN11    | 11        | 38696   | 112581    2609    10544        |
+| WN18    | 18        | 40943   | 141442     5000     5000       |
+| FB13    | 13        | 75043   | 316232     5908     23733      |
+| FB15K   | 1345      | 14951   | 483142     50000     59071     |
+| FB1M    | 23382     | 1\*10^6 | 17.5\*10^6    50000     177404 |
+| FB5M    | 1192      | 5385322 | 19193556     5000     59071    |
+</code></pre><ul>
+<li>FB15K<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 14951     | 13292     | 13584    | 1345      | 916       | 961      |
+| valid |           | 13292     | 12568    |           | 916       | 821      |
+| test  |           |           | 13584    |           |           | 961      |
+</code></pre><ul>
+<li>FB13<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 75043     | 6158      | 18862    | 13        | 7         | 7        |
+| valid |           | 6158      | 3208     |           | 7         | 7        |
+| test  |           |           | 18862    |           |           | 7        |
+</code></pre><ul>
+<li>NELL-One<ul>
+<li>训练/验证/测试集之间实体/关系交集数</li>
+</ul>
+</li>
+</ul>
+<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
+| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
+| train | 6407      | 451       | 847      | 51        | 0         | 0        |
+| valid |           | 712       | 135      |           | 5         | 0        |
+| test  |           |           | 1639     |           |           | 11       |
+</code></pre><ul>
+<li>背景知识图谱与训练/验证/测试集之间实体/关系交集数<br>背景知识图谱与训练/验证/测试集之间的关系不相交,背景知识图谱中的实体集合包含训练/验证/测试集中的所有实体<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">background train entity 68544 6407 6407</span><br><span class="line">background valid entity 68544 712 712</span><br><span class="line">background test entity 68544 1639 1639</span><br><span class="line">background train relation 291 51 0</span><br><span class="line">background valid relation 291 5 0</span><br><span class="line">background test relation 291 11 0</span><br></pre></td></tr></table></figure>
+通过以上3个表格可以看出,虽然TransE论文的实验同样是预测尾实体,但是数据集的切分方式与少样本数据集不同. TransE论文的实验效果依赖于训练集得到的实体嵌入和关系嵌入,少样本的实验效果依赖于背景知识图谱得到的实体嵌入.如果去掉背景知识图谱,采用随机初始化的方式进行少样本实验,实验效果依赖于通过对训练集的实体进行finetuning, 然而finetuning对实验效果是否有提升取决于训练集与验证集/测试集中的实体交集的个数,交集越大,效果越好. 在删除训练集中与测试集中的实体交集的条件下,MetaR效果下降得非常明显,但是TransE的结果不受影响,因为TransE不依赖finetuning,直接使用预训练的实体嵌入预测尾实体.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MetaR 5-shot batch_size&#x3D;128</span><br><span class="line">删除后 MRR: 0.098      Hits@10: 0.235  Hits@5: 0.153   Hits@1: 0.043</span><br><span class="line">删除前 MRR: 0.189      Hits@10: 0.303  Hits@5: 0.250   Hits@1: 0.113</span><br><span class="line">TransE 5-shot</span><br><span class="line">删除前 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br><span class="line">删除后 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br></pre></td></tr></table></figure>
+<h2 id="目前的想法"><a href="#目前的想法" class="headerlink" title="目前的想法"></a>目前的想法</h2><h3 id="计算分数的方式"><a href="#计算分数的方式" class="headerlink" title="计算分数的方式"></a>计算分数的方式</h3><ul>
+<li>融合邻居信息相似度与关系相似度</li>
+<li>设n是实体e的邻居的个数,邻居是关系与尾实体的拼接,邻居的聚合方式有2种,第1种是每个邻居乘上其关系对应的tfidf值再求和,第2种是先把邻居中的关系和实体乘上各自的tfidf再拼接,多个邻居再相加求和.<script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{w_i}N^{e}_{i}\\w_i=TFIDF(r_i)\\N_i=concat(r_i,t_i) \tag{w1}</script><script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{N_i^{e}}\\w_i=TFIDF((r/t)_i)\\N_i=concat(w_{r_i}r_i,w_{t_i}t_i) \tag{w2}</script></li>
+<li>综合头实体和尾实体邻居信息的方式有3种<script type="math/tex; mode=display">neighbor=concat(h_{neighbor},t_{neighbor}) \tag{n1}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}-h_{neighbor}  \tag{n2}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}+h_{neighbor}  \tag{n3}</script></li>
+<li>最后计算分数的方式有两种,第1种是计算查询集头尾实体与支持集关系的欧式距离,再加上查询集与支持集实体对邻居信息的余弦相似度.第2种是把计算查询集头尾实体与支持集关系的相似度的方法换成余弦相似度.实验结果表明余弦距离效果更好.<script type="math/tex; mode=display">score=||h_q+r_s-t_q||_2+cos(query_{neighbor},support_{neighbor}) \tag{s1}</script><script type="math/tex; mode=display">score=cos((h_q+r_s),t_q)+cos(query_{neighbor},support_{neighbor}) \tag{s2}</script></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N-shot</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>w1+n1+s2</td>
+<td>5</td>
+<td>0.150</td>
+<td>0.210</td>
+<td>0.182</td>
+<td>0.108</td>
+</tr>
+<tr>
+<td>w2+n1+s2</td>
+<td>5</td>
+<td>0.195</td>
+<td>0.347</td>
+<td>0.254</td>
+<td>0.117</td>
+</tr>
+<tr>
+<td>w1+n2+s2</td>
+<td>5</td>
+<td>0.163</td>
+<td>0.242</td>
+<td>0.200</td>
+<td>0.119</td>
+</tr>
+<tr>
+<td>w2+n2+s2</td>
+<td>5</td>
+<td>0.195</td>
+<td>0.345</td>
+<td>0.256</td>
+<td>0.123</td>
+</tr>
+<tr>
+<td>w1+n3+s2</td>
+<td>5</td>
+<td>0.154</td>
+<td>0.226</td>
+<td>0.188</td>
+<td>0.109</td>
+</tr>
+<tr>
+<td>w2+n3+s2</td>
+<td>5</td>
+<td>0.186</td>
+<td>0.313</td>
+<td>0.239</td>
+<td>0.114</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>比较结果看出同时对邻居中的实体和关系加权效果更好,(尾实体邻居向量-头实体邻居向量)效果更好,使用余弦相似度比欧式距离更好.</p>
+<p>5-shot条件下,加入邻居信息的效果差于不加.<br>1-shot条件下,加入邻居信息的效果好于不加.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1-shot</span><br><span class="line">否  MRR: 0.144  Hits@10: 0.235  Hits@5: 0.178   Hits@1: 0.089</span><br><span class="line">是  MRR: 0.150  Hits@10: 0.252  Hits@5: 0.186   Hits@1: 0.106</span><br></pre></td></tr></table></figure></p>
+<p>不finetune情况下,TransE效果好于MetaR和GMatching</p>
+<h3 id="最近的尝试"><a href="#最近的尝试" class="headerlink" title="最近的尝试"></a>最近的尝试</h3><ul>
+<li>Prototype Network with squared euclidean distance</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>n-shot</th>
+<th>finetune</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>True</td>
+<td>0.195</td>
+<td>0.294</td>
+<td>0.244</td>
+<td>0.146</td>
+</tr>
+<tr>
+<td>5</td>
+<td>True</td>
+<td>0.210</td>
+<td>0.352</td>
+<td>0.278</td>
+<td>0.145</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>GMatching+MetaR <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过GMatching融合邻居信息并计算匹配分数,同时用MetaR计算匹配分数</span><br><span class="line">score&#x3D;GMatching_score(qry,spt)+MetaR_score(qry,spt)</span><br><span class="line">--max_neighbor 50</span><br><span class="line">--batch_size 128</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>n-shot</th>
+<th>finetune</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>True</td>
+<td>0.188</td>
+<td>0.295</td>
+<td>0.240</td>
+<td>0.129</td>
+</tr>
+<tr>
+<td>1</td>
+<td>False</td>
+<td>0.178</td>
+<td>0.272</td>
+<td>0.222</td>
+<td>0.133</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/18/weekly-report-2020-10-18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/18/weekly-report-2020-10-18/" class="post-title-link" itemprop="url">weekly report 2020-10-18</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-18 08:41:03" itemprop="dateCreated datePublished" datetime="2020-10-18T08:41:03+08:00">2020-10-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -616,72 +3150,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/14/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/14/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-14 14:28:00" itemprop="dateCreated datePublished" datetime="2020-01-14T14:28:00+08:00">2020-01-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
 
@@ -748,17 +3216,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
