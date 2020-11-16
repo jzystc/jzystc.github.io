@@ -17,6 +17,7 @@ slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资�
 #### 查看集群所有节点的状态
 
 >sinfo
+
 ```Bash
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST 
 cpuQ*        up   infinite      3  down* node[0167,0445,0549] 
@@ -36,30 +37,33 @@ gpu8Q        up   infinite      4    mix gpu[801-804]
 fatQ         up   infinite      1    mix fat09 
 fatQ         up   infinite      9  alloc fat[01-08,10]
 ```
+
 cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区
 
 ##### STATE
-+ down:
-+ drain: 
-+ mix: 当前节点资源部分已分配
-+ alloc: 
-+ idle: 当前节点空闲
 
++ [ ] down: 节点故障不可用
++ [ ] drain: 正在运行的作业不受影响,但不接受新作业
++ [x] mix: 节点cpu资源部分已分配,剩下的cpu为idle
++ [ ] alloc: 节点所有资源都被占用,新提交的作业将排队
++ [x] idle: 当前节点空闲
++ [ ] unk: 节点刚刚启动,状态未知
 
 #### 查看自己提交的任务
->使用```squeue```查看```JOBID```
 
+>使用```squeue```查看```JOBID```
 >使用```scontrol show job JOBID```追踪任务
 
-
 #### 取消任务
+
 >scancel JOBID
 
-
 #### 更新任务
+
 > scontrol update jobid=JOBID ...
 
-由于可修改的属性非常多，我们可以借助 SLURM 自动补全功能来查看可修改的内容。 这只需要我们在输入完 JOBID 后空一格并敲两下\<TAB> 键。
+由于可修改的属性非常多，我们可以借助 SLURM 自动补全功能来查看可修改的内容。 这只需要我们在输入完 JOBID 后空一格并敲两下< TAB >键。
+
 ```bash
 account=<account>                      mintmpdisknode=<megabytes>             reqnodelist=<nodes>
 conn-type=<type>                       name>                                  reqsockets=<count>
@@ -77,32 +81,39 @@ minmemorynode=<megabytes>              reqcores=<count>
 ```
 
 #### 查看历史任务
+
 >sacct
 
-
-
 ### 安装python环境
+
 1. 推荐在当前用户文件夹下创建一个目录并将环境安装到该目录下 command: mkdir ~/envs
 2. 使用conda创建一个新的虚拟环境 command: /public/software/anaconda3/bin/conda create --prefix /path/to/your/dir (e.g., ~/envs/)
-3. 先用``` /public/software/anaconda3/bin/conda init```命令来初始化一下bash
+3. 先用```/public/software/anaconda3/bin/conda init```命令来初始化一下bash
 4. 使用```source activate /path/to/your/env```来激活环境
 
 ### 编写一个测试脚本
-1. 创建py文件 
+
+1. 创建py文件
+
 >vim ~/hello.py
-   ```python
-   import torch
-   print("cuda",torch.cuda.is_available())
-   print("Hello world!")
-   ```
+
+```python
+import torch
+print("cuda",torch.cuda.is_available())
+print("Hello world!")
+```
+
 注意: 此时在本地运行hello.py, ```torch.cuda.is_available()```的结果为False, 因为登录节点是没有gpu的, 需要通过slurm脚本申请gpu并在计算节点上运行hello.py, 返回值才能为True.
-2. 创建slurm脚本文件 
+
+2. 创建slurm脚本文件
+
 >vim ~/hello.sh
+
 ```Bash
 #!/bin/bash
 #SBATCH -J hello                #任务名字
 #SBATCH -o hello_%j.out            #保存屏幕输出到这个文件
-#SBATCH --error hello_%j.err            #保存屏幕输出到这个文件
+#SBATCH -e hello_%j.err            #异常退出,则保存屏幕输出到这个文件,可选项,可以只指定*.out文件,则错误也会输出到*.out文件
 #SBATCH -t 12:00:00             #最长运行时间, 此处为12小时
 #SBATCH -N 1                    #申请节点数
 #SBATCH --ntasks-per-node=1     #每个节点分配的任务数
@@ -117,21 +128,28 @@ conda activate /path/to/your/env      #激活环境
 # python ~/prototype/main.py -few 1 -prefix exp1 -form Pre-Train  #运行代码
 python ~/hello.py
 ```
->通知邮件内容
 
-Subject: ```Slurm Job_id=33653 Name=prototype Ended, Run time 00:22:18, COMPLETED, ExitCode 0```
-From: ```SLURM workload manager <slurm@mu01.localdomain>```
+>通知邮件内容
+```
+Subject: Slurm Job_id=33653 Name=prototype Ended, Run time 00:22:18, COMPLETED, ExitCode 0
+From: SLURM workload manager <slurm@mu01.localdomain>
+```
 
 3. 提交任务
+
 > sbatch ~/hello.sh
 
 4. 查看任务状态
+
 >squeue
+
 ```bash
-JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
+JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
 33458      cpuQ prototyp hpc19471 PD       0:00      1 (None) 
 ```
+
 >scontrol show job 33458
+
 ```Bash
 JobId=33452 JobName=prototype
    UserId=hpc194711074(1293) GroupId=hpc(500) MCS_label=N/A
@@ -160,26 +178,36 @@ JobId=33452 JobName=prototype
    Power=
    MailUser=(null) MailType=NONE
 ```
+
 5. 查看保存的屏幕输出
-> cat ~/hello.out
+
+>cat ~/hello.out
+
 ```
 cuda True
 hello world
 ```
 
 ### 注意事项
+
 1. 如果python代码中有中文,需要在py文件的第一行加上以下三行代码中的任一行,作用是声明文件的编码格式
+
 ```python
 #coding=utf-8
 #coding:utf-8
 #-*- coding:utf-8 -*-
 ```
+
 2. 安装pytorch时,cuda版本需要低于10.2,否则可能报以下错误:```The NVIDIA driver on your system is too old (found version 10010).```
-- [x] pytorch 1.7.0 + cuda 10.1 测试通过
-- [ ] pytorch 1.7.0 + cuda 10.2 测试不通过
+
++ [x] pytorch 1.7.0 + cuda 10.1 测试通过
++ [ ] pytorch 1.7.0 + cuda 10.2 测试不通过
+
 3. bash脚本的单行注释为#,sbatch参数也以#开头,注释sbatch参数的方法如下
    ```##SBATCH --job-name=xxx```
+
 ### 参考文献
+
 [1] [北大工作站使用指南](http://bicmr.pku.edu.cn/~wenzw/pages/)
 [2] [Slurm官方文档](https://slurm.schedmd.com/documentation.html)
 [3] [中科大slurm使用指南.pdf](http://hmli.ustc.edu.cn/doc/userguide/slurm-userguide.pdf)
