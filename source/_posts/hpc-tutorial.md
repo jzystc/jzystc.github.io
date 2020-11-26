@@ -30,6 +30,7 @@ slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资�
 ### 重要的目录
 1. Softwares:/public/software; # anaconda3等软件在这个目录下.
 2. Job templates: /public/job_templates; # 样例脚本, 参考[信网中心提供的指南](https://nic.csu.edu.cn/info/1146/1790.htm)来使用样例脚本
+
 ### 常用命令
 
 #### 查看集群所有节点的状态
@@ -56,7 +57,7 @@ fatQ         up   infinite      1    mix fat09
 fatQ         up   infinite      9  alloc fat[01-08,10]
 ```
 
-cpuQ为cpu分区,gpu2Q~gpu8Q为gpu分区,如果想使用gpu,必须将作业提交到gpu分区
+cpuQ,ResQ,fatQ都为cpu分区,gpu2Q~gpu8Q为gpu分区. 如果想使用gpu,必须将作业提交到gpu分区
 
 ##### STATE
 
@@ -140,7 +141,7 @@ print("Hello world!")
 #SBATCH -w gpu202               #指定gpu节点,不写则自动分配
 #SBATCH --gres=gpu:1            #申请1块gpu
 #SBATCH --mail-type=end                   #邮件通知类型start/end/failed, end表示作业结束时邮件通知, 可选项
-#SBATCH --mail-user=jzystc@live.com       #邮件通知邮箱, 可选项
+#SBATCH --mail-user=your_email       #邮件通知邮箱, 可选项
 eval "$(/public/software/anaconda3/bin/conda shell.bash hook)"
 conda activate /path/to/your/env      #激活环境 
 # python ~/prototype/main.py -few 1 -prefix exp1 -form Pre-Train  #运行代码
@@ -224,7 +225,7 @@ hello world
 3. bash脚本的单行注释为#,sbatch参数也以#开头,注释sbatch参数的方法如下
    ```##SBATCH --job-name=xxx```
 
-### 参考文献
+### 参考资料
 
 [1] [北大工作站使用指南](http://bicmr.pku.edu.cn/~wenzw/pages/)
 [2] [Slurm官方文档](https://slurm.schedmd.com/documentation.html)
