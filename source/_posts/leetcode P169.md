@@ -4,7 +4,6 @@ date: 2021-03-23 10:06:00
 categories:
     - leetcode
 tags:
-    - tutorial
 ---
 
 # 169. 多数元素
