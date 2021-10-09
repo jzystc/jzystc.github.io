@@ -3,8 +3,6 @@ title: weekly report 2020-11-15
 date: 2020-11-14 09:57:41
 tags:
     - report
-categories:
-    - note
 mathjax: true
 ---
 ### 二维卷积

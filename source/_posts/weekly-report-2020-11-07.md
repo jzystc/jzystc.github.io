@@ -3,6 +3,7 @@ title: weekly report 2020-11-07
 date: 2020-11-07 10:49:49
 tags: 
     - report
+mathjax: true
 ---
 - ### prototype
 + support_positive: 支持集中的n个正确三元组$(h,r,t)$

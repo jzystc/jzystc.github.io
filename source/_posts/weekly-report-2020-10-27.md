@@ -3,6 +3,7 @@ title: weekly report 2020-10-27
 date: 2020-10-27 11:04:14
 tags:
     - report
+mathjax: true
 ---
 
 ## 链路预测与知识图谱补全的关系
