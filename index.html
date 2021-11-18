@@ -258,76 +258,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/14/%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/14/%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-14 22:16:59" itemprop="dateCreated datePublished" datetime="2021-11-14T22:16:59+08:00">2021-11-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="云服务器环境配置"><a href="#云服务器环境配置" class="headerlink" title="云服务器环境配置"></a>云服务器环境配置</h1><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><h3 id="自动安装"><a href="#自动安装" class="headerlink" title="自动安装"></a>自动安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一键安装脚本, 2选1</span></span><br><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
-<h3 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h3><h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
-<h4 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install \</span><br><span class="line">  apt-transport-https \</span><br><span class="line">  ca-certificates \</span><br><span class="line">  curl \</span><br><span class="line">  gnupg-agent \</span><br><span class="line">  software-properties-common</span><br></pre></td></tr></table></figure>
-<h4 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"><span class="comment"># 验证密钥</span></span><br><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br></pre></td></tr></table></figure>
-<h4 id="添加docker安装源"><a href="#添加docker安装源" class="headerlink" title="添加docker安装源"></a>添加docker安装源</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">   <span class="string">&quot;deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/ \</span></span><br><span class="line"><span class="string">  <span class="subst">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">  stable&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="安装-Docker-Engine-Community"><a href="#安装-Docker-Engine-Community" class="headerlink" title="安装 Docker Engine-Community"></a>安装 Docker Engine-Community</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="comment"># 安装特定版本</span></span><br><span class="line"><span class="comment"># 列出版本</span></span><br><span class="line">apt-cache madison docker-ce</span><br><span class="line">sudo apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
-<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><h3 id="安装mysql安装源"><a href="#安装mysql安装源" class="headerlink" title="安装mysql安装源"></a>安装mysql安装源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># [MySQL APT Repository](https://dev.mysql.com/downloads/repo/apt/)</span></span><br><span class="line">dpkg -i mysql-apt-config_0.8.20-1_all.deb</span><br></pre></td></tr></table></figure>
-<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install mysql-server</span><br></pre></td></tr></table></figure>
-<h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
-<h3 id="配置远程访问"><a href="#配置远程访问" class="headerlink" title="配置远程访问"></a>配置远程访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -uroot -p</span><br><span class="line">&gt; use mysql</span><br><span class="line">&gt; update user <span class="built_in">set</span> host=<span class="string">&#x27;%&#x27;</span> <span class="built_in">where</span> user =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">&gt; FLUSH PRIVILEGES;</span><br><span class="line">&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="string">&quot;PASSWORD&quot;</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment">#安装依赖：gcc、g++依赖库</span></span><br><span class="line">sudo apt-get install build-essential libtool</span><br><span class="line"><span class="comment">#安装 pcre依赖库（http://www.pcre.org/）</span></span><br><span class="line">sudo apt-get install libpcre3 libpcre3-dev</span><br><span class="line"><span class="comment">#安装 zlib依赖库（http://www.zlib.net）</span></span><br><span class="line">sudo apt-get install zlib1g-dev</span><br><span class="line"><span class="comment">#安装ssl依赖库</span></span><br><span class="line">sudo apt-get install openssl</span><br></pre></td></tr></table></figure>
-<h3 id="编译安装nginx"><a href="#编译安装nginx" class="headerlink" title="编译安装nginx"></a>编译安装nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://nginx.org/en/download.html</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.20.1.tar.gz</span><br><span class="line">tar zxvf nginx-1.20.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.20.1.7</span><br><span class="line">sudo ./configure --prefix=/usr --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/<span class="built_in">log</span>/nginx/error.log --http-log-path=/var/<span class="built_in">log</span>/nginx/access.log --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock</span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">sudo nginx</span><br><span class="line"><span class="comment"># 查看Nginx进程</span></span><br><span class="line">ps -ef|grep nginx</span><br><span class="line"><span class="comment"># 常用</span></span><br><span class="line">sudo nginx -s stop</span><br><span class="line">sudo nginx -s quit</span><br><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/12/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1545,6 +1475,1717 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">校友会小程序开发文档</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 10:49:07" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:07+08:00">2020-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="华容一中校友会后台开发文档"><a href="#华容一中校友会后台开发文档" class="headerlink" title="华容一中校友会后台开发文档"></a>华容一中校友会后台开发文档</h3><h4 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h4><ul>
+<li>数据库名: alumni_association</li>
+</ul>
+<h5 id="alumni"><a href="#alumni" class="headerlink" title="alumni"></a>alumni</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>org</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>work</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>qq</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>province</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>省</td>
+</tr>
+<tr>
+<td>city</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>市</td>
+</tr>
+<tr>
+<td>district</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>区</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0表示男,1表示女</td>
+</tr>
+<tr>
+<td>join_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>微信为小程序用户分配的唯一id</td>
+</tr>
+<tr>
+<td>helper_open_id</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>帮助录入当前用户信息的用户的open_id</td>
+</tr>
+<tr>
+<td>update_times</td>
+<td>int</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>班级修改次数,不允许超过3次</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="class"><a href="#class" class="headerlink" title="class"></a>class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>class_name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>grade_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级所属年级id</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="level"><a href="#level" class="headerlink" title="level"></a>level</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>level_code</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>权限编码</td>
+</tr>
+<tr>
+<td>level_name</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>权限名</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>monitor_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班长姓名</td>
+</tr>
+<tr>
+<td>teacher_name</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任姓名</td>
+</tr>
+<tr>
+<td>teacher_name2</td>
+<td>varchar</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>班主任2姓名</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td>timestamp</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>最后一次被修改的时间</td>
+</tr>
+<tr>
+<td>modifier_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户openid</td>
+</tr>
+<tr>
+<td>modifier_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>最后一次修改班级信息的用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="alumni-class"><a href="#alumni-class" class="headerlink" title="alumni_class"></a>alumni_class</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友id</td>
+</tr>
+<tr>
+<td>class_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>班级id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="grade"><a href="#grade" class="headerlink" title="grade"></a>grade</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>毕业年份</td>
+</tr>
+<tr>
+<td>middle_or_high</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>高中或初中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="association"><a href="#association" class="headerlink" title="association"></a>association</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>校友会名字</td>
+</tr>
+<tr>
+<td>principle_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会主席id</td>
+</tr>
+<tr>
+<td>secretary_general_id_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>校友会秘书长id</td>
+</tr>
+<tr>
+<td>contact_person_id</td>
+<td>int</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>联系人id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="invitation"><a href="#invitation" class="headerlink" title="invitation"></a>invitation</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>invite_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人(host)id</td>
+</tr>
+<tr>
+<td>invited_person_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人(guest)id</td>
+</tr>
+<tr>
+<td>invite_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>邀请人openid</td>
+</tr>
+<tr>
+<td>invited_person_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被邀请人openid</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="notification"><a href="#notification" class="headerlink" title="notification"></a>notification</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>applicant_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求发起者openid</td>
+</tr>
+<tr>
+<td>target_open_id</td>
+<td>varchar</td>
+<td></td>
+<td></td>
+<td></td>
+<td>交换名片请求接收者openid</td>
+</tr>
+<tr>
+<td>apply_time</td>
+<td>timestamp</td>
+<td></td>
+<td></td>
+<td></td>
+<td>发起时间</td>
+</tr>
+<tr>
+<td>state</td>
+<td>tinyint(1)</td>
+<td></td>
+<td>T</td>
+<td></td>
+<td>消息接收状态,0代表拒绝,1代表同意</td>
+</tr>
+<tr>
+<td>applicant_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求发起者id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>请求接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="card"><a href="#card" class="headerlink" title="card"></a>card</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>source_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片来源用户id</td>
+</tr>
+<tr>
+<td>target_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>名片接收用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="help-registration"><a href="#help-registration" class="headerlink" title="help_registration"></a>help_registration</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>默认值</th>
+<th>允许非空</th>
+<th>自动递增</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td>T</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>helper_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>帮填信息者id</td>
+</tr>
+<tr>
+<td>helped_alumni_id</td>
+<td>int</td>
+<td></td>
+<td></td>
+<td></td>
+<td>被帮填信息者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="后台开发框架"><a href="#后台开发框架" class="headerlink" title="后台开发框架"></a>后台开发框架</h4><p>SpringBoot+Mybatis+shiro<br>SpringBoot: Spring的简化版,通过大量的预定义配置简化Spring的配置<br>Mybatis: ORM框架, 负责与数据库交互<br>shiro: 权限控制框架,基于角色分配权限(暂未实现)</p>
+<h4 id="关键工具"><a href="#关键工具" class="headerlink" title="关键工具"></a>关键工具</h4><p>jwt: 根据微信提供的openid和session_key生成token.将token加入到所有请求的header中,用于鉴权,判断是否为非法请求<br>lombok: 简化代码,自动生成POJO类的getter和setter方法<br>Tomcat: 可以处理动态资源的应用服务器.项目打成war包后部署到Tomcat下运行</p>
+<h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p>MVC架构</p>
+<ul>
+<li>model<br>service层<br>UserService<br>AuthorizationService<br>dao层<br>  AlumniMapper<br>  AlumniClassMapper<br>  NotificationMapper<br>  CardMapper</li>
+</ul>
+<ul>
+<li>view<br>web端</li>
+<li>controller<br>MainController<br>UserController<br>AuthorizationController<h4 id="接口url"><a href="#接口url" class="headerlink" title="接口url"></a>接口url</h4></li>
+<li>目前正在将原java后台用springboot框架重构, 原api部分为php, 现在统一为java, 功能已迁移大约60%. </li>
+<li>使用springboot框架开发新后台性能更好,加权限控制更方便(原后台没有编写权限管理的代码,权限都由前端控制,存在安全隐患).接口url(功能说明,参数说明,调用方法)待补充…<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">举例:</span><br><span class="line">  原后台按不同条件查询校友信息需要通过多个不同的请求地址,现在可以统一为一个请求地址,根据传入的参数查找相应的内容</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="遗留bug"><a href="#遗留bug" class="headerlink" title="遗留bug"></a>遗留bug</h4><ul>
+<li>Bug1(已解决): 发送邮件需要先通过官方api获取微信的access_token,api每天最多请求2000次,超过次数将不能再发送邮件. </li>
+<li>解决方法: 每次获取的token有2个小时的过期时间,需要保存该token防止重复请求,设置一个springboot的定时任务.<h4 id="请求说明"><a href="#请求说明" class="headerlink" title="请求说明"></a>请求说明</h4></li>
+<li>host<br><code>https://www.csubigdata.com/xyh</code><h5 id="常量请求"><a href="#常量请求" class="headerlink" title="常量请求"></a>常量请求</h5></li>
+<li><code>GET  /years</code></li>
+<li>获取所有年份</li>
+<li>返回值<br>数组<br>[1999,2000,…,2029]</li>
+<li><code>GET /classes</code></li>
+<li>获取所有班级</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>className</td>
+<td>string</td>
+<td>班级名</td>
+</tr>
+<tr>
+<td>middleOrHigh</td>
+<td>string</td>
+<td>高中或初中</td>
+</tr>
+<tr>
+<td>year</td>
+<td>int</td>
+<td>毕业年份</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /recent/invitation</code></li>
+<li>获取最近一段时间的邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>int</td>
+<td>请求最近n条数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invitePersonName</td>
+<td>string</td>
+<td>邀请人名字</td>
+</tr>
+<tr>
+<td>invitedPersonName</td>
+<td>string</td>
+<td>被邀请人名字</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/help</code></li>
+<li>帮填信息排名,返回数据按邀请数递减排列</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>帮填信息的人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /rank/invitation</code></li>
+<li>邀请排名</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>名字</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>邀请人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h5><ul>
+<li><code>GET /user/openid</code></li>
+<li>获取openid</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>微信随机生成的字符串,用于换取open_id与session_key</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openid</td>
+<td>string</td>
+<td>小程序为当前用户生成的唯一id</td>
+</tr>
+<tr>
+<td>session_key</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>根据openid与session_key通过jwt生成的token,用于鉴权</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="名片相关"><a href="#名片相关" class="headerlink" title="名片相关"></a>名片相关</h5><ul>
+<li><code>POST /user/card/apply</code></li>
+<li>申请交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/agree</code></li>
+<li>同意交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/card/reject</code></li>
+<li>拒绝交换名片</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/cards</code></li>
+<li>获取所有名片</li>
+<li>请求参数<br>| 参数     | 类型 | 描述     |<br>| ———— | —— | ———— |<br>| alumniId | int  | 发起者id |</li>
+<li>返回值: json数组<br>[card1,card2,…]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>card.name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>card.phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>card.province</td>
+<td>string</td>
+<td>省</td>
+</tr>
+<tr>
+<td>card.city</td>
+<td>string</td>
+<td>市</td>
+</tr>
+<tr>
+<td>card.district</td>
+<td>string</td>
+<td>区</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notifications</code></li>
+<li>获取所有名片交换消息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>applicantAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetAlumniId</td>
+<td>int</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>applicantOpenId</td>
+<td>string</td>
+<td>发起者id</td>
+</tr>
+<tr>
+<td>targetOpenId</td>
+<td>string</td>
+<td>接收者id</td>
+</tr>
+<tr>
+<td>card</td>
+<td>object</td>
+<td>名片</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>POST /user/notification/num</code></li>
+<li>获取名片交换消息数</li>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>消息数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="用户信息相关"><a href="#用户信息相关" class="headerlink" title="用户信息相关"></a>用户信息相关</h5><ul>
+<li><code>GET /user/info</code></li>
+<li>获取个人信息</li>
+<li><code>POST /user/insert</code></li>
+<li>录入信息</li>
+<li><code>PUT /user/update</code></li>
+<li>修改信息</li>
+<li><code>GET /user/captcha</code></li>
+<li>获取验证码<h5 id="二维码分享"><a href="#二维码分享" class="headerlink" title="二维码分享"></a>二维码分享</h5></li>
+<li><code>GET /user/qrcode</code></li>
+<li>生成二维码<h5 id="班级相关"><a href="#班级相关" class="headerlink" title="班级相关"></a>班级相关</h5></li>
+<li><code>POST /class/insert</code></li>
+<li>录入班级信息</li>
+<li><code>PUT /class/update</code></li>
+<li>修改班级信息<h5 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h5></li>
+<li><code>GET /query/alumnus</code></li>
+<li>查询用户信息</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>size</td>
+<td>T</td>
+<td>每页的数据条数</td>
+</tr>
+<tr>
+<td>page</td>
+<td>T</td>
+<td>页数</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>F</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>F</td>
+<td>班级id2</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>F</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>F</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>F</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>name</td>
+<td>F</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>F</td>
+<td>电话</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json数组</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>int</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td>电话</td>
+</tr>
+<tr>
+<td>org</td>
+<td>string</td>
+<td>单位</td>
+</tr>
+<tr>
+<td>work</td>
+<td>string</td>
+<td>职位</td>
+</tr>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>校友会id</td>
+</tr>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>gradeId2</td>
+<td>int</td>
+<td>年级id2</td>
+</tr>
+<tr>
+<td>classId2</td>
+<td>int</td>
+<td>班级id2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="个人成就相关"><a href="#个人成就相关" class="headerlink" title="个人成就相关"></a>个人成就相关</h5><ul>
+<li><code>GET /user/invitation</code></li>
+<li>获取用户邀请记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help</code></li>
+<li>获取用户帮填记录</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/invitation/num</code></li>
+<li>邀请人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /user/help/num</code></li>
+<li>帮填人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>openId</td>
+<td>T</td>
+<td>用户openid</td>
+</tr>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>姓名</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h5><h6 id="统计与排名"><a href="#统计与排名" class="headerlink" title="统计与排名"></a>统计与排名</h6><ul>
+<li><code>GET /auth/count/branch/&#123;branch&#125;</code></li>
+<li>统计各个分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branch</td>
+<td>int</td>
+<td>分会id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/grade/&#123;gradeId&#125;</code></li>
+<li>统计各个年级分会人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gradeId</td>
+<td>int</td>
+<td>年级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/class/&#123;classId&#125;</code></li>
+<li>统计各个班级人数</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>int</td>
+<td>班级id</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /auth/count/period</code></li>
+<li>统计某一段时间的人数</li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>T</td>
+<td>开始时间</td>
+</tr>
+<tr>
+<td>end</td>
+<td>T</td>
+<td>结束时间</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>GET /count/everyday</code></li>
+<li>所有班级每天新加入人数排名,返回值按人数递减排列</li>
+<li>返回值: json对象</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>string</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>num</td>
+<td>int</td>
+<td>人数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h6 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h6><ul>
+<li><code>DELETE /auth/alumni</code></li>
+<li>请求参数</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alumniId</td>
+<td>T</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="错误识别码"><a href="#错误识别码" class="headerlink" title="错误识别码"></a>错误识别码</h4><ul>
+<li>200 查询成功</li>
+<li>500 网络繁忙</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1614,7 +3255,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
