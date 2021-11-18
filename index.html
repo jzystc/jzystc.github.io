@@ -164,6 +164,170 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/18/mysql%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/18/mysql%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">mysql 权限配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-18 13:55:00" itemprop="dateCreated datePublished" datetime="2021-11-18T13:55:00+08:00">2021-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mysql-权限配置"><a href="#mysql-权限配置" class="headerlink" title="mysql 权限配置"></a>mysql 权限配置</h1><h2 id="删除root权限如何恢复"><a href="#删除root权限如何恢复" class="headerlink" title="删除root权限如何恢复"></a>删除root权限如何恢复</h2><h3 id="安全模式启动mysql"><a href="#安全模式启动mysql" class="headerlink" title="安全模式启动mysql"></a>安全模式启动mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安全模式启动mysql服务</span></span><br><span class="line">vim /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"><span class="comment"># 在[mysql]处添加下述代码</span></span><br><span class="line">[mysql]</span><br><span class="line">skip-grant-tables</span><br><span class="line"><span class="comment"># 重启mysql服务</span></span><br><span class="line">sudo service mysql restart</span><br></pre></td></tr></table></figure>
+<h3 id="恢复权限"><a href="#恢复权限" class="headerlink" title="恢复权限"></a>恢复权限</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 报错使用flush privileges命令</span></span><br><span class="line">mysql&gt; grant all privileges on *.* to root@&quot;localhost&quot;;</span><br><span class="line">ERROR 1290 (HY000): The MySQL server is running <span class="keyword">with</span> the <span class="comment">--skip-grant-tables option so it cannot execute this statement</span></span><br><span class="line">mysql&gt; <span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br><span class="line"><span class="comment"># 重新赋权</span></span><br><span class="line">mysql&gt; grant all privileges on *.* to root@&quot;localhost&quot;;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<h3 id="还原配置文件"><a href="#还原配置文件" class="headerlink" title="还原配置文件"></a>还原配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mysql/mysql.conf.d/mysqld.cnf</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"><span class="comment"># skip-grant-tables</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启mysql服务</span></span><br><span class="line">sudo service mysql restart</span><br></pre></td></tr></table></figure>
+<h2 id="无密码登录问题"><a href="#无密码登录问题" class="headerlink" title="无密码登录问题"></a>无密码登录问题</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; use mysql;</span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql &gt; 5.7</span></span><br><span class="line">&gt; update user set password=password(&#x27;PASSWORD&#x27;) where user=&#x27;root&#x27;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql &lt;= 5.7</span></span><br><span class="line">&gt; update user set authentication_string=password(&quot;PASSWORD&quot;) where user=&#x27;root&#x27;;</span><br><span class="line">&gt; update user set plugin=&quot;mysql_native_password&quot;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新</span></span><br><span class="line">&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<h2 id="权限管理常用命令"><a href="#权限管理常用命令" class="headerlink" title="权限管理常用命令"></a>权限管理常用命令</h2><blockquote>
+<p> 创建用户</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;user1&#x27;</span>@<span class="string">&#x27;host&#x27;</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;user2&#x27;</span>@<span class="string">&#x27;%&#x27;</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span> <span class="keyword">ON</span> test.user <span class="keyword">TO</span> <span class="string">&#x27;user&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改密码</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">&#x27;user&#x27;</span>@<span class="string">&#x27;host&#x27;</span> = <span class="keyword">PASSWORD</span>(<span class="string">&#x27;newpassword&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>删除用户</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> <span class="string">&#x27;usernam&#x27;</span>@<span class="string">&#x27;host&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>grant 赋权</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># privileges可省略</span></span><br><span class="line">mysql&gt; grant all on *.* to user@&#x27;ip&#x27; identified by &quot;password&quot;;  </span><br><span class="line"><span class="comment"># 192.168.1.%表示一个网段</span></span><br><span class="line">mysql&gt; grant all privileges on *.* to user@&#x27;192.168.1.%&#x27; identified by &quot;123456&quot;;</span><br><span class="line">mysql&gt; grant insert,select,update,delete,drop,create,alter on &#x27;database&#x27;.&#x27;table&#x27; to user@&#x27;%&#x27; identified by &quot;123456&quot;;</span><br><span class="line"><span class="comment"># 刷新</span></span><br><span class="line">mysql&gt; flush privilege</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>revoke 撤销权限</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke all on *.* from user@<span class="string">&#x27;ip&#x27;</span>;</span><br><span class="line">mysql&gt; revoke all privileges on *.* from user@<span class="string">&#x27;ip&#x27;</span>;         </span><br><span class="line">mysql&gt; revoke insert,select,update,delete,drop,create,alter on database.table from user@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看权限</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看权限</span></span><br><span class="line">show grants;</span><br><span class="line">show grants <span class="keyword">for</span> user@<span class="string">&#x27;%&#x27;</span>; </span><br><span class="line"><span class="comment"># 查看user和ip</span></span><br><span class="line">SELECT User, Host, plugin FROM mysql.user;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/14/%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/14/%E8%BF%81%E7%A7%BB%E6%9C%8D%E5%8A%A1%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-14 22:16:59" itemprop="dateCreated datePublished" datetime="2021-11-14T22:16:59+08:00">2021-11-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="云服务器环境配置"><a href="#云服务器环境配置" class="headerlink" title="云服务器环境配置"></a>云服务器环境配置</h1><h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><h3 id="自动安装"><a href="#自动安装" class="headerlink" title="自动安装"></a>自动安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一键安装脚本, 2选1</span></span><br><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
+<h3 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h3><h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+<h4 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install \</span><br><span class="line">  apt-transport-https \</span><br><span class="line">  ca-certificates \</span><br><span class="line">  curl \</span><br><span class="line">  gnupg-agent \</span><br><span class="line">  software-properties-common</span><br></pre></td></tr></table></figure>
+<h4 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"><span class="comment"># 验证密钥</span></span><br><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br></pre></td></tr></table></figure>
+<h4 id="添加docker安装源"><a href="#添加docker安装源" class="headerlink" title="添加docker安装源"></a>添加docker安装源</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">   <span class="string">&quot;deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/ \</span></span><br><span class="line"><span class="string">  <span class="subst">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">  stable&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装-Docker-Engine-Community"><a href="#安装-Docker-Engine-Community" class="headerlink" title="安装 Docker Engine-Community"></a>安装 Docker Engine-Community</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="comment"># 安装特定版本</span></span><br><span class="line"><span class="comment"># 列出版本</span></span><br><span class="line">apt-cache madison docker-ce</span><br><span class="line">sudo apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><h3 id="安装mysql安装源"><a href="#安装mysql安装源" class="headerlink" title="安装mysql安装源"></a>安装mysql安装源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># [MySQL APT Repository](https://dev.mysql.com/downloads/repo/apt/)</span></span><br><span class="line">dpkg -i mysql-apt-config_0.8.20-1_all.deb</span><br></pre></td></tr></table></figure>
+<h3 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install mysql-server</span><br></pre></td></tr></table></figure>
+<h3 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<h3 id="配置远程访问"><a href="#配置远程访问" class="headerlink" title="配置远程访问"></a>配置远程访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -uroot -p</span><br><span class="line">&gt; use mysql</span><br><span class="line">&gt; update user <span class="built_in">set</span> host=<span class="string">&#x27;%&#x27;</span> <span class="built_in">where</span> user =<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">&gt; FLUSH PRIVILEGES;</span><br><span class="line">&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="string">&quot;PASSWORD&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment">#安装依赖：gcc、g++依赖库</span></span><br><span class="line">sudo apt-get install build-essential libtool</span><br><span class="line"><span class="comment">#安装 pcre依赖库（http://www.pcre.org/）</span></span><br><span class="line">sudo apt-get install libpcre3 libpcre3-dev</span><br><span class="line"><span class="comment">#安装 zlib依赖库（http://www.zlib.net）</span></span><br><span class="line">sudo apt-get install zlib1g-dev</span><br><span class="line"><span class="comment">#安装ssl依赖库</span></span><br><span class="line">sudo apt-get install openssl</span><br></pre></td></tr></table></figure>
+<h3 id="编译安装nginx"><a href="#编译安装nginx" class="headerlink" title="编译安装nginx"></a>编译安装nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://nginx.org/en/download.html</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.20.1.tar.gz</span><br><span class="line">tar zxvf nginx-1.20.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.20.1.7</span><br><span class="line">sudo ./configure --prefix=/usr --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/<span class="built_in">log</span>/nginx/error.log --http-log-path=/var/<span class="built_in">log</span>/nginx/access.log --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock</span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">sudo nginx</span><br><span class="line"><span class="comment"># 查看Nginx进程</span></span><br><span class="line">ps -ef|grep nginx</span><br><span class="line"><span class="comment"># 常用</span></span><br><span class="line">sudo nginx -s stop</span><br><span class="line">sudo nginx -s quit</span><br><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/12/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -292,6 +456,177 @@
       
           <h1 id="设计模式-单例模式"><a href="#设计模式-单例模式" class="headerlink" title="设计模式-单例模式"></a>设计模式-单例模式</h1><p>单例模式仅创建一个实例</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> designpatterns;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 双检锁单例模式 懒汉式 线程安全 高性能</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * volatile 关键字保证实例在多线程中的可见性以及防止指令重排序 创建实例的过程可以被分解成3个步骤 1. memery = allocate();</span></span><br><span class="line"><span class="comment">     * // 分配内存空间 2. initialize(memery); // 初始化内存空间 3. instance = memery; //</span></span><br><span class="line"><span class="comment">     * 将内存地址赋值给instance</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数私有化防止被调用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyThread[] threads = <span class="keyword">new</span> MyThread[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            threads[i] = <span class="keyword">new</span> MyThread(String.format(<span class="string">&quot;Thread-%d&quot;</span>, i + <span class="number">1</span>));</span><br><span class="line">            threads[i].start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyThread</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Singleton instance = Singleton.getInstance();</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name + <span class="string">&quot;:&quot;</span> + instance.hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/09/%E5%9C%A8Windows%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%90%AD%E5%BB%BAHadoop%E5%92%8CSpark%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/09/%E5%9C%A8Windows%E5%AD%90%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%90%AD%E5%BB%BAHadoop%E5%92%8CSpark%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">在Windows子系统中搭建Hadoop和Spark环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-09 12:48:21" itemprop="dateCreated datePublished" datetime="2021-08-09T12:48:21+08:00">2021-08-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="常见问题与注意事项"><a href="#常见问题与注意事项" class="headerlink" title="常见问题与注意事项"></a>常见问题与注意事项</h2><ul>
+<li>wsl默认与windows共享环境变量, 如果在windows中已经配置过hadoop环境,在wsl中可能会出错,所以需要禁止wsl与windows共享环境变量</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br><span class="line"><span class="comment"># 将下面的内容添加到wsl.conf中</span></span><br><span class="line"></span><br><span class="line">[interop]</span><br><span class="line">appendWindowsPath = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重启wsl, 在powershell中运行以下命令</span></span><br><span class="line">wslconfig /t Ubuntu</span><br></pre></td></tr></table></figure>
+<h2 id="配置JAVA环境"><a href="#配置JAVA环境" class="headerlink" title="配置JAVA环境"></a>配置JAVA环境</h2><blockquote>
+<p>版本兼容性问题</p>
+</blockquote>
+<ol>
+<li>hadoop 3.3及以上版本 支持java 8和java 11</li>
+<li>hadoop 3.0.x - 3.2.x 支持java 8</li>
+<li>hadoop 2.7.x - 2.10.x 支持java 7和java 8</li>
+</ol>
+<h3 id="下载openjdk-8"><a href="#下载openjdk-8" class="headerlink" title="下载openjdk 8"></a>下载openjdk 8</h3><p>版本: adopt-openjdk-8u302<br><a target="_blank" rel="noopener" href="https://adoptium.net/?variant=openjdk8&amp;jvmVariant=hotspot">下载地址</a></p>
+<h3 id="解压到指定目录"><a href="#解压到指定目录" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">mkdir /home/jzy/opt </span><br><span class="line"><span class="comment"># -x 解压; -v 显示过程; -z 有gz属性的; -f 使用档案名</span></span><br><span class="line"><span class="comment"># --strip-components 数字 去除目录结构,为1表示解压第一个目录下的所有文件</span></span><br><span class="line">sudo tar -xvzf --strip-components 1 OpenJDK8U-jdk_x64_linux_hotspot_8u302b08.tar.gz -C /home/jzy/opt/jdk8</span><br></pre></td></tr></table></figure>
+<h3 id="配置Java环境变量"><a href="#配置Java环境变量" class="headerlink" title="配置Java环境变量"></a>配置Java环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件末尾写入以下内容</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/home/jzy/opt/jdk8</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用设置</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看jdk版本</span></span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<h2 id="安装Hadoop"><a href="#安装Hadoop" class="headerlink" title="安装Hadoop"></a>安装Hadoop</h2><h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ssh</span><br><span class="line">sudo apt-get install pdsh</span><br><span class="line">sudo apt-get install openssh-client openssh-server</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载Hadoop 2.10.1 (<a target="_blank" rel="noopener" href="https://hadoop.apache.org/releases.html">下载地址</a>)</li>
+</ul>
+<h3 id="解压到指定目录-1"><a href="#解压到指定目录-1" class="headerlink" title="解压到指定目录"></a>解压到指定目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -x 解压; -v 显示过程; -z 有gz属性的; -f 使用档案名</span></span><br><span class="line"><span class="comment"># --strip-components 数字 去除目录结构,为1表示解压第一个目录下的所有文件</span></span><br><span class="line">tar -xvzf hadoop-2.10.1.tar.gz -C /home/jzy/opt</span><br></pre></td></tr></table></figure>
+<h3 id="配置Hadoop环境变量"><a href="#配置Hadoop环境变量" class="headerlink" title="配置Hadoop环境变量"></a>配置Hadoop环境变量</h3><ul>
+<li>配置<code>hadoop-env.sh</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;home&#x2F;jzy&#x2F;opt&#x2F;hadoop-2.10.1&#x2F;etc&#x2F;hadoop&#x2F;hadoop-env.sh</span><br><span class="line"># 空白位置加入以下内容</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;jzy&#x2F;opt&#x2F;jdk8</span><br></pre></td></tr></table></figure></li>
+<li>配置<code>.bashrc</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"><span class="comment"># 文件末尾加入以下内容</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/home/jzy/opt/hadoop-3.2.2</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用设置</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">hadoop v</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="单机伪分布式部署hadoop"><a href="#单机伪分布式部署hadoop" class="headerlink" title="单机伪分布式部署hadoop"></a>单机伪分布式部署hadoop</h3><h4 id="配置hdfs"><a href="#配置hdfs" class="headerlink" title="配置hdfs"></a>配置hdfs</h4><ul>
+<li><p>配置core-site.xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/jzy/opt/hadoop-2.10.1/etc/hadoop/core-site.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/jzy/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置hdfs-site.xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/jzy/opt/hadoop-2.10.1/etc/hadoop/hdfs-site.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.permissions<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/jzy/hadoop/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/jzy/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="配置yarn"><a href="#配置yarn" class="headerlink" title="配置yarn"></a>配置yarn</h4><ul>
+<li>mapred-site.xml<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/jzy/opt/hadoop-2.10.1/etc/hadoop/</span><br><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br><span class="line">vim mapred-site.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>yarn-site.xml</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Site specific YARN configuration properties --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置无密码登录"><a href="#配置无密码登录" class="headerlink" title="配置无密码登录"></a>配置无密码登录</h3><p>hadoop不提供输入密码的方式访问集群中的节点, 因此需要配置无密码登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen –t rsa</span><br><span class="line">cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">ssh localhsot</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>SSH常见问题</p>
+<ul>
+<li><code>ssh localhost</code>无法连接<ul>
+<li>尝试重启ssh服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service ssh restart</span><br></pre></td></tr></table></figure></li>
+<li>重装ssh服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install --reinstall openssh-client</span><br><span class="line">sudo apt install --reinstall openssh-service</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="启动Hadoop"><a href="#启动Hadoop" class="headerlink" title="启动Hadoop"></a>启动Hadoop</h3><ol>
+<li><p>格式化namenode</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动hdfs: sbin/start-dfs.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/jzy/opt/hadoop-2.10.1</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在浏览器里查看dfs: <a target="_blank" rel="noopener" href="http://localhost:50070">http://localhost:50070</a></p>
+</li>
+<li><p>启动YARN</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在浏览器里查看YARN: <a target="_blank" rel="noopener" href="http://localhost:8088">http://localhost:8088</a></p>
+</li>
+<li><p><code>jps</code>命令检查启动是否成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 正常情况</span><br><span class="line">872 Jps</span><br><span class="line">746 SecondaryNameNode</span><br><span class="line">522 DataNode</span><br><span class="line">333 NameNode</span><br><span class="line"># 启动了YARN</span><br><span class="line">947 ResourceManager</span><br><span class="line">1097 NodeManager</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
+<li>排查故障<ol>
+<li>首先用jps确定哪个服务没有启动</li>
+<li>然后根据服务名定位日志文件, 日志位于hadoop安装目录下的logs文件夹内<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;jzy&#x2F;hadoop-2.10.1&#x2F;logs</span><br><span class="line">cat </span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>namenode未格式化成功,启动失败<ul>
+<li>删除/home/hadoop/name目录重新格式化<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /home/hadoop/name</span><br><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Scala"><a href="#配置Scala" class="headerlink" title="配置Scala"></a>配置Scala</h2><h3 id="下载scala"><a href="#下载scala" class="headerlink" title="下载scala"></a>下载scala</h3><p>scala 2.12.14与spark 3.1.2 兼容<br><a target="_blank" rel="noopener" href="https://www.scala-lang.org/download/2.12.14.html">下载地址</a></p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf scala-2.12.14.tgz -C /home/jzy/opt/</span><br></pre></td></tr></table></figure>
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"><span class="comment"># 在.bashrc中加入下方内容</span></span><br><span class="line"><span class="built_in">export</span> SCALA_HOME=/home/jzy/opt/scala-2.12.14</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$SCALA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+<h2 id="配置Spark"><a href="#配置Spark" class="headerlink" title="配置Spark"></a>配置Spark</h2><h3 id="下载Spark"><a href="#下载Spark" class="headerlink" title="下载Spark"></a>下载Spark</h3><p>选择版本 3.1.2 pre-built with user-provided hadoop<br>可与hadoop 2.10.1兼容<br><a target="_blank" rel="noopener" href="https://spark.apache.org/downloads.html">下载地址</a></p>
+<h3 id="解压-1"><a href="#解压-1" class="headerlink" title="解压"></a>解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf spark-3.1.2-bin-without-hadoop.tgz -C /home/jzy/opt/</span><br></pre></td></tr></table></figure>
+<h3 id="配置Spark与Hadoop关联"><a href="#配置Spark与Hadoop关联" class="headerlink" title="配置Spark与Hadoop关联"></a>配置Spark与Hadoop关联</h3><ul>
+<li>conf/spark-env.sh<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加一行</span></span><br><span class="line"><span class="built_in">export</span> SPARK_DIST_CLASSPATH=$(hadoop classpath)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><ol>
+<li>安装apt源</li>
+<li>安装mysql</li>
+<li>安装jdbc驱动<br>/usr/share/java/mysql-connector-java-8.0.26.jar</li>
+</ol>
+<h3 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h3><ul>
+<li><p>~/.bashrc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HBASE_HOME=/home/jzy/opt/hbase-2.4.5</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HBASE_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>conf/hbase-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/jzy/hbase/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.unsafe.stream.capability.enforce<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h3><ul>
+<li><p>~/.bashrc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HIVE_HOME=/home/jzy/opt/hive-2.4.9</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HIVE_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>conf/hive-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.mysql.cj.jdbc.Driver<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>root<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>0731<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hive.metastore.schema.verification<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
       
     </div>
 
@@ -639,15 +974,6 @@
               <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2020-11-14 09:57:41" itemprop="dateCreated datePublished" datetime="2020-11-14T09:57:41+08:00">2020-11-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
             </span>
 
           
@@ -1219,2314 +1545,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">校友会小程序开发文档</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-07 10:49:07" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:07+08:00">2020-11-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="华容一中校友会后台开发文档"><a href="#华容一中校友会后台开发文档" class="headerlink" title="华容一中校友会后台开发文档"></a>华容一中校友会后台开发文档</h3><h4 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h4><ul>
-<li>数据库名: alumni_association</li>
-</ul>
-<h5 id="alumni"><a href="#alumni" class="headerlink" title="alumni"></a>alumni</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>name</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>phone</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>org</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>work</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>qq</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>province</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>省</td>
-</tr>
-<tr>
-<td>city</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>市</td>
-</tr>
-<tr>
-<td>district</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>区</td>
-</tr>
-<tr>
-<td>gender</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>0表示男,1表示女</td>
-</tr>
-<tr>
-<td>join_time</td>
-<td>timestamp</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>branch</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>校友会id</td>
-</tr>
-<tr>
-<td>open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>微信为小程序用户分配的唯一id</td>
-</tr>
-<tr>
-<td>helper_open_id</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>帮助录入当前用户信息的用户的open_id</td>
-</tr>
-<tr>
-<td>update_times</td>
-<td>int</td>
-<td>0</td>
-<td></td>
-<td></td>
-<td>班级修改次数,不允许超过3次</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="class"><a href="#class" class="headerlink" title="class"></a>class</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>class_name</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>grade_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>班级所属年级id</td>
-</tr>
-<tr>
-<td>monitor_name</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班长姓名</td>
-</tr>
-<tr>
-<td>teacher_name</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班主任姓名</td>
-</tr>
-<tr>
-<td>teacher_name2</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班主任2姓名</td>
-</tr>
-<tr>
-<td>update_time</td>
-<td>timestamp</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>最后一次被修改的时间</td>
-</tr>
-<tr>
-<td>modifier_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>最后一次修改班级信息的用户openid</td>
-</tr>
-<tr>
-<td>modifier_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>最后一次修改班级信息的用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="level"><a href="#level" class="headerlink" title="level"></a>level</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>level_code</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>权限编码</td>
-</tr>
-<tr>
-<td>level_name</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>权限名</td>
-</tr>
-<tr>
-<td>middle_or_high</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>高中或初中</td>
-</tr>
-<tr>
-<td>monitor_name</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班长姓名</td>
-</tr>
-<tr>
-<td>teacher_name</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班主任姓名</td>
-</tr>
-<tr>
-<td>teacher_name2</td>
-<td>varchar</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>班主任2姓名</td>
-</tr>
-<tr>
-<td>update_time</td>
-<td>timestamp</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>最后一次被修改的时间</td>
-</tr>
-<tr>
-<td>modifier_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>最后一次修改班级信息的用户openid</td>
-</tr>
-<tr>
-<td>modifier_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>最后一次修改班级信息的用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="alumni-class"><a href="#alumni-class" class="headerlink" title="alumni_class"></a>alumni_class</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>校友id</td>
-</tr>
-<tr>
-<td>class_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>班级id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="grade"><a href="#grade" class="headerlink" title="grade"></a>grade</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>year</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>毕业年份</td>
-</tr>
-<tr>
-<td>middle_or_high</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>高中或初中</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="association"><a href="#association" class="headerlink" title="association"></a>association</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>name</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>校友会名字</td>
-</tr>
-<tr>
-<td>principle_id</td>
-<td>int</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>校友会主席id</td>
-</tr>
-<tr>
-<td>secretary_general_id_id</td>
-<td>int</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>校友会秘书长id</td>
-</tr>
-<tr>
-<td>contact_person_id</td>
-<td>int</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>联系人id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="invitation"><a href="#invitation" class="headerlink" title="invitation"></a>invitation</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>invite_person_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>邀请人(host)id</td>
-</tr>
-<tr>
-<td>invited_person_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>被邀请人(guest)id</td>
-</tr>
-<tr>
-<td>invite_person_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>邀请人openid</td>
-</tr>
-<tr>
-<td>invited_person_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>被邀请人openid</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="notification"><a href="#notification" class="headerlink" title="notification"></a>notification</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>applicant_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>交换名片请求发起者openid</td>
-</tr>
-<tr>
-<td>target_open_id</td>
-<td>varchar</td>
-<td></td>
-<td></td>
-<td></td>
-<td>交换名片请求接收者openid</td>
-</tr>
-<tr>
-<td>apply_time</td>
-<td>timestamp</td>
-<td></td>
-<td></td>
-<td></td>
-<td>发起时间</td>
-</tr>
-<tr>
-<td>state</td>
-<td>tinyint(1)</td>
-<td></td>
-<td>T</td>
-<td></td>
-<td>消息接收状态,0代表拒绝,1代表同意</td>
-</tr>
-<tr>
-<td>applicant_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>请求发起者id</td>
-</tr>
-<tr>
-<td>target_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>请求接收者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="card"><a href="#card" class="headerlink" title="card"></a>card</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>source_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>名片来源用户id</td>
-</tr>
-<tr>
-<td>target_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>名片接收用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="help-registration"><a href="#help-registration" class="headerlink" title="help_registration"></a>help_registration</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>数据类型</th>
-<th>默认值</th>
-<th>允许非空</th>
-<th>自动递增</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td>T</td>
-<td>主键</td>
-</tr>
-<tr>
-<td>helper_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>帮填信息者id</td>
-</tr>
-<tr>
-<td>helped_alumni_id</td>
-<td>int</td>
-<td></td>
-<td></td>
-<td></td>
-<td>被帮填信息者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="后台开发框架"><a href="#后台开发框架" class="headerlink" title="后台开发框架"></a>后台开发框架</h4><p>SpringBoot+Mybatis+shiro<br>SpringBoot: Spring的简化版,通过大量的预定义配置简化Spring的配置<br>Mybatis: ORM框架, 负责与数据库交互<br>shiro: 权限控制框架,基于角色分配权限(暂未实现)</p>
-<h4 id="关键工具"><a href="#关键工具" class="headerlink" title="关键工具"></a>关键工具</h4><p>jwt: 根据微信提供的openid和session_key生成token.将token加入到所有请求的header中,用于鉴权,判断是否为非法请求<br>lombok: 简化代码,自动生成POJO类的getter和setter方法<br>Tomcat: 可以处理动态资源的应用服务器.项目打成war包后部署到Tomcat下运行</p>
-<h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p>MVC架构</p>
-<ul>
-<li>model<br>service层<br>UserService<br>AuthorizationService<br>dao层<br>  AlumniMapper<br>  AlumniClassMapper<br>  NotificationMapper<br>  CardMapper</li>
-</ul>
-<ul>
-<li>view<br>web端</li>
-<li>controller<br>MainController<br>UserController<br>AuthorizationController<h4 id="接口url"><a href="#接口url" class="headerlink" title="接口url"></a>接口url</h4></li>
-<li>目前正在将原java后台用springboot框架重构, 原api部分为php, 现在统一为java, 功能已迁移大约60%. </li>
-<li>使用springboot框架开发新后台性能更好,加权限控制更方便(原后台没有编写权限管理的代码,权限都由前端控制,存在安全隐患).接口url(功能说明,参数说明,调用方法)待补充…<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">举例:</span><br><span class="line">  原后台按不同条件查询校友信息需要通过多个不同的请求地址,现在可以统一为一个请求地址,根据传入的参数查找相应的内容</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="遗留bug"><a href="#遗留bug" class="headerlink" title="遗留bug"></a>遗留bug</h4><ul>
-<li>Bug1(已解决): 发送邮件需要先通过官方api获取微信的access_token,api每天最多请求2000次,超过次数将不能再发送邮件. </li>
-<li>解决方法: 每次获取的token有2个小时的过期时间,需要保存该token防止重复请求,设置一个springboot的定时任务.<h4 id="请求说明"><a href="#请求说明" class="headerlink" title="请求说明"></a>请求说明</h4></li>
-<li>host<br><code>https://www.csubigdata.com/xyh</code><h5 id="常量请求"><a href="#常量请求" class="headerlink" title="常量请求"></a>常量请求</h5></li>
-<li><code>GET  /years</code></li>
-<li>获取所有年份</li>
-<li>返回值<br>数组<br>[1999,2000,…,2029]</li>
-<li><code>GET /classes</code></li>
-<li>获取所有班级</li>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>classId</td>
-<td>int</td>
-<td>班级id</td>
-</tr>
-<tr>
-<td>className</td>
-<td>string</td>
-<td>班级名</td>
-</tr>
-<tr>
-<td>middleOrHigh</td>
-<td>string</td>
-<td>高中或初中</td>
-</tr>
-<tr>
-<td>year</td>
-<td>int</td>
-<td>毕业年份</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /recent/invitation</code></li>
-<li>获取最近一段时间的邀请记录</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>limit</td>
-<td>int</td>
-<td>请求最近n条数据</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>invitePersonName</td>
-<td>string</td>
-<td>邀请人名字</td>
-</tr>
-<tr>
-<td>invitedPersonName</td>
-<td>string</td>
-<td>被邀请人名字</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /rank/help</code></li>
-<li>帮填信息排名,返回数据按邀请数递减排列</li>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>名字</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>帮填信息的人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /rank/invitation</code></li>
-<li>邀请排名</li>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>名字</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>邀请人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h5><ul>
-<li><code>GET /user/openid</code></li>
-<li>获取openid</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>code</td>
-<td>是</td>
-<td>微信随机生成的字符串,用于换取open_id与session_key</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>openid</td>
-<td>string</td>
-<td>小程序为当前用户生成的唯一id</td>
-</tr>
-<tr>
-<td>session_key</td>
-<td>string</td>
-<td></td>
-</tr>
-<tr>
-<td>token</td>
-<td>string</td>
-<td>根据openid与session_key通过jwt生成的token,用于鉴权</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="名片相关"><a href="#名片相关" class="headerlink" title="名片相关"></a>名片相关</h5><ul>
-<li><code>POST /user/card/apply</code></li>
-<li>申请交换名片</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>applicantAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>applicantOpenId</td>
-<td>string</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetOpenId</td>
-<td>string</td>
-<td>接收者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>POST /user/card/agree</code></li>
-<li>同意交换名片</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>applicantAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>applicantOpenId</td>
-<td>string</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetOpenId</td>
-<td>string</td>
-<td>接收者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>POST /user/card/reject</code></li>
-<li>拒绝交换名片</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>applicantAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>applicantOpenId</td>
-<td>string</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetOpenId</td>
-<td>string</td>
-<td>接收者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>POST /user/cards</code></li>
-<li>获取所有名片</li>
-<li>请求参数<br>| 参数     | 类型 | 描述     |<br>| ———— | —— | ———— |<br>| alumniId | int  | 发起者id |</li>
-<li>返回值: json数组<br>[card1,card2,…]</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>card.name</td>
-<td>string</td>
-<td>姓名</td>
-</tr>
-<tr>
-<td>card.phone</td>
-<td>string</td>
-<td>电话</td>
-</tr>
-<tr>
-<td>card.province</td>
-<td>string</td>
-<td>省</td>
-</tr>
-<tr>
-<td>card.city</td>
-<td>string</td>
-<td>市</td>
-</tr>
-<tr>
-<td>card.district</td>
-<td>string</td>
-<td>区</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>POST /user/notifications</code></li>
-<li>获取所有名片交换消息</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>alumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>applicantAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetAlumniId</td>
-<td>int</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>applicantOpenId</td>
-<td>string</td>
-<td>发起者id</td>
-</tr>
-<tr>
-<td>targetOpenId</td>
-<td>string</td>
-<td>接收者id</td>
-</tr>
-<tr>
-<td>card</td>
-<td>object</td>
-<td>名片</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>POST /user/notification/num</code></li>
-<li>获取名片交换消息数</li>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>消息数量</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="用户信息相关"><a href="#用户信息相关" class="headerlink" title="用户信息相关"></a>用户信息相关</h5><ul>
-<li><code>GET /user/info</code></li>
-<li>获取个人信息</li>
-<li><code>POST /user/insert</code></li>
-<li>录入信息</li>
-<li><code>PUT /user/update</code></li>
-<li>修改信息</li>
-<li><code>GET /user/captcha</code></li>
-<li>获取验证码<h5 id="二维码分享"><a href="#二维码分享" class="headerlink" title="二维码分享"></a>二维码分享</h5></li>
-<li><code>GET /user/qrcode</code></li>
-<li>生成二维码<h5 id="班级相关"><a href="#班级相关" class="headerlink" title="班级相关"></a>班级相关</h5></li>
-<li><code>POST /class/insert</code></li>
-<li>录入班级信息</li>
-<li><code>PUT /class/update</code></li>
-<li>修改班级信息<h5 id="查询信息"><a href="#查询信息" class="headerlink" title="查询信息"></a>查询信息</h5></li>
-<li><code>GET /query/alumnus</code></li>
-<li>查询用户信息</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>size</td>
-<td>T</td>
-<td>每页的数据条数</td>
-</tr>
-<tr>
-<td>page</td>
-<td>T</td>
-<td>页数</td>
-</tr>
-<tr>
-<td>classId</td>
-<td>F</td>
-<td>班级id</td>
-</tr>
-<tr>
-<td>classId2</td>
-<td>F</td>
-<td>班级id2</td>
-</tr>
-<tr>
-<td>branch</td>
-<td>F</td>
-<td>校友会id</td>
-</tr>
-<tr>
-<td>gradeId</td>
-<td>F</td>
-<td>年级id</td>
-</tr>
-<tr>
-<td>gradeId2</td>
-<td>F</td>
-<td>年级id2</td>
-</tr>
-<tr>
-<td>name</td>
-<td>F</td>
-<td>姓名</td>
-</tr>
-<tr>
-<td>phone</td>
-<td>F</td>
-<td>电话</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json数组</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>alumniId</td>
-<td>int</td>
-<td>用户id</td>
-</tr>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>姓名</td>
-</tr>
-<tr>
-<td>phone</td>
-<td>string</td>
-<td>电话</td>
-</tr>
-<tr>
-<td>org</td>
-<td>string</td>
-<td>单位</td>
-</tr>
-<tr>
-<td>work</td>
-<td>string</td>
-<td>职位</td>
-</tr>
-<tr>
-<td>branch</td>
-<td>int</td>
-<td>校友会id</td>
-</tr>
-<tr>
-<td>gradeId</td>
-<td>int</td>
-<td>年级id</td>
-</tr>
-<tr>
-<td>classId</td>
-<td>int</td>
-<td>年级id</td>
-</tr>
-<tr>
-<td>gradeId2</td>
-<td>int</td>
-<td>年级id2</td>
-</tr>
-<tr>
-<td>classId2</td>
-<td>int</td>
-<td>班级id2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="个人成就相关"><a href="#个人成就相关" class="headerlink" title="个人成就相关"></a>个人成就相关</h5><ul>
-<li><code>GET /user/invitation</code></li>
-<li>获取用户邀请记录</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>openId</td>
-<td>T</td>
-<td>用户openid</td>
-</tr>
-<tr>
-<td>alumniId</td>
-<td>T</td>
-<td>用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>姓名</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /user/help</code></li>
-<li>获取用户帮填记录</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>openId</td>
-<td>T</td>
-<td>用户openid</td>
-</tr>
-<tr>
-<td>alumniId</td>
-<td>T</td>
-<td>用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>姓名</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /user/invitation/num</code></li>
-<li>邀请人数</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>openId</td>
-<td>T</td>
-<td>用户openid</td>
-</tr>
-<tr>
-<td>alumniId</td>
-<td>T</td>
-<td>用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>数量</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /user/help/num</code></li>
-<li>帮填人数</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>openId</td>
-<td>T</td>
-<td>用户openid</td>
-</tr>
-<tr>
-<td>alumniId</td>
-<td>T</td>
-<td>用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td>string</td>
-<td>姓名</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="权限相关"><a href="#权限相关" class="headerlink" title="权限相关"></a>权限相关</h5><h6 id="统计与排名"><a href="#统计与排名" class="headerlink" title="统计与排名"></a>统计与排名</h6><ul>
-<li><code>GET /auth/count/branch/&#123;branch&#125;</code></li>
-<li>统计各个分会人数</li>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>branch</td>
-<td>int</td>
-<td>分会id</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /auth/count/grade/&#123;gradeId&#125;</code></li>
-<li>统计各个年级分会人数</li>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>gradeId</td>
-<td>int</td>
-<td>年级id</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /auth/count/class/&#123;classId&#125;</code></li>
-<li>统计各个班级人数</li>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>classId</td>
-<td>int</td>
-<td>班级id</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /auth/count/period</code></li>
-<li>统计某一段时间的人数</li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>start</td>
-<td>T</td>
-<td>开始时间</td>
-</tr>
-<tr>
-<td>end</td>
-<td>T</td>
-<td>结束时间</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><code>GET /count/everyday</code></li>
-<li>所有班级每天新加入人数排名,返回值按人数递减排列</li>
-<li>返回值: json对象</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>key</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>date</td>
-<td>string</td>
-<td>日期</td>
-</tr>
-<tr>
-<td>num</td>
-<td>int</td>
-<td>人数</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h6 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h6><ul>
-<li><code>DELETE /auth/alumni</code></li>
-<li>请求参数</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>alumniId</td>
-<td>T</td>
-<td>用户id</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="错误识别码"><a href="#错误识别码" class="headerlink" title="错误识别码"></a>错误识别码</h4><ul>
-<li>200 查询成功</li>
-<li>500 网络繁忙</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/27/weekly-report-2020-10-27/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/27/weekly-report-2020-10-27/" class="post-title-link" itemprop="url">weekly report 2020-10-27</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-27 11:04:14" itemprop="dateCreated datePublished" datetime="2020-10-27T11:04:14+08:00">2020-10-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="链路预测与知识图谱补全的关系"><a href="#链路预测与知识图谱补全的关系" class="headerlink" title="链路预测与知识图谱补全的关系"></a>链路预测与知识图谱补全的关系</h2><p>知识图谱补全任务是根据知识图谱中的已知三元组预测未知的三元组.<br>对于知识图谱, 知识图谱补全和链路预测是同一种概念,可以进一步划分成实体预测和关系预测.</p>
-<ol>
-<li>实体预测 (entity prediction), 又分为(h,r,?)和(?,r,t), 知识图谱表示学习一般都通过实体预测任务评测模型好坏</li>
-<li>关系预测 (relation prediction), 即(h,?,t), 当数据集中的关系种数很少时, 预测难度较低</li>
-</ol>
-<p>少样本实体预测任务的目的是希望让模型根据一种新的关系的少量三元组去预测这种关系的其他三元组<br>TransE学习到的实体嵌入在空间中的相对位置关系就可以理解为两个实体之间的关系, 用于训练实体的相关三元组越多,实体之间相对位置关系(t-h)代表它们之间的关系就越准确.</p>
-<h2 id="TransE和少样本知识图谱补全的区别"><a href="#TransE和少样本知识图谱补全的区别" class="headerlink" title="TransE和少样本知识图谱补全的区别"></a>TransE和少样本知识图谱补全的区别</h2><h3 id="目标任务不同"><a href="#目标任务不同" class="headerlink" title="目标任务不同"></a>目标任务不同</h3><ul>
-<li>TransE的任务是学习知识图谱中实体和关系的向量表示,通过预测三元组中的尾实体是什么(h,r,?)来评测向量表示的好坏.</li>
-<li>少样本知识图谱补全的任务是已知关系$r$的$n$个三元组中的头尾实体对$\{(h,t)|(h,r,t)\in G\}$. $h,t$的向量已知, $r$的向量未知. 预测其他关于$r$的三元组中的尾实体是什么(h,r,?).</li>
-</ul>
-<h3 id="数据集不同"><a href="#数据集不同" class="headerlink" title="数据集不同"></a>数据集不同</h3><ol>
-<li>TransE的验证/测试集中的实体和关系全都包含在训练集中</li>
-<li>TransE在训练集上训练后得到了所有实体和关系的嵌入</li>
-<li>少样本数据集分成训练/验证/测试集和背景知识图谱,训练/验证/测试集的实体嵌入可以通过在背景知识图谱上预训练得到</li>
-<li>少样本训练/验证/测试集的关系集合的交集为$\varnothing$,</li>
-<li>TransE在验证/测试时,分数计算公式$||h+r-t||_2$中的$h,r,t$都是已经训练好的向量.</li>
-<li>在少样本任务中,$||h+r-t||_2$中的$h,t$是预训练或随机初始化的向量,$r$则是根据支持集得到的向量.</li>
-</ol>
-<ul>
-<li>知识图谱表示学习常用数据集</li>
-</ul>
-<pre><code>| dataset | #relation | #entity | # triple(train/valild/test)    |
-| ------- | --------- | ------- | ------------------------------ |
-| WN11    | 11        | 38696   | 112581    2609    10544        |
-| WN18    | 18        | 40943   | 141442     5000     5000       |
-| FB13    | 13        | 75043   | 316232     5908     23733      |
-| FB15K   | 1345      | 14951   | 483142     50000     59071     |
-| FB1M    | 23382     | 1\*10^6 | 17.5\*10^6    50000     177404 |
-| FB5M    | 1192      | 5385322 | 19193556     5000     59071    |
-</code></pre><ul>
-<li>FB15K<ul>
-<li>训练/验证/测试集之间实体/关系交集数</li>
-</ul>
-</li>
-</ul>
-<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
-| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
-| train | 14951     | 13292     | 13584    | 1345      | 916       | 961      |
-| valid |           | 13292     | 12568    |           | 916       | 821      |
-| test  |           |           | 13584    |           |           | 961      |
-</code></pre><ul>
-<li>FB13<ul>
-<li>训练/验证/测试集之间实体/关系交集数</li>
-</ul>
-</li>
-</ul>
-<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
-| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
-| train | 75043     | 6158      | 18862    | 13        | 7         | 7        |
-| valid |           | 6158      | 3208     |           | 7         | 7        |
-| test  |           |           | 18862    |           |           | 7        |
-</code></pre><ul>
-<li>NELL-One<ul>
-<li>训练/验证/测试集之间实体/关系交集数</li>
-</ul>
-</li>
-</ul>
-<pre><code>|       | train (e) | valid (e) | test (e) | train (r) | valid (r) | test (r) |
-| ----- | --------- | --------- | -------- | --------- | --------- | -------- |
-| train | 6407      | 451       | 847      | 51        | 0         | 0        |
-| valid |           | 712       | 135      |           | 5         | 0        |
-| test  |           |           | 1639     |           |           | 11       |
-</code></pre><ul>
-<li>背景知识图谱与训练/验证/测试集之间实体/关系交集数<br>背景知识图谱与训练/验证/测试集之间的关系不相交,背景知识图谱中的实体集合包含训练/验证/测试集中的所有实体<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">background train entity 68544 6407 6407</span><br><span class="line">background valid entity 68544 712 712</span><br><span class="line">background test entity 68544 1639 1639</span><br><span class="line">background train relation 291 51 0</span><br><span class="line">background valid relation 291 5 0</span><br><span class="line">background test relation 291 11 0</span><br></pre></td></tr></table></figure>
-通过以上3个表格可以看出,虽然TransE论文的实验同样是预测尾实体,但是数据集的切分方式与少样本数据集不同. TransE论文的实验效果依赖于训练集得到的实体嵌入和关系嵌入,少样本的实验效果依赖于背景知识图谱得到的实体嵌入.如果去掉背景知识图谱,采用随机初始化的方式进行少样本实验,实验效果依赖于通过对训练集的实体进行finetuning, 然而finetuning对实验效果是否有提升取决于训练集与验证集/测试集中的实体交集的个数,交集越大,效果越好. 在删除训练集中与测试集中的实体交集的条件下,MetaR效果下降得非常明显,但是TransE的结果不受影响,因为TransE不依赖finetuning,直接使用预训练的实体嵌入预测尾实体.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MetaR 5-shot batch_size&#x3D;128</span><br><span class="line">删除后 MRR: 0.098      Hits@10: 0.235  Hits@5: 0.153   Hits@1: 0.043</span><br><span class="line">删除前 MRR: 0.189      Hits@10: 0.303  Hits@5: 0.250   Hits@1: 0.113</span><br><span class="line">TransE 5-shot</span><br><span class="line">删除前 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br><span class="line">删除后 MRR: 0.225	Hits@10: 0.389	Hits@5: 0.300	Hits@1: 0.144</span><br></pre></td></tr></table></figure>
-<h2 id="目前的想法"><a href="#目前的想法" class="headerlink" title="目前的想法"></a>目前的想法</h2><h3 id="计算分数的方式"><a href="#计算分数的方式" class="headerlink" title="计算分数的方式"></a>计算分数的方式</h3><ul>
-<li>融合邻居信息相似度与关系相似度</li>
-<li>设n是实体e的邻居的个数,邻居是关系与尾实体的拼接,邻居的聚合方式有2种,第1种是每个邻居乘上其关系对应的tfidf值再求和,第2种是先把邻居中的关系和实体乘上各自的tfidf再拼接,多个邻居再相加求和.<script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{w_i}N^{e}_{i}\\w_i=TFIDF(r_i)\\N_i=concat(r_i,t_i) \tag{w1}</script><script type="math/tex; mode=display">e_{neighbor}=\sum_{i=1}^{n}{N_i^{e}}\\w_i=TFIDF((r/t)_i)\\N_i=concat(w_{r_i}r_i,w_{t_i}t_i) \tag{w2}</script></li>
-<li>综合头实体和尾实体邻居信息的方式有3种<script type="math/tex; mode=display">neighbor=concat(h_{neighbor},t_{neighbor}) \tag{n1}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}-h_{neighbor}  \tag{n2}</script><script type="math/tex; mode=display">neighbor=t_{neighbor}+h_{neighbor}  \tag{n3}</script></li>
-<li>最后计算分数的方式有两种,第1种是计算查询集头尾实体与支持集关系的欧式距离,再加上查询集与支持集实体对邻居信息的余弦相似度.第2种是把计算查询集头尾实体与支持集关系的相似度的方法换成余弦相似度.实验结果表明余弦距离效果更好.<script type="math/tex; mode=display">score=||h_q+r_s-t_q||_2+cos(query_{neighbor},support_{neighbor}) \tag{s1}</script><script type="math/tex; mode=display">score=cos((h_q+r_s),t_q)+cos(query_{neighbor},support_{neighbor}) \tag{s2}</script></li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>N-shot</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>w1+n1+s2</td>
-<td>5</td>
-<td>0.150</td>
-<td>0.210</td>
-<td>0.182</td>
-<td>0.108</td>
-</tr>
-<tr>
-<td>w2+n1+s2</td>
-<td>5</td>
-<td>0.195</td>
-<td>0.347</td>
-<td>0.254</td>
-<td>0.117</td>
-</tr>
-<tr>
-<td>w1+n2+s2</td>
-<td>5</td>
-<td>0.163</td>
-<td>0.242</td>
-<td>0.200</td>
-<td>0.119</td>
-</tr>
-<tr>
-<td>w2+n2+s2</td>
-<td>5</td>
-<td>0.195</td>
-<td>0.345</td>
-<td>0.256</td>
-<td>0.123</td>
-</tr>
-<tr>
-<td>w1+n3+s2</td>
-<td>5</td>
-<td>0.154</td>
-<td>0.226</td>
-<td>0.188</td>
-<td>0.109</td>
-</tr>
-<tr>
-<td>w2+n3+s2</td>
-<td>5</td>
-<td>0.186</td>
-<td>0.313</td>
-<td>0.239</td>
-<td>0.114</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>比较结果看出同时对邻居中的实体和关系加权效果更好,(尾实体邻居向量-头实体邻居向量)效果更好,使用余弦相似度比欧式距离更好.</p>
-<p>5-shot条件下,加入邻居信息的效果差于不加.<br>1-shot条件下,加入邻居信息的效果好于不加.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1-shot</span><br><span class="line">否  MRR: 0.144  Hits@10: 0.235  Hits@5: 0.178   Hits@1: 0.089</span><br><span class="line">是  MRR: 0.150  Hits@10: 0.252  Hits@5: 0.186   Hits@1: 0.106</span><br></pre></td></tr></table></figure></p>
-<p>不finetune情况下,TransE效果好于MetaR和GMatching</p>
-<h3 id="最近的尝试"><a href="#最近的尝试" class="headerlink" title="最近的尝试"></a>最近的尝试</h3><ul>
-<li>Prototype Network with squared euclidean distance</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>n-shot</th>
-<th>finetune</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>True</td>
-<td>0.195</td>
-<td>0.294</td>
-<td>0.244</td>
-<td>0.146</td>
-</tr>
-<tr>
-<td>5</td>
-<td>True</td>
-<td>0.210</td>
-<td>0.352</td>
-<td>0.278</td>
-<td>0.145</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>GMatching+MetaR <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过GMatching融合邻居信息并计算匹配分数,同时用MetaR计算匹配分数</span><br><span class="line">score&#x3D;GMatching_score(qry,spt)+MetaR_score(qry,spt)</span><br><span class="line">--max_neighbor 50</span><br><span class="line">--batch_size 128</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>n-shot</th>
-<th>finetune</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>True</td>
-<td>0.188</td>
-<td>0.295</td>
-<td>0.240</td>
-<td>0.129</td>
-</tr>
-<tr>
-<td>1</td>
-<td>False</td>
-<td>0.178</td>
-<td>0.272</td>
-<td>0.222</td>
-<td>0.133</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/18/weekly-report-2020-10-18/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/18/weekly-report-2020-10-18/" class="post-title-link" itemprop="url">weekly report 2020-10-18</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-18 08:41:03" itemprop="dateCreated datePublished" datetime="2020-10-18T08:41:03+08:00">2020-10-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/note/" itemprop="url" rel="index"><span itemprop="name">note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><a href="#华为比赛">华为比赛</a></li>
-<li><a href="#知识图谱研究">知识图谱研究</a><ul>
-<li><a href="#formulation">Formulation</a></li>
-<li><a href="#transe">TransE</a></li>
-<li><a href="#tf-idf">TF-IDF</a></li>
-<li><a href="#concatenate">Concatenate</a></li>
-<li><a href="#experiments">Experiments</a><ul>
-<li><a href="#条件说明">条件说明</a></li>
-<li><a href="#实验结果">实验结果</a></li>
-<li><a href="#对比分析">对比分析</a></li>
-</ul>
-</li>
-<li><a href="#想法">想法</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="华为比赛"><a href="#华为比赛" class="headerlink" title="华为比赛"></a>华为比赛</h1><hr>
-<ul>
-<li>由于华为NAIE平台操作不便,所以先从清华netman智能运维实验室的网站上下载了一个KPI异常检测数据集,其规模和格式均与比赛数据集基本相同.在该数据集上使用light-gbm(基于决策树)搭建了一个模型. 具体见代码<code>kpi_anomaly.ipynb</code></li>
-<li>比赛数据集更新, 训练集数据条数从3800+增加到30000+,测试集从500+增加到3000+</li>
-</ul>
-<h1 id="知识图谱研究"><a href="#知识图谱研究" class="headerlink" title="知识图谱研究"></a>知识图谱研究</h1><hr>
-<h2 id="Formulation"><a href="#Formulation" class="headerlink" title="Formulation"></a>Formulation</h2><ul>
-<li>设训练/验证/测试集中的三元组对应的知识图谱为$G=\{(h,r,t)|h,t \in E,r \in R\}$, $G$的背景知识图谱$G_b=\{(h,r,t)|h,t \in E_b,r \in R_b\}$, $E$和$E_b$是实体集,$R$和$R_b$是关系集. 其中$E \subset E_b$,$R \cap R_b=\varnothing$.</li>
-<li>对$e \in E_b$, $e$的邻居集合为$N_e$, 邻居个数为$|N_e|$, 有$N_e=\{(r_i,e_i)|(e,r_i,e_i) \in G_b\}$, 对$n_i \in N_e$,$n_i= (r_i,e_i)$.</li>
-<li>TransE的训练目标: $\forall (h,r,t) \in G$, 有$v_h+v_r \approx v_t$</li>
-<li>设任务集合为$T$, 对$task \in T$, $task=(support,query)$, $support=\{(h,r,t)|(h,r,t) \in G\}$,$query=\{(h,r,t),(h,r,t’)|(h,r,t)\in G,(h,r,t’) \notin G\}$. $|support|$为hyper-parameter, $|support|=1$表示one shot. 在$Meta_{train}$阶段,query中的正确三元组与错误三元组的个数相等. 在$Meta_{test}$阶段,正确三元组个数为1,错误三元组数量为候选集实体数量减1, 即$|candidates|-1$<h2 id="TransE"><a href="#TransE" class="headerlink" title="TransE"></a>TransE</h2>  用transe表示不使用任何神经网络模型,直接通过预训练的实体嵌入完成预测任务</li>
-</ul>
-<ol>
-<li>$\forall task\in T$, 其中$task=(support,query)$, 设$r_{s}$为根据$support=\{(h,r,t)|(h,r,t) \in G\}$计算得到的关系嵌入表示,$n$为$support$中三元组的个数. <script type="math/tex; mode=display">r_s=\frac{1}{n}\sum_{i=1}^n(t_i-h_i)</script></li>
-<li>将$r_s$迁移到$query$中,计算每个三元组的$score$, 用$score^+$和$score^-$分别表示有效三元组(正样本)和无效三元组(负样本)的得分.<script type="math/tex; mode=display">score=||h+r_s-t||_2</script></li>
-<li><p>在$Meta_{test}$阶段,对$query$中所有三元组的$score$排名,根据$score^+$的排名计算评测指标(<em>MMR,Hits@10,Hits@5,Hits@1</em>). 在$Meta_{train}$阶段,则根据$query$中所有三元组的$score$计算$Margin Loss$.</p>
-<script type="math/tex; mode=display">MarginLoss=max(0,margin-(score^+-score^-))</script> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rank</span>(<span class="params">positive_score,negative_score</span>):</span></span><br><span class="line">    scores=concat(negative_score,positive_score)</span><br><span class="line">    sort(scores)</span><br><span class="line">    rank=scores.indexof(<span class="built_in">len</span>(scores)<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> rank</span><br></pre></td></tr></table></figure>
-<h2 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h2><p> 通过计算实体e的所有邻居的tfidf值对邻居的向量表示进行加权求和,作为e的初始向量</p>
-</li>
-<li>设训练/验证/测试集中的三元组对应的知识图谱为$G=\{E,R\}$,$G$的背景知识图谱$G_b=\{E_b,R_b\}$, 其中$E \subset E_b$,$R \cap R_b=\varnothing$. 根据$G_b$中的三元组计算$e_i \in E_b$的邻居$N_i$,设$N=\{N_1,N_2,…,N_i\}$为所有邻居信息的集合, 其中$N_i=\{(r_1,e_1),(r_2,e_2),…,(r_k,e_n)|k\in range(|R_b|),n \in range(|E_b|)\}$, 计算$N_i$中$(r_k,e_n)$的$r_k$的TF-IDF值,将其作为$e_i$的邻居$(r_k,e_n)$的权重.<script type="math/tex; mode=display">TF_{r_k}=\frac{r_k在N_i中的出现次数}{N_i中r的个数}</script><script type="math/tex; mode=display">IDF_{r_k}=\lg{\frac{|N|}{包含r_k的N的个数+1}}</script><script type="math/tex; mode=display">TF{-}IDF_{r_k}=TF_{r_k}\times IDF_{r_k}</script></li>
-<li>用第j个邻居$n_j=(r_k,e_n)$的$r_k$的$tfidf$值作为$n_j$的权重$w_j$,对邻居的向量$v_{n_j}$进行加权求和作为$e_i$的向量$v_{e_i}$,标记为<code>pre-train=tfidf-neighbor</code><script type="math/tex; mode=display">v_{n}=concat(v_r,v_t)</script><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}{w_j v_{n_j}}</script>也可以将每个邻居的TF-IDF组成的向量作为e的向量.标记为<code>pre-train=tfidf</code><script type="math/tex; mode=display">v_{e_i}=[w_1,w_2,...,w_j]</script>也可以将每个邻居中关系向量的TFIDF加权之和作为e的向量.标记为<code>pre-train=tfidf-relation</code><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}{w_j v_{r_j}}</script><h2 id="Concatenate"><a href="#Concatenate" class="headerlink" title="Concatenate"></a>Concatenate</h2> 通过拼接三元组中头实体和尾实体的向量得到实体对的向量,在预测过程中,比较support与query中实体对的余弦相似度.</li>
-<li>对于一个三元组$triplet$$(h,r,t)$,$v_{triplet}=concat(v_h,v_t)$. 计算$v_{spt}$与query中所有三元组向量的余弦距离.<script type="math/tex; mode=display">v_{spt}=\frac{1}{n}\sum_{i=1}^{n}{v_{triplet_i}}</script><script type="math/tex; mode=display">score=cosine(v_{spt},v_{triplet}), triplet \in query</script></li>
-<li>根据query中有效三元组的分数排名计算评测指标.</li>
-</ol>
-<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="条件说明"><a href="#条件说明" class="headerlink" title="条件说明"></a>条件说明</h3><ul>
-<li>cosine表示用余弦距离替换欧式距离计算score</li>
-<li>transe表示用<a href="#transe">TransE</a>中说明的方法做预测</li>
-<li>concat表示用<a href="#concat">concat</a>中说明的方法做预测</li>
-<li>average表示将<a href="#tf-idf">TF-IDF</a>中的$w_j$替换为$\frac{1}{n}$</li>
-<li>finetune表示允许根据损失函数更新实体嵌入</li>
-<li>random表示随机初始化实体嵌入</li>
-<li>pre-train=transe表示用transe初始化实体嵌入</li>
-<li>pre-train=tfidf表示用邻居关系的tfidf向量$[w_1,w_2,…,w_j]$作为初始实体嵌入</li>
-<li>pre-train=tfidf-relation表示用邻居关系向量$v_r$的加权之和作为初始实体嵌入,权重是关系的tfidf</li>
-<li>pre-train=tfidf-neighbor表示用邻居向量$concat(v_r,v_t)$的加权之和作为初始实体嵌入,权重是关系的tfidf</li>
-<li>pre-train=average-neighbor表示用邻居向量$concat(v_r,v_t)$求和平均作为初始实体嵌入</li>
-<li>attention表示在n-shot条件下(n&gt;1)用attention机制聚合support中的$v_r$</li>
-<li>batch_size=4, 在不finetune条件下,模型为基本的数学计算,所以速度很快</li>
-</ul>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><!-- + NELL数据集 -->
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Method</th>
-<th>initial</th>
-<th>n-shot</th>
-<th>finetune</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>cosine transe attention</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.230</td>
-<td>0.387</td>
-<td>0.301</td>
-<td>0.149</td>
-</tr>
-<tr>
-<td>2</td>
-<td>transe  attention</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.231</td>
-<td>0.381</td>
-<td>0.309</td>
-<td>0.149</td>
-</tr>
-<tr>
-<td>3</td>
-<td>transe</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.225</td>
-<td>0.389</td>
-<td>0.300</td>
-<td>0.144</td>
-</tr>
-<tr>
-<td>4</td>
-<td>cosine transe</td>
-<td>transe</td>
-<td>5</td>
-<td></td>
-<td>0.231</td>
-<td>0.387</td>
-<td>0.308</td>
-<td>0.150</td>
-</tr>
-<tr>
-<td>5</td>
-<td>concat</td>
-<td>tfidf-relation</td>
-<td>1</td>
-<td></td>
-<td>0.130</td>
-<td>0.145</td>
-<td>0.130</td>
-<td>0.120</td>
-</tr>
-<tr>
-<td>6</td>
-<td>transe</td>
-<td>tfidf-relation</td>
-<td>1</td>
-<td></td>
-<td>0.092</td>
-<td>0.116</td>
-<td>0.096</td>
-<td>0.078</td>
-</tr>
-<tr>
-<td>7</td>
-<td>transe</td>
-<td>transe</td>
-<td>1</td>
-<td></td>
-<td>0.139</td>
-<td>0.227</td>
-<td>0.172</td>
-<td>0.089</td>
-</tr>
-<tr>
-<td>8</td>
-<td>transe</td>
-<td>random</td>
-<td>1</td>
-<td></td>
-<td>0.110</td>
-<td>0.122</td>
-<td>0.119</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>9</td>
-<td>transe</td>
-<td>random</td>
-<td>5</td>
-<td></td>
-<td>0.092</td>
-<td>0.134</td>
-<td>0.113</td>
-<td>0.065</td>
-</tr>
-<tr>
-<td>10</td>
-<td>transe</td>
-<td>transe</td>
-<td>1</td>
-<td>T</td>
-<td>0.159</td>
-<td>0.272</td>
-<td>0.204</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>11</td>
-<td>transe</td>
-<td>random</td>
-<td>1</td>
-<td>T</td>
-<td>0.122</td>
-<td>0.162</td>
-<td>0.139</td>
-<td>0.098</td>
-</tr>
-<tr>
-<td>12</td>
-<td>transe</td>
-<td>random</td>
-<td>5</td>
-<td>T</td>
-<td>0.069</td>
-<td>0.099</td>
-<td>0.075</td>
-<td>0.049</td>
-</tr>
-<tr>
-<td>13</td>
-<td>concat</td>
-<td>tfidf-neighbor</td>
-<td>1</td>
-<td></td>
-<td>0.190</td>
-<td>0.237</td>
-<td>0.213</td>
-<td>0.157</td>
-</tr>
-<tr>
-<td>14</td>
-<td>concat</td>
-<td>tfidf-neighbor</td>
-<td>5</td>
-<td></td>
-<td>0.069</td>
-<td>0.140</td>
-<td>0.108</td>
-<td>0.021</td>
-</tr>
-<tr>
-<td>15</td>
-<td>concat</td>
-<td>average-relation</td>
-<td>1</td>
-<td></td>
-<td>0.070</td>
-<td>0.136</td>
-<td>0.110</td>
-<td>0.038</td>
-</tr>
-<tr>
-<td>16</td>
-<td>concat</td>
-<td>average-relation</td>
-<td>5</td>
-<td></td>
-<td>0.085</td>
-<td>0.146</td>
-<td>0.138</td>
-<td>0.039</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="对比分析"><a href="#对比分析" class="headerlink" title="对比分析"></a>对比分析</h3><ol>
-<li><strong>[1, 2, 3, 4]</strong> 表明使用attention,更适合用欧式距离计算分数而不是cosine. 不使用attention,则更适合用cosine而不是用欧式距离.</li>
-<li><strong>[8, 9]</strong> 表明其他方法需要高于<strong>0.11</strong>才能说明模型起正面作用. 5-shot结果比1-shot结果差, 初步分析是因为预测是针对query的, query中部分能预测正确的三元组在5-shot条件下被放入了support中,而这些三元组对评测指标的贡献较大,导致5-shot比1-shot差.</li>
-<li><strong>[5]</strong> 表明邻居信息的tfidf值对部分数据起正面作用, 即考虑不同实体的邻居信息中的关系种类的相似性对预测有正面作用</li>
-<li><strong>[13, 14, 15, 16]</strong> 表明不加权的邻居信息起负面作用. 加权的邻居信息对部分数据起正面作用, 即考虑不同实体的邻居信息之间的语义相关性对预测有正面作用. <h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2></li>
-<li>将tf-idf加权的邻居信息拼接在实体的原始向量后,计算匹配分数时分别计算查询集与支持集之间关系的相似度与实体邻居信息的语义相似度.<script type="math/tex; mode=display">score=||h+r_s-t||_2+cosine(N_{spt},concat(N_h,N_t))</script></li>
-<li>目前只考虑了关系的tfidf作为一个邻居的权重,还可以考虑尾实体的tfidf.<script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}w_{r_i}concat(r_i,t_i) \tag{1}</script><script type="math/tex; mode=display">v_{e_i}=\sum_{j=1}^{|N_i|}concat(w_{r_i}r_i,w_{t_i}t_i)\tag{2}</script></li>
-<li>不同实体的邻居信息可以看作一个序列数据, 通过Seq2Seq与Auto-Encoder(自编码器)结合的方式编码邻居信息,通过目标函数学习不同邻居的权重.</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -3591,7 +1614,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3604,7 +1627,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
