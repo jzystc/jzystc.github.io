@@ -238,7 +238,7 @@
 <blockquote>
 <p>revoke 撤销权限</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke all on *.* from user@<span class="string">&#x27;ip&#x27;</span>;</span><br><span class="line">mysql&gt; revoke all privileges on *.* from user@<span class="string">&#x27;ip&#x27;</span>;         </span><br><span class="line">mysql&gt; revoke insert,select,update,delete,drop,create,alter on database.table from user@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; revoke all on *.* from user@&#x27;ip&#x27;;</span><br><span class="line">mysql&gt; revoke all privileges on *.* from user@&#x27;ip&#x27;;         </span><br><span class="line">mysql&gt; revoke insert,select,update,delete,drop,create,alter on database.table from user@&#x27;%&#x27;;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>查看权限</p>
 </blockquote>
