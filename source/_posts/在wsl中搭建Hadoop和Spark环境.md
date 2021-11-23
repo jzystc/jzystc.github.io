@@ -1,5 +1,5 @@
 ---
-title: 在Windows子系统中搭建Hadoop和Spark环境
+title: 在wsl中搭建Hadoop和Spark环境
 date: 2021-08-09 12:48:21
 tags: big data
 ---
