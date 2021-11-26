@@ -49,24 +49,23 @@ sudo service mysql restart
 ## 无密码登录问题
 
 ```sql
-> use mysql;
+use mysql;
 
 # mysql > 5.7
-> update user set password=password('PASSWORD') where user='root';
+update user set password=password('PASSWORD') where user='root';
 
 # mysql <= 5.7
-> update user set authentication_string=password("PASSWORD") where user='root';
-> update user set plugin="mysql_native_password";
+update user set authentication_string=password("PASSWORD") where user='root';
+# 更改密码认证方式
+update user set plugin="mysql_native_password";
 
 # 刷新
-> flush privileges;
+flush privileges;
 ```
-
-
 
 ## 权限管理常用命令
 
->  创建用户
+### 创建用户
 
 ```sql
 CREATE USER 'user1'@'host' IDENTIFIED BY '123456';
@@ -74,23 +73,40 @@ CREATE USER 'user2'@'%' IDENTIFIED BY '';
 GRANT SELECT, INSERT ON test.user TO 'user'@'%';
 ```
 
-> 修改密码
+### 查看密码认证方式
 
 ```sql
+SELECT user,host,plugin from mysql.user where user='root';
+```
+
+### 修改密码认证方式
+
+```sql
+alter user 'user'@'host' identified with mysql_native_password by 'pa';
+flush privileges;
+```
+
+### 修改密码
+
+```sql
+use mysql;
+# mysql version <= 5.7.5
+SET PASSWORD FOR 'user'@'host' = PASSWORD('newpassword');
+# mysql version > 5.7.5
 SET PASSWORD FOR 'user'@'host' = PASSWORD('newpassword');
 ```
 
-> 删除用户
+### 删除用户
 
 ```sql
-DROP USER 'usernam'@'host';
+DROP USER 'user'@'host';
 ```
 
-> grant 赋权
+### grant 赋权
 
 ```sql
 # privileges可省略
-mysql> grant all on *.* to user@'ip' identified by "password";  
+mysql> grant all on *.* to 'user'@'ip' identified by "password";  
 # 192.168.1.%表示一个网段
 mysql> grant all privileges on *.* to user@'192.168.1.%' identified by "123456";
 mysql> grant insert,select,update,delete,drop,create,alter on 'database'.'table' to user@'%' identified by "123456";
@@ -98,7 +114,7 @@ mysql> grant insert,select,update,delete,drop,create,alter on 'database'.'table'
 mysql> flush privilege
 ```
 
-> revoke 撤销权限
+### revoke 撤销权限
 
 ```sql
 mysql> revoke all on *.* from user@'ip';
@@ -107,7 +123,7 @@ mysql> revoke insert,select,update,delete,drop,create,alter on database.table fr
 mysql> flush privileges;
 ```
 
-> 查看权限
+### 查看权限
 
 ```bash
 # 查看权限
@@ -116,4 +132,3 @@ show grants for user@'%';
 # 查看user和ip
 SELECT User, Host, plugin FROM mysql.user;
 ```
-
