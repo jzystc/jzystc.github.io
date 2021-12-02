@@ -164,6 +164,341 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/weekly-report-2020-11-07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/weekly-report-2020-11-07/" class="post-title-link" itemprop="url">weekly report 2020-11-07</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 10:49:49" itemprop="dateCreated datePublished" datetime="2020-11-07T10:49:49+08:00">2020-11-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3></li>
+</ul>
+<ul>
+<li>support_positive: 支持集中的n个正确三元组$(h,r,t)$</li>
+<li>support_negative: 支持集中的n个错误三元组$(h,r,t’)$</li>
+<li>query_positive: 查询集中的k/1个正确三元组$(h,r,t)$,k对应训练集,1对应验证/测试集</li>
+<li>query_negative: 支持集中的k/m个错误三元组$(h,r,t’)$,k对应训练集,m对应验证/测试集</li>
+<li>support_positive=&gt;全连接层=&gt;正类的向量表示</li>
+<li>support_negative=&gt;全连接层=&gt;负类的向量表示</li>
+</ul>
+<h3 id="超参数"><a href="#超参数" class="headerlink" title="超参数"></a>超参数</h3><ul>
+<li>batch_size = 128</li>
+<li>eval_epoch = 1000 <code>每训练n个epoch后验证一次</code></li>
+<li>early_stop_patience (es_p) = 1 <code>验证集上的结果连续低于最好结果n次后停止训练并用最好的模型进行测试.该参数与epoch数正相关.验证结果可能在连续k次低于最好情况下在第k+1次验证时超过最好值, 所以可以通过增大es_p训练出拟合度更高的模型,负面影响是延长了训练时间.</code></li>
+</ul>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><code>dataset=NELL    es_p=1</code> </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>1</td>
+<td>4000</td>
+<td>0.158</td>
+<td>0.268</td>
+<td>0.212</td>
+<td>0.102</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>2000</td>
+<td>0.077</td>
+<td>0.116</td>
+<td>0.083</td>
+<td>0.044</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>1</td>
+<td>1000</td>
+<td>0.139</td>
+<td>0.227</td>
+<td>0.172</td>
+<td>0.089</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>5</td>
+<td>4000</td>
+<td>0.162</td>
+<td>0.260</td>
+<td>0.214</td>
+<td>0.107</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.098</td>
+<td>0.214</td>
+<td>0.093</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>5</td>
+<td>1000</td>
+<td>0.225</td>
+<td>0.389</td>
+<td>0.300</td>
+<td>0.144</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>1</td>
+<td>4000</td>
+<td>0.197</td>
+<td>0.308</td>
+<td>0.250</td>
+<td>0.136</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>4000</td>
+<td>0.132</td>
+<td>0.231</td>
+<td>0.160</td>
+<td>0.084</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>T</td>
+<td>5</td>
+<td>3000</td>
+<td>0.200</td>
+<td>0.345</td>
+<td>0.260</td>
+<td>0.136</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>5</td>
+<td>2000</td>
+<td>0.110</td>
+<td>0.242</td>
+<td>0.173</td>
+<td>0.052</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>dataset=NELL    es_p=5</code> </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>7000</td>
+<td>0.109</td>
+<td>0.183</td>
+<td>0.145</td>
+<td>0.054</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.098</td>
+<td>0.214</td>
+<td>0.093</td>
+<td>0.050</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>1</td>
+<td>11000</td>
+<td>0.148</td>
+<td>0.245</td>
+<td>0.184</td>
+<td>0.101</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>T</td>
+<td>5</td>
+<td>27000</td>
+<td>0.214</td>
+<td>0.341</td>
+<td>0.292</td>
+<td>0.143</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>dataset=Wiki    es_p=1</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>finetune</th>
+<th>n-shot</th>
+<th>epoch</th>
+<th>MRR</th>
+<th>Hits@10</th>
+<th>Hits@5</th>
+<th>Hits@1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>1</td>
+<td>5000</td>
+<td>0.101</td>
+<td>0.217</td>
+<td>0.131</td>
+<td>0.049</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>1</td>
+<td>3000</td>
+<td>0.076</td>
+<td>0.183</td>
+<td>0.102</td>
+<td>0.026</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>1</td>
+<td>1000</td>
+<td>0.086</td>
+<td>0.117</td>
+<td>0.099</td>
+<td>0.067</td>
+</tr>
+<tr>
+<td>prototype</td>
+<td>F</td>
+<td>5</td>
+<td>4000</td>
+<td>0.129</td>
+<td>0.279</td>
+<td>0.195</td>
+<td>0.060</td>
+</tr>
+<tr>
+<td>MetaR</td>
+<td>F</td>
+<td>5</td>
+<td>5000</td>
+<td>0.086</td>
+<td>0.209</td>
+<td>0.112</td>
+<td>0.034</td>
+</tr>
+<tr>
+<td>TransE</td>
+<td>F</td>
+<td>5</td>
+<td>1000</td>
+<td>0.095</td>
+<td>0.137</td>
+<td>0.115</td>
+<td>0.072</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ol>
+<li>TransE在5-shot情况下,在NELL数据集上效果最好,但是在Wiki数据集上,TransE在1-shot和5-shot条件下的效果都差于prototype</li>
+<li>prototype方法收敛速度更快,可以通过更少的epoch达到更好的效果</li>
+<li>prototype在不finetune的情况下比MetaR更好. MetaR使用hinge-loss,在不finetune条件下,损失只能降低到0.75左右. prototype使用交叉熵损失,在不finetune条件下,损失也能一直降低</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/%E6%A0%A1%E5%8F%8B%E4%BC%9A%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2538,7 +2873,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
