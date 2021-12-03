@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2021/11/index.html">
+  <meta name="description" content="mysql 小技巧varchar类型的时间如何进行比较使用str_to_date(str,format)函数, 该函数返回一个datetime值 假设有一张user表:     id username login_time     1 aaa 2021-12-03   2 bbb 2020-11-22   3 ccc 2019-10-01   4 ddd 2018-04-28     1234#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 小技巧">
+<meta property="og:url" content="http://yoursite.com/2021/12/03/mysql%E5%B0%8F%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="mysql 小技巧varchar类型的时间如何进行比较使用str_to_date(str,format)函数, 该函数返回一个datetime值 假设有一张user表:     id username login_time     1 aaa 2021-12-03   2 bbb 2020-11-22   3 ccc 2019-10-01   4 ddd 2018-04-28     1234#">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-03T09:12:00.000Z">
+<meta property="article:modified_time" content="2021-12-03T09:12:00.000Z">
 <meta property="article:author" content="jzy">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2021/11/">
+<link rel="canonical" href="http://yoursite.com/2021/12/03/mysql%E5%B0%8F%E6%8A%80%E5%B7%A7/">
 
 
 <script id="page-configurations">
@@ -36,12 +40,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Hexo</title>
+  <title>mysql 小技巧 | Hexo</title>
   
 
 
@@ -158,90 +162,120 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 15 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/mysql%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql 小技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-03 17:12:00" itemprop="dateCreated datePublished" datetime="2021-12-03T17:12:00+08:00">2021-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-23T10:48:00+08:00"
-              content="2021-11-23">
-          11-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/23/%E5%9C%A8windows11%E7%9A%84wsl2%E4%B8%AD%E5%AE%89%E8%A3%85cuda/" itemprop="url">
-            <span itemprop="name">在windows11的wsl2中安装cuda</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-18T13:55:00+08:00"
-              content="2021-11-18">
-          11-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/18/mysql%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">mysql 权限配置</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-12T10:17:00+08:00"
-              content="2021-11-12">
-          11-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/12/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url">
-            <span itemprop="name">云服务器环境配置</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="mysql-小技巧"><a href="#mysql-小技巧" class="headerlink" title="mysql 小技巧"></a>mysql 小技巧</h1><h2 id="varchar类型的时间如何进行比较"><a href="#varchar类型的时间如何进行比较" class="headerlink" title="varchar类型的时间如何进行比较"></a>varchar类型的时间如何进行比较</h2><p>使用str_to_date(str,format)函数, 该函数返回一个datetime值</p>
+<p>假设有一张user表:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>login_time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>aaa</td>
+<td>2021-12-03</td>
+</tr>
+<tr>
+<td>2</td>
+<td>bbb</td>
+<td>2020-11-22</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ccc</td>
+<td>2019-10-01</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ddd</td>
+<td>2018-04-28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 方法一</span><br><span class="line">select user,login_time from user where str_to_date(login_time,&#x27;%Y-%m-%d&#x27;) between &#x27;2020-01-01&#x27; and &#x27;2020-12-31&#x27;;</span><br><span class="line"># 方法二</span><br><span class="line">select user,login_time from user where str_to_date(login_time,&#x27;%Y-%m-%d&#x27;) between str_to_date(&#x27;2020-01-01&#x27;,&#x27;%Y-%m-%d&#x27;) and str_to_date(&#x27;2020-12-31&#x27;,&#x27;%Y-%m-%d&#x27;);</span><br></pre></td></tr></table></figure>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/02/windows%E4%B8%8B%E9%85%8D%E7%BD%AEpyspark/" rel="prev" title="windows下配置pyspark">
+      <i class="fa fa-chevron-left"></i> windows下配置pyspark
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -294,6 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">mysql 小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#varchar%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%97%B6%E9%97%B4%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83"><span class="nav-number">1.1.</span> <span class="nav-text">varchar类型的时间如何进行比较</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

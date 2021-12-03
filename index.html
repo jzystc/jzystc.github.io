@@ -164,6 +164,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/03/mysql%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jzy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/03/mysql%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">mysql 小技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-03 17:12:00" itemprop="dateCreated datePublished" datetime="2021-12-03T17:12:00+08:00">2021-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mysql-小技巧"><a href="#mysql-小技巧" class="headerlink" title="mysql 小技巧"></a>mysql 小技巧</h1><h2 id="varchar类型的时间如何进行比较"><a href="#varchar类型的时间如何进行比较" class="headerlink" title="varchar类型的时间如何进行比较"></a>varchar类型的时间如何进行比较</h2><p>使用str_to_date(str,format)函数, 该函数返回一个datetime值</p>
+<p>假设有一张user表:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>username</th>
+<th>login_time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>aaa</td>
+<td>2021-12-03</td>
+</tr>
+<tr>
+<td>2</td>
+<td>bbb</td>
+<td>2020-11-22</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ccc</td>
+<td>2019-10-01</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ddd</td>
+<td>2018-04-28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 方法一</span><br><span class="line">select user,login_time from user where str_to_date(login_time,&#x27;%Y-%m-%d&#x27;) between &#x27;2020-01-01&#x27; and &#x27;2020-12-31&#x27;;</span><br><span class="line"># 方法二</span><br><span class="line">select user,login_time from user where str_to_date(login_time,&#x27;%Y-%m-%d&#x27;) between str_to_date(&#x27;2020-01-01&#x27;,&#x27;%Y-%m-%d&#x27;) and str_to_date(&#x27;2020-12-31&#x27;,&#x27;%Y-%m-%d&#x27;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/02/windows%E4%B8%8B%E9%85%8D%E7%BD%AEpyspark/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1011,271 +1113,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/14/weekly-report-2020-11-15/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jzy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/14/weekly-report-2020-11-15/" class="post-title-link" itemprop="url">weekly report 2020-11-15</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-11-14 09:57:41" itemprop="dateCreated datePublished" datetime="2020-11-14T09:57:41+08:00">2020-11-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="二维卷积"><a href="#二维卷积" class="headerlink" title="二维卷积"></a>二维卷积</h3><p>在二维卷积中, 将头实体与尾实体的向量上下拼接, 得到2*100的向量. 第一层卷积层, 使用128个2*1的卷积核从左往右滑动得到维度为1*100*128的输出. 后面的卷积层使用1*1卷积,主要作用是将多个通道的feature_map线性加权求和,以此减少通道数(降维). 这部分主要借鉴ConvKB的思想.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProtoNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ProtoNet, self).__init__()</span><br><span class="line">        self.encoder_conv2d = nn.Sequential(</span><br><span class="line">        <span class="comment"># 第一层输入通道为1,输出通道为128,卷积核大小为(1,2)</span></span><br><span class="line">        <span class="comment"># 第一层卷积操作之后,feature_map=1*100*128</span></span><br><span class="line">        Conv2d(<span class="number">1</span>, <span class="number">128</span>, (<span class="number">1</span>, <span class="number">2</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        <span class="comment"># 第二层输入通道为128,输出通道为64,卷积核大小为(1,1)</span></span><br><span class="line">        <span class="comment"># 第二层卷积操作之后,feature_map=1*100*64</span></span><br><span class="line">        Conv2d(<span class="number">128</span>, <span class="number">64</span>, (<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        Conv2d(<span class="number">64</span>, <span class="number">32</span>, (<span class="number">1</span>, <span class="number">1</span>)),</span><br><span class="line">        ReLU(),</span><br><span class="line">        Conv2d(<span class="number">32</span>, <span class="number">1</span>, (<span class="number">1</span>, <span class="number">1</span>)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        batch_size, num_triples, input_length, dim = x.size()</span><br><span class="line">        x = x.view(batch_size*num_triples, <span class="number">1</span>,</span><br><span class="line">                   x.shape[<span class="number">2</span>], x.shape[<span class="number">3</span>]).transpose(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">        x = self.encoder_conv2d(x)</span><br><span class="line">        <span class="keyword">return</span> x.view(batch_size, num_triples, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="一维卷积"><a href="#一维卷积" class="headerlink" title="一维卷积"></a>一维卷积</h3><p>一维卷积是卷积神经网络在自然语言处理中的常用方法.以<code>I like coding.</code>为例,[I, like, coding]是词汇表,每个单词都用100维的向量表示,则输入是3*100的矩阵.一维卷积是固定住输入矩阵的第二维,卷积核只在第一维上纵向滑动.当句子长度为3时,可以使用2*100的卷积核提取前后两个单词之间的特征. 但是由于头尾实体只有2个单词, 所以卷积核只能设置为2*100, 无法在第一维上滑动.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProtoNet</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(ProtoNet, self).__init__()</span><br><span class="line">        self.encoder_conv1d = nn.Sequential(</span><br><span class="line">            <span class="comment"># 第一层输入通道为100,对应实体嵌入为100维.</span></span><br><span class="line">            <span class="comment"># 有256个卷积核,则输出通道为256,卷积核大小为(2,100)</span></span><br><span class="line">            <span class="comment"># 第一层卷积操作之后,feature_map=1*1*256</span></span><br><span class="line">            Conv1d(<span class="number">100</span>, <span class="number">256</span>, <span class="number">2</span>),</span><br><span class="line">            ReLU(),</span><br><span class="line">            <span class="comment"># 第二层卷积操作之后,feature_map=1*1*128</span></span><br><span class="line">            Conv1d(<span class="number">256</span>, <span class="number">128</span>, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        batch_size, num_triples, input_length, dim = x.size()</span><br><span class="line">        x = x.view(batch_size*num_triples,</span><br><span class="line">                   x.shape[<span class="number">2</span>], x.shape[<span class="number">3</span>]).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">        x = self.encoder_conv1d(x)</span><br><span class="line">        <span class="keyword">return</span> x.view(batch_size, num_triples, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
-<h3 id="基于ConvKB的负样本选择器"><a href="#基于ConvKB的负样本选择器" class="headerlink" title="基于ConvKB的负样本选择器"></a>基于ConvKB的负样本选择器</h3><ul>
-<li>ConvKB的模型是1个2维卷积层+1个全连接层, 其中2维卷积层由n个3*1的卷积核组成,输出维度为1*100*n的feature_map. 全连接层接收卷积层的输入将feature_map的维度降为1, 作为衡量三元组有效性的分数.</li>
-<li>构建一个卷积神经网络负样本选择器,对负样本实体对打分,选取其中分数最低的作为负样本的代表<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">support_negative_triples_selector</span>(<span class="params">self, support_negative</span>):</span></span><br><span class="line">    <span class="comment"># batch_size是任务数,num_triples=few*num_support_negative</span></span><br><span class="line">    <span class="comment"># num_support_negative是支持集中每个有效三元组对应错误三元组的数量</span></span><br><span class="line">    <span class="comment"># length=2,每个实体对由1个头实体和1个尾实体组成</span></span><br><span class="line">    <span class="comment"># dim=100,实体嵌入维度为100</span></span><br><span class="line">    batch_size, num_triples, length, dim = support_negative.size()</span><br><span class="line">    support_negative_score = self.convkb(</span><br><span class="line">        support_negative.view(<span class="number">-1</span>, length, dim))</span><br><span class="line">    <span class="comment"># (batch_size,few,num_sn/few,1)</span></span><br><span class="line">    support_negative_score = support_negative_score.view(</span><br><span class="line">        batch_size, self.few, self.num_support_negative, <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 对每个正样本对应的n个负样本按分数增序排列</span></span><br><span class="line">    support_negative_score_sorted = torch.sort(</span><br><span class="line">        support_negative_score, dim=<span class="number">2</span>, descending=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 取分数最低的 (batch_size,few,1)</span></span><br><span class="line">    choices = support_negative_score_sorted.indices[:, :, <span class="number">0</span>, :]</span><br><span class="line">    idx_1 = torch.LongTensor(</span><br><span class="line">        np.arange(batch_size).repeat(self.few)).to(self.device)</span><br><span class="line">    idx_2 = torch.LongTensor(</span><br><span class="line">        np.tile(np.arange(self.few), batch_size)).to(self.device)</span><br><span class="line">    idx_3 = choices.view(batch_size*self.few).to(self.device)</span><br><span class="line">    support_negative = support_negative.view(</span><br><span class="line">        batch_size, self.few, self.num_support_negative, <span class="number">2</span>, <span class="number">-1</span>)</span><br><span class="line">    support_negative = support_negative[idx_1, idx_2, idx_3]</span><br><span class="line">    support_negative = support_negative.view(</span><br><span class="line">        batch_size, self.few, <span class="number">2</span>, self.dim)</span><br><span class="line">    <span class="keyword">return</span> support_negative</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;NELL es_p&#x3D;5</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>finetune</th>
-<th>n-shot</th>
-<th>epoch</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>conv2d</td>
-<td>T</td>
-<td>1</td>
-<td>24000</td>
-<td>0.189</td>
-<td>0.290</td>
-<td>0.232</td>
-<td>0.137</td>
-</tr>
-<tr>
-<td>conv2d</td>
-<td>F</td>
-<td>1</td>
-<td>11000</td>
-<td>0.134</td>
-<td>0.179</td>
-<td>0.149</td>
-<td>0.108</td>
-</tr>
-<tr>
-<td>conv1d</td>
-<td>T</td>
-<td>1</td>
-<td>13000</td>
-<td>0.184</td>
-<td>0.254</td>
-<td>0.226</td>
-<td>0.138</td>
-</tr>
-<tr>
-<td>conv1d</td>
-<td>F</td>
-<td>1</td>
-<td>5000</td>
-<td>0.138</td>
-<td>0.265</td>
-<td>0.208</td>
-<td>0.075</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;Wiki    es_p&#x3D;1</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>finetune</th>
-<th>n-shot</th>
-<th>epoch</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>prototype</td>
-<td>T</td>
-<td>1</td>
-<td>2000</td>
-<td>0.206</td>
-<td>0.298</td>
-<td>0.251</td>
-<td>0.158</td>
-</tr>
-<tr>
-<td>MetaR</td>
-<td>T</td>
-<td>1</td>
-<td>7000</td>
-<td>0.319</td>
-<td>0.411</td>
-<td>0.361</td>
-<td>0.268</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;Wiki    es_p&#x3D;5</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>finetune</th>
-<th>n-shot</th>
-<th>epoch</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>prototype</td>
-<td>T</td>
-<td>1</td>
-<td>10000</td>
-<td>0.278</td>
-<td>0.367</td>
-<td>0.318</td>
-<td>0.231</td>
-</tr>
-<tr>
-<td>MetaR</td>
-<td>T</td>
-<td>1</td>
-<td>9000</td>
-<td>0.272</td>
-<td>0.386</td>
-<td>0.336</td>
-<td>0.208</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataset&#x3D;covid19    es_p&#x3D;1</span><br></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>finetune</th>
-<th>n-shot</th>
-<th>epoch</th>
-<th>MRR</th>
-<th>Hits@10</th>
-<th>Hits@5</th>
-<th>Hits@1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>prototype</td>
-<td>T</td>
-<td>1</td>
-<td>3000</td>
-<td>0.187</td>
-<td>0.287</td>
-<td>0.236</td>
-<td>0.130</td>
-</tr>
-<tr>
-<td>prototype</td>
-<td>T</td>
-<td>1</td>
-<td>3000</td>
-<td>0.196</td>
-<td>0.263</td>
-<td>0.231</td>
-<td>0.151</td>
-</tr>
-<tr>
-<td>MetaR</td>
-<td>T</td>
-<td>1</td>
-<td>3000</td>
-<td>0.101</td>
-<td>0.211</td>
-<td>0.189</td>
-<td>0.016</td>
-</tr>
-<tr>
-<td>MetaR</td>
-<td>T</td>
-<td>1</td>
-<td>6000</td>
-<td>0.115</td>
-<td>0.225</td>
-<td>0.177</td>
-<td>0.018</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
-<li>目前尝试用2种卷积替换全连接层,效果并未取得提升.</li>
-<li>基于卷积神经网络的负样本选择器可能需要放在背景知识图谱中单独训练效果才能更好. </li>
-<li>在新冠肺炎数据集上,Prototype的效果好于MetaR.</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1345,7 +1182,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1444,59 +1281,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
