@@ -4,11 +4,13 @@ date: 2020-11-14 15:37:41
 tags:
     - tutorial
 ---
-### 注册
+# hpc tutorial
+
+## 注册
 https://nic.csu.edu.cn/info/1146/1789.htm
-### 登录
+## 登录
 在终端中输入```ssh -p port username@host```
-#### 简化登录流程
+### 简化登录流程
 在```~/.ssh```目录下新建```config```文件,示例:
 
 ```
@@ -19,21 +21,21 @@ Host 规则名称
 ```
 
 保存后即可用```ssh 规则名称```登录
-#### 配置无密码登录
+### 配置无密码登录
 
 以linux系统为例
 1. 在客户端生成密钥,在终端中输入```ssh-keygen -t rsa```,然后一路回车
 2. 将```~/.ssh```文件夹下的```id_rsa.pub```中的内容复制到服务器的```~/.ssh/authorized_keys```中
 
-### slurm简介
+## slurm简介
 slurm是集群使用的作业调度系统,申请节点计算资源(cpu与gpu资源)并运行自己的程序需要编写shell脚本实现,即```*.sh```文件
-### 重要的目录
+## 重要的目录
 1. Softwares:/public/software; # anaconda3等软件在这个目录下.
 2. Job templates: /public/job_templates; # 样例脚本, 参考[信网中心提供的指南](https://nic.csu.edu.cn/info/1146/1790.htm)来使用样例脚本
 
-### 常用命令
+## 常用命令
 
-#### 查看集群所有节点的状态
+### 查看集群所有节点的状态
 
 >sinfo
 
@@ -59,7 +61,7 @@ fatQ         up   infinite      9  alloc fat[01-08,10]
 
 cpuQ,ResQ,fatQ都为cpu分区,gpu2Q~gpu8Q为gpu分区. 如果想使用gpu,必须将作业提交到gpu分区
 
-##### STATE
+#### STATE
 
 + [ ] down: 节点故障不可用
 + [ ] drain: 正在运行的作业不受影响,但不接受新作业
@@ -68,16 +70,16 @@ cpuQ,ResQ,fatQ都为cpu分区,gpu2Q~gpu8Q为gpu分区. 如果想使用gpu,必须
 + [x] idle: 当前节点空闲
 + [ ] unk: 节点刚刚启动,状态未知
 
-#### 查看自己提交的任务
+### 查看自己提交的任务
 
 >使用```squeue```查看```JOBID```
 >使用```scontrol show job JOBID```追踪任务
 
-#### 取消任务
+### 取消任务
 
 >scancel JOBID
 
-#### 更新任务
+### 更新任务
 
 > scontrol update jobid=JOBID ...
 
@@ -99,18 +101,18 @@ minmemorycpu=<megabytes>               qos=<name>                             wc
 minmemorynode=<megabytes>              reqcores=<count>
 ```
 
-#### 查看历史任务
+### 查看历史任务
 
 >sacct
 
-### 安装python环境
+## 安装python环境
 
 1. 推荐在当前用户文件夹下创建一个目录并将环境安装到该目录下 command: mkdir ~/envs
 2. 使用conda创建一个新的虚拟环境 command: /public/software/anaconda3/bin/conda create --prefix /path/to/your/dir (e.g., ~/envs/)
 3. 先用```/public/software/anaconda3/bin/conda init```命令来初始化一下bash
 4. 使用```source activate /path/to/your/env```来激活环境
 
-### 编写一个测试脚本
+## 编写一个测试脚本
 
 1. 创建py文件
 
@@ -207,7 +209,7 @@ cuda True
 hello world
 ```
 
-### 注意事项
+## 注意事项
 
 1. 如果python代码中有中文,需要在py文件的第一行加上以下三行代码中的任一行,作用是声明文件的编码格式
 
@@ -225,7 +227,7 @@ hello world
 3. bash脚本的单行注释为#,sbatch参数也以#开头,注释sbatch参数的方法如下
    ```##SBATCH --job-name=xxx```
 
-### 参考资料
+## 参考资料
 
 [1] [北大工作站使用指南](http://bicmr.pku.edu.cn/~wenzw/pages/)
 [2] [Slurm官方文档](https://slurm.schedmd.com/documentation.html)
