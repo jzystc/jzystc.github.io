@@ -34,7 +34,7 @@ select user,login_time from user where str_to_date(login_time,'%Y-%m-%d') betwee
 # 列出所有连接
 mysql> show full processlist;
 # 生成kill语句
-mysql> select concat('kill ', id, ';') from information_schema.processlist where command != 'Sleep' asqlnd Host!='localhost';
+mysql> select concat('kill ', id, ';') from information_schema.processlist where command != 'Sleep' and Host!='localhost';
 # kill 对应进程
 mysql> kill pid
 ```
