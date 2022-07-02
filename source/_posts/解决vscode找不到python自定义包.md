@@ -23,7 +23,7 @@ tags: python
 "env": {"PYTHONPATH":"${workspaceFolder};${env:PYTHONPATH}"}
 ```
 
-### 说明
+## 说明
 
  `python.autoComplete.extraPaths`指定vscode的python插件寻找其他包的位置, `terminal.integrated.env.windows`指定terminal的pythonpath环境变量, pycharm不会报找不到自定义包的原因是pycharm会自动把项目路径添加到pythonpath环境变量中, vscode则需要手动添加
 
